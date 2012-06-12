@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd" login-required="true">
+
+   <param name="firstResult" value="#{stringConstantsList.firstResult}"/>
+   <param name="sort" value="#{stringConstantsList.orderColumn}"/>
+   <param name="dir" value="#{stringConstantsList.orderDirection}"/>
+   <param name="logic" value="#{stringConstantsList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="constantName" value="#{stringConstantsList.stringConstants.constantName}"/>
+   <param name="constantValue" value="#{stringConstantsList.stringConstants.constantValue}"/>
+
+</page>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/csbuilder.jar" sourcepath="/csbuilder/src"/>
+	<classpathentry kind="lib" path="lib/cscommons.jar" sourcepath="/cscommons/src"/>
+	<classpathentry kind="lib" path="lib/csprocessor.jar" sourcepath="/csprocessor/src"/>
+	<classpathentry kind="lib" path="lib/redhatcommonutils.jar"/>
+	<classpathentry kind="lib" path="lib/jcommander-1.24-ext.jar" sourcepath="/jcommander/src/main/java"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-configuration-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/snakeyaml-1.9.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-all-1.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/icu4j-4_8_1_1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.io"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.lang"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.log4j"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.ws.rs.api"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.jboss.resteasy.resteasy-atom-provider"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.jboss.resteasy.resteasy-jaxrs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.codec"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.mail.api"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.http"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.jboss.resteasy.resteasy-jaxb-provider"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.jboss.resteasy.resteasy-jackson-provider"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-jaxrs-2.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/jboss/resteasy/resteasy-jackson-provider/main/resteasy-jackson-provider-2.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/jboss/resteasy/resteasy-atom-provider/main/resteasy-atom-provider-2.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/jboss/resteasy/resteasy-jaxb-provider/main/resteasy-jaxb-provider-2.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/io/main/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/http/main/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/lang/main/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/codec/main/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/log4j/main/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/ws/rs/api/main/jboss-jaxrs-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

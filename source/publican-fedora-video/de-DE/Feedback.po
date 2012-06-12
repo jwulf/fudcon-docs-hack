@@ -1,0 +1,48 @@
+# translation of Feedback.po to
+# PGP-KeyID: 0x037FD3CF <ttrinks@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-22 09:45+1000\n"
+"Last-Translator: PGP-KeyID: 0x037FD3CF <ttrinks@redhat.com>\n"
+"Language-Team:  <de@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Wir freuen uns auf Ihr Feedback!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>Feedback</primary> <secondary>Kontaktinformationen für dieses Handbuch</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Wenn Sie einen Fehler in diesem Handbuch finden oder eine Idee haben, wie dieses verbessert werden könnte, freuen wir uns über Ihr Feedback! Reichen Sie einen Fehlerbericht für die Komponente <application>&PRODUCT;.</application> in Bugzilla unter <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> ein."
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Vergewissern Sie sich beim Einreichen eines Fehlerberichts die Kennung des Handbuchs mit anzugeben: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Falls Sie uns einen Vorschlag zur Verbesserung der Dokumentation senden möchten, sollten Sie hierzu möglichst genaue Angaben machen. Wenn Sie einen Fehler gefunden haben, geben Sie bitte die Nummer des Abschnitts und einen Ausschnitt des Textes an, damit wir diesen leicht finden können."
+
+#~ msgid "feedback"
+#~ msgstr "Feedback"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "Kontaktinformationen für dieses Handbuch"
+
+#~ msgid "translator-credits"
+#~ msgstr "N/A"

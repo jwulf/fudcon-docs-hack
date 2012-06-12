@@ -1,0 +1,47 @@
+#
+# Dimitrios Typaldos <dimtyp@gmail.com>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-10-31 19:01+0200\n"
+"Last-Translator: Dimitrios Typaldos <dimtyp@gmail.com>\n"
+"Language-Team: Greek <fedora-trans-el@redhat.com>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Χρειαζόμαστε τη γνώμη σας!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>ανάδραση</primary> <secondary>πληροφορίες επαφών επικοινωνίας για αυτό το εγχειρίδιο</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Αν συναντήσετε κάποιο τυπογραφικό σφάλμα σε αυτό το εγχειρίδιο ή αν έχετε σκεφτεί κάποιο τρόπο για να το βελτιώσετε, θα χαιρόμασταν να σας ακούσουμε! Παρακαλώ υποβάλλετε μία αναφορά στο Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> στο αντικείμενο <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Όταν υποβάλλεται μία αναφορά σφάλματος, βεβαιωθείτε ότι αναφέρεται ο κωδικός αναγνώρισης του εγχειριδίου: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Αν έχετε να υποβάλετε προτάσεις για τη βελτίωση της τεκμηρίωσης, προσπαθήστε να είστε όσο το δυνατόν ακριβείς στην περιγραφή τους. Αν συναντήσετε κάποιο σφάλμα, παρακαλούμε να συμπεριλάβετε τον αριθμό του τμήματος και μέρος του περιβάλλοντος κειμένου για την εύκολη εύρεσή τους."
+
+#~ msgid "feedback"
+#~ msgstr "ανάδραση"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "πληροφορίες επαφών επικοινωνίας για αυτό το εγχειρίδιο"

@@ -1,0 +1,47 @@
+# Croatian translation of Feedback.po
+# Josip Šumečki <shumi.1337@gmail.com>, 2009.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback.po\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-07-25 16:59+0200\n"
+"Last-Translator: Josip Šumečki <shumi.1337@gmail.com>\n"
+"Language-Team: Croatian <kde-i18n-doc@kde.org>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Trebamo povratne informacije!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>povratna informacija</primary> <secondary>informacije o kontaktima vezane uz ovaj priručnik</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Ako pronađete pisarske greške u ovom priručniku, ili ako imate zamisao kako učiniti ovaj priručnik boljim, bilo bi nam veoma drago da nam se javite! Molimo da greške prijavite na Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> vezano uz <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Kada podnosite izvještaj o grešci, nemojte zaboraviti spomenuti identifikacijsku oznaku ovog priručnika: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Ako imate prijedloge za poboljšanje ove dokumentacije, pokušajte biti određeni kod opisivanja koliko god ste u mogućnosti. Ako ste pronašli grešku, molimo da uključite broj odjeljka i dio teksta koji okružuje grešku kako bismo čim lakše mogli pronaći mjesto na kojem se nalazi."
+
+#~ msgid "feedback"
+#~ msgstr "povratna informacija"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "informacije o kontaktima vezane uz ovaj priručnik"

@@ -1,0 +1,111 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/codemirror.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/xmlpure.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/skynet-codemirror.js"></script>
+
+		<ui:include src="/WEB-INF/templates/TopicViewActionButtons.xhtml" />
+
+		<rich:tabPanel switchType="client"
+			selectedTab="#{topicHome.selectedTab}">
+			<rich:tab label="Topic Details" name="Topic Details">
+				<ui:include src="/WEB-INF/templates/TopicView.xhtml">
+					<ui:param name="selectedTags"
+						value="#{customTagSearch.selectedTags.projectCategories}" />
+					<ui:param name="topic"
+						value="#{empty topicHome.revision ? topicHome.instance : topicHome.revisionInstance}" />
+				</ui:include>
+			</rich:tab>
+			<rich:tab label="Bugzilla Bugs" name="Bugzilla Bugs">
+				<rich:dataTable var="bugzillaBug"
+					value="#{topicHome.instance.topicToBugzillaBugs.toArray()}"
+					rendered="#{not empty topicHome.instance.topicToBugzillaBugs}" styleClass="listTable"
+					columnsWidth="50px, 50px, 200px">
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputLink
+							value="https://#{constants.bugzillaUrl}/show_bug.cgi?id=#{bugzillaBug.bugzillaBug.bugzillaBugBugzillaId}"
+							target="_blank">
+							<h:outputText value="#{bugzillaBug.bugzillaBug.bugzillaBugBugzillaId}" />
+						</h:outputLink>
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Is Open" />
+						</f:facet>
+						<h:selectBooleanCheckbox disabled="true" value="#{bugzillaBug.bugzillaBug.bugzillaBugOpen}" />
+					</rich:column>
+
+					<rich:column>
+						<f:facet name="header">
+							<h:outputText value="Summary" />
+						</f:facet>
+						<h:outputText value="#{bugzillaBug.bugzillaBug.bugzillaBugSummary}" />
+					</rich:column>
+
+				</rich:dataTable>
+					<s:button styleClass="button" value="Update Bug List"
+						action="#{topicHome.updateBugs()}" />
+			</rich:tab>
+			<rich:tab label="Related Topics" name="Related Topics">
+
+				<ui:include src="/WEB-INF/templates/TopicViewRelatedTopics.xhtml">
+					<ui:param name="relatedTopicsArray"
+						value="#{empty topicHome.revision ? topicHome.instance.outgoingRelatedTopicsArray : topicHome.revisionInstance.outgoingRelatedTopicsArray}" />
+					<ui:param name="title" value="Outgoing Relationships" />
+				</ui:include>
+
+				<br />
+				<br />
+
+				<ui:include src="/WEB-INF/templates/TopicViewRelatedTopics.xhtml">
+					<ui:param name="relatedTopicsArray"
+						value="#{empty topicHome.revision ? topicHome.instance.incomingRelatedTopicsArray : topicHome.revisionInstance.incomingRelatedTopicsArray}" />
+					<ui:param name="title" value="Incoming Relationships" />
+				</ui:include>
+			</rich:tab>
+			<rich:tab label="Rendered View" height="500px" name="Rendered View">
+				<f:verbatim>
+					<iframe
+						src="RenderedTopic.seam?topicTopicId=#{topicHome.instance.topicId}"
+						width="100%" height="100%" frameborder="0">
+						<p>Your browser does not support iframes.</p>
+					</iframe>
+				</f:verbatim>
+			</rich:tab>
+		</rich:tabPanel>
+
+		<div style="clear: both" />
+
+		<script type="text/javascript">
+			//window.onload = function() {
+				initializeCodeMirror("#{rich:clientId('topicXML')}", true);
+			//};
+		</script>
+
+		<ui:include src="/WEB-INF/templates/DisplayErrorMessage.xhtml">
+			<ui:param name="messageComponent" value="#{topicHome}" />
+		</ui:include>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:panelGrid columns="12">
+
+		<c:forEach items="#{selectedLocales}" var="locale">
+
+			<h:outputText value="#{locale.name}" style="min-width: 150px"/>
+			<h:selectBooleanCheckbox value="#{locale.selected}" />
+
+		</c:forEach>
+
+	</h:panelGrid>
+
+</ui:composition>

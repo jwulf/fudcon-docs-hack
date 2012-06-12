@@ -1,0 +1,142 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<s:div styleClass="actionButtons" rendered="#{empty from}">
+			<s:button styleClass="button" view="/ProjectEdit.xhtml" id="create"
+				propagation="none" value="Create project">
+				<f:param name="projectProjectId" />
+			</s:button>
+		</s:div>
+
+		<div style="clear: both" />
+		<br/>
+
+		<h:form id="projectSearch" styleClass="edit">
+
+			<rich:simpleTogglePanel label="Project Search Filter"
+				switchType="client" opened="false">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Project Name</ui:define>
+					<h:inputText id="projectName"
+						value="#{projectList.project.projectName}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Project Description</ui:define>
+					<h:inputText id="projectDescription"
+						value="#{projectList.project.projectDescription}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio id="logic"
+						value="#{projectList.restrictionLogicOperator}" styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="search" value="Search"
+						action="/ProjectList.xhtml" />
+					<s:button styleClass="button" id="reset" value="Reset"
+						includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+
+
+			<br />
+			<br />
+
+		</h:form>
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{projectList}" />
+				<ui:param name="view" value="/ProjectList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">Project Search Results (#{empty projectList.resultList ? 0 : (projectList.paginated ? projectList.resultCount : projectList.resultList.size)})</f:facet>
+
+			<div class="results" id="projectList">
+
+				<h:outputText value="The project search returned no results."
+					rendered="#{empty projectList.resultList}" />
+
+				<rich:dataTable id="projectList" var="_project"
+					value="#{projectList.resultList}"
+					rendered="#{not empty projectList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'Project' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="projectViewId">
+							<f:param name="projectProjectId" value="#{_project.projectId}" />
+						</s:link>
+			            #{' '}
+			            <s:link styleClass="smallButton" view="/ProjectEdit.xhtml"
+							value="Edit" propagation="none" id="projectEdit"
+							rendered="#{empty from}">
+							<f:param name="projectProjectId" value="#{_project.projectId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{projectList}" />
+								<ui:param name="propertyLabel" value="Project ID" />
+								<ui:param name="propertyPath" value="project.projectId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_project.projectId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{projectList}" />
+								<ui:param name="propertyLabel" value="Project Name" />
+								<ui:param name="propertyPath" value="project.projectName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_project.projectName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{projectList}" />
+								<ui:param name="propertyLabel" value="Project Description" />
+								<ui:param name="propertyPath" value="project.projectDescription" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_project.projectDescription}" />
+					</h:column>
+
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{projectList}" />
+				<ui:param name="view" value="/ProjectList.xhtml" />
+			</ui:include>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>

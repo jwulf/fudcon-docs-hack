@@ -1,0 +1,49 @@
+# translation of Feedback.po to Kannada
+# Shankar Prasad <svenkate@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-30 17:06+0530\n"
+"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
+"Language-Team: Kannada <en@li.org>\n"
+"Language: kn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "ನಮಗೆ ನಿಮ್ಮ ಫೀಡ್-ಬ್ಯಾಕಿನ ಬೇಕಿದೆ!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>ಫೀಡ್-ಬ್ಯಾಕ್</primary> <secondary>ಈ ಕೈಪಿಡಿಗಾಗಿ ಸಂಪರ್ಕ ಮಾಹಿತಿ</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "ಈ ಕೈಪಿಡಿಯಲ್ಲಿ ನಿಮಗೆ ಬೆರಳಚ್ಚು ದೋಷ ಕಂಡು ಬಂದರೆ, ಅಥವ ಈ ಕೈಪಿಡಿಯನ್ನು ಇನ್ನಷ್ಟು ಉತ್ತಮಗೊಳಿಸಲು ನಿಮ್ಮಲ್ಲಿ ಸಲಹೆಗಳಿದ್ದರೆ, ನಾವು ಅದನ್ನು ತಿಳಿಯಲು ಉತ್ಸುಕರಾಗಿದ್ದೇವೆ! ದಯವಿಟ್ಟು ಬಗ್-ಝಿಲ್ಲಾದಲ್ಲಿ : <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> ನಲ್ಲಿನ <application>&PRODUCT;.</application> ನಲ್ಲಿ ಒಂದು ವರದಿಯನ್ನು ಸಲ್ಲಿಸಿ."
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "ಒಂದು ದೋಷ ವರದಿಯನ್ನು ಸಲ್ಲಿಸುವಾಗ, ಕೈಪಿಡಿಯ ಈ ಕೆಳಗಿನ ಐಡೆಂಟಿಫಯರನ್ನು ನಮೂದಿಸುವುದನ್ನು ಮರೆಯಬೇಡಿ: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "ದಸ್ತಾವೇಜನ್ನು ಉತ್ತಮಗೊಳಿಸುವ ಬಗ್ಗೆ ನೀವು ಸಲಹೆ ನೀಡುವಂತಿದ್ದರೆ, ಅದನ್ನು ವಿವರಿಸುವಾಗ ಆದಷ್ಟು ಮಟ್ಟಿಗೆ ನಿರ್ದಿಷ್ಟವಾಗಿರಲಿ. ನಿಮಗೆ ಒಂದು ದೋಷ ಕಂಡು ಬಂದಲ್ಲಿ, ದಯವಿಟ್ಟು ನಮಗೆ ಅದನ್ನು ಪತ್ತೆ ಹಚ್ಚಲು ಸುಲಭವಾಗುವಂತೆ ಅಧ್ಯಾಯದ ಸಂಖ್ಯೆಯನ್ನು ಹಾಗು ಅದರ ಸುತ್ತಮುತ್ತಲಿರುವ ಒಂದಿಷ್ಟು ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿ."
+
+#~ msgid "feedback"
+#~ msgstr "ಫೀಡ್-ಬ್ಯಾಕ್"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "ಈ ಕೈಪಿಡಿಗಾಗಿ ಸಂಪರ್ಕ ಮಾಹಿತಿ"
+
+#~ msgid "translator-credits"
+#~ msgstr "ಶಂಕರ್ ಪ್ರಸಾದ್ ಎಂ. ವಿ."

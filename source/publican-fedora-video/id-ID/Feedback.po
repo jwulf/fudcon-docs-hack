@@ -1,0 +1,47 @@
+# SOME DESCRIPTIVE TITLE.
+# Teguh DC <dheche@songolimo.net>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2010-02-08 11:54+0700\n"
+"Last-Translator: Teguh DC <dheche@songolimo.net>\n"
+"Language-Team: Fedora Indonesia <trans-id@lists.fedoraproject.org>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Virtaal 0.5.1\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Kami Membutuhkan Umpan Balik!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>umpan balik</primary> <secondary>Informasi kontak untuk manual ini</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Jika anda menemukan kesalahan ketik dalam manual ini, atau jika anda memiliki ide untuk membuat manual ini lebih baik, kami akan sangat senang mendengar hal tersebut dari anda! Silakan kirim laporan di Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> terhadap produk <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Ketika mengirimkan laporan bug, pastikan untuk menyebutkan identitas manual: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Jika anda memiliki saran untuk meningkatkan kualitas dokumentasi, cobalah untuk menjelaskan hal itu sejelas mungkin. Jika Anda menemukan sebuah kesalahan, harap sertakan nomor bagian dan beberapa teks di sekitarnya sehingga kami dapat menemukannya dengan mudah."
+
+#~ msgid "feedback"
+#~ msgstr "umpan balik"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "Informasi kontak untuk manual ini"

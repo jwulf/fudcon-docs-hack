@@ -1,0 +1,162 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<div class="results">
+
+			<h:outputText value="The topic search returned no results."
+				rendered="#{empty groupedSnapshotTranslatedDataList.resultList}" />
+
+			<rich:tabPanel switchType="client"
+				selectedTab="Tab#{groupedSnapshotTranslatedDataList.tab}">
+
+				<div class="tableControl">
+
+					<s:link view="/GroupedSnapshotTranslatedDataList.xhtml"
+						rendered="#{groupedSnapshotTranslatedDataList.previousExists}"
+						value="#{messages.left}#{messages.left} First Page">
+						<f:param name="firstResult" value="0" />
+						<c:forEach items="#{groupedSnapshotTranslatedDataList.filterVars}"
+							var="filtervar">
+							<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+						</c:forEach>
+					</s:link>
+
+					<s:link view="/GroupedSnapshotTranslatedDataList.xhtml"
+						rendered="#{groupedSnapshotTranslatedDataList.previousExists}"
+						value="#{messages.left} Previous Page">
+						<f:param name="firstResult"
+							value="#{groupedSnapshotTranslatedDataList.previousFirstResult}" />
+						<c:forEach items="#{groupedSnapshotTranslatedDataList.filterVars}"
+							var="filtervar">
+							<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+						</c:forEach>
+					</s:link>
+
+					<s:link view="/GroupedSnapshotTranslatedDataList.xhtml"
+						rendered="#{groupedSnapshotTranslatedDataList.nextExists}"
+						value="Next Page #{messages.right}">
+						<f:param name="firstResult"
+							value="#{groupedSnapshotTranslatedDataList.nextFirstResult}" />
+						<c:forEach items="#{groupedSnapshotTranslatedDataList.filterVars}"
+							var="filtervar">
+							<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+						</c:forEach>
+					</s:link>
+
+					<s:link view="/GroupedSnapshotTranslatedDataList.xhtml"
+						rendered="#{groupedSnapshotTranslatedDataList.nextExists}"
+						value="Last Page #{messages.right}#{messages.right}">
+						<f:param name="firstResult"
+							value="#{groupedSnapshotTranslatedDataList.lastFirstResult}" />
+						<c:forEach items="#{groupedSnapshotTranslatedDataList.filterVars}"
+							var="filtervar">
+							<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+						</c:forEach>
+					</s:link>
+				</div>
+
+				<c:forEach items="#{groupedSnapshotTranslatedDataList.groupedLists}"
+					var="groupedList">
+					<rich:tab
+						label="#{groupedList.group} (#{groupedList.entityList.resultCount})"
+						name="Tab#{groupedList.group}">
+
+						<rich:dataTable var="snapshotTranslatedData"
+							value="#{groupedList.entityList.resultList}"
+							styleClass="listTable">
+
+							<rich:column
+								rendered="#{s:hasPermission('SnapshotTranslatedDataActionsColumn', 'Rendered', null)}">
+								<f:facet name="header">Actions</f:facet>
+
+
+								<s:link value="View XML" view="/DownloadTranslatedXML.xhtml"
+									rendered="#{groupedSnapshotTranslatedDataList.snapshotRevision}">
+									<f:param name="snapshotTranslatedDataHomeId"
+										value="#{snapshotTranslatedData.snapshotTranslatedDataId}" />
+								</s:link>
+
+								<br />
+								<s:link
+									rendered="#{groupedSnapshotTranslatedDataList.snapshotRevision and not empty snapshotTranslatedData.translatedXmlRendered}"
+									value="View HTML [#{snapshotTranslatedData.formattedTranslatedXmlRenderedUpdated}]"
+									view="/DownloadTranslatedHTML.xhtml">
+									<f:param name="snapshotTranslatedDataHomeId"
+										value="#{snapshotTranslatedData.snapshotTranslatedDataId}" />
+								</s:link>
+
+								<s:link value="View XML"
+									rendered="#{! groupedSnapshotTranslatedDataList.snapshotRevision}"
+									view="/DownloadWorkingTranslatedXML.xhtml">
+									<f:param name="workingSnapshotTranslatedDataId"
+										value="#{snapshotTranslatedData.snapshotTranslatedDataId}" />
+								</s:link>
+								
+								<br />
+								<s:link
+									rendered="#{! groupedSnapshotTranslatedDataList.snapshotRevision and ! empty snapshotTranslatedData.translatedXmlRendered}"
+									value="View HTML [#{snapshotTranslatedData.formattedTranslatedXmlRenderedUpdated}]"
+									view="/DownloadWorkingTranslatedHTML.xhtml">
+									<f:param name="workingSnapshotTranslatedDataId"
+										value="#{snapshotTranslatedData.snapshotTranslatedDataId}" />
+								</s:link>
+
+
+							</rich:column>
+
+							<rich:column
+								rendered="#{s:hasPermission('SnapshotTranslatedDataIDColumn', 'Rendered', null)}">
+								<f:facet name="header">Zanata ID</f:facet>
+
+								<h:outputText
+									value="#{snapshotTranslatedData.snapshotTopic.zanataId}" />
+
+							</rich:column>
+
+							<rich:column
+								rendered="#{s:hasPermission('SnapshotTranslatedDataLocaleColumn', 'Rendered', null)}">
+								<f:facet name="header">Locale</f:facet>
+
+								<h:outputText
+									value="#{snapshotTranslatedData.translationLocale}" />
+
+							</rich:column>
+
+							<rich:column
+								rendered="#{s:hasPermission('SnapshotTranslatedDataTopicTitleColumn', 'Rendered', null)}">
+								<f:facet name="header">Topic Title</f:facet>
+
+								<h:outputText value="#{snapshotTranslatedData.topicTitle}" />
+
+							</rich:column>
+
+							<rich:column
+								rendered="#{s:hasPermission('SnapshotTranslatedDataTopicTagsColumn', 'Rendered', null)}">
+								<f:facet name="header">Topic Tags</f:facet>
+
+								<h:outputText escape="false"
+									value="#{snapshotTranslatedData.topicTags}" />
+
+							</rich:column>
+
+
+
+						</rich:dataTable>
+					</rich:tab>
+				</c:forEach>
+			</rich:tabPanel>
+		</div>
+
+	</ui:define>
+</ui:composition>

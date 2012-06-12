@@ -1,0 +1,16 @@
+<!DOCTYPE jboss-web PUBLIC
+    "-//JBoss//DTD Web Application 4.2//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss-web_4_2.dtd">
+<jboss-web>  
+    <!--  <class-loading java2ClassLoadingCompliance="false">
+        <loader-repository>
+            seam.jboss.org:loader=TopicIndex
+            <loader-repository-config>java2ParentDelegation=false</loader-repository-config>
+        </loader-repository>
+    </class-loading> -->
+    
+  	<!-- <security-domain>java:/jaas/SPNEGO</security-domain>
+    <valve>
+        <class-name>org.jboss.security.negotiation.NegotiationAuthenticator</class-name>
+    </valve>-->
+</jboss-web>

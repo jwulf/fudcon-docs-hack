@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<rich:modalPanel id="confirmationBox" autosized="true">
+          <f:facet name="header">
+               <h:panelGroup>
+                    <h:outputText value="Push Topics to Zanata" />
+               </h:panelGroup>
+          </f:facet>
+          <s:div style="text-align: center; width: 250px;">
+          	  <p>You are about to push #{empty tagSearchBean.zanataTopicList ? 0 : tagSearchBean.zanataTopicList.size()} topic(s) to Zanata. Continue?</p>
+              <h:form>
+                   <center>
+                         <h:commandButton value="OK" action="#{tagSearchBean.pushToZanataConfirm}" />
+                         <h:commandButton value="Cancel" />
+                    </center>
+               </h:form>
+          </s:div>
+     </rich:modalPanel>
+
+</ui:composition>

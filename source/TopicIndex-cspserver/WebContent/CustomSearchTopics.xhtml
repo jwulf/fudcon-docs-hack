@@ -1,0 +1,123 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/filterscripts.js"></script>
+
+		<!-- Disable the not fields once the page has loaded. Disabling them here in this file would also disable data binding,
+		 making the fields useless. So we have to do it at runtime.	 -->
+		<rich:jQuery selector="input[id*='tag-']" timing="onload"
+			query="each(function(index, element){if (element.checked){jQuery('input[id*=' + element.id.replace('tag', 'tagnot') + ']').removeAttr('disabled');} else {jQuery('input[id*=' + element.id.replace('tag', 'tagnot') + ']').attr('disabled', true);}})" />
+
+		<h:form id="topicIndexSearch" styleClass="edit">
+
+			<ui:include src="/WEB-INF/templates/TopicSearchButtons.xhtml">
+				<ui:param name="tagSearchBean" value="#{customTagSearch}" />
+				<ui:param name="disabled" value="#{false}"/>
+				<ui:param name="showCreateNewTopic" value="#{true}"/>
+			</ui:include>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<rich:tab label="Tags">
+					<ui:include src="/WEB-INF/templates/TagSelectAndNotSelect.xhtml">
+						<ui:param name="selectedTags"
+							value="#{customTagSearch.selectedTags.projectCategories}" />
+						<ui:param name="header" value="Topic Tag Filters" />
+						<ui:param name="logicEnabled" value="#{true}" />
+					</ui:include>
+				</rich:tab>
+				<rich:tab label="Fields">
+					<ui:include src="/WEB-INF/templates/TopicFieldSearch.xhtml">
+						<ui:param name="topic" value="#{customTagSearch.topic}" />
+					</ui:include>
+				</rich:tab>
+				<rich:tab label="Filters">
+					<h:selectOneMenu style="width:300px; margin:10px"
+						value="#{customTagSearch.selectedFilter}">
+						<f:selectItem itemLabel="[Unload Filter]" itemValue="" />
+						<c:forEach items="#{customTagSearch.filters}" var="filter">
+							<f:selectItem
+								itemLabel="[#{filter.filterId}] #{filter.filterName}"
+								itemValue="#{filter.filterId}" />
+						</c:forEach>
+					</h:selectOneMenu>
+					<h:commandButton styleClass="button" value="Load"
+						action="#{customTagSearch.loadFilter}" />
+					<h:commandButton styleClass="button" value="Load And Search"
+						action="#{customTagSearch.loadFilterAndSearch}" />
+					<h:commandButton styleClass="button" value="Load And Docbook"
+						action="#{customTagSearch.loadFilterAndDocbook}" />
+
+					<br />
+
+					<h:outputText style="margin:10px" value="Filter Name: " />
+					<h:inputText style="margin:10px"
+						value="#{customTagSearch.selectedFilterName}"></h:inputText>
+					<c:choose>
+						<c:when test="#{customTagSearch.selectedFilter == null}">
+							<h:commandButton styleClass="button" value="Save"
+								action="#{customTagSearch.saveFilter()}"
+								title="Save this filter set as a new Filter." />
+						</c:when>
+						<c:otherwise>
+							<h:commandButton styleClass="button" value="Update"
+								action="#{customTagSearch.saveFilter()}"
+								title="Update the loaded Filter with the selected filter set." />
+						</c:otherwise>
+					</c:choose>
+				</rich:tab>
+				<rich:tab label="Snapshots" rendered="#{s:hasPermission('SnapshotsButton', 'Rendered', null)}">
+					<h:outputText
+						value="Snapshots capture the state of a set of topics at the time the snapshot was created. Snapshots are used to recreate a build at a particular point in time, and also for translations." />
+					<br />
+					<br />
+					<h:panelGrid columns="3" border="0">
+						<h:outputText value="New Snapshot Name: " />
+						<h:inputText value="#{customTagSearch.newSnapshopName}" />
+						<h:commandButton styleClass="button" value="Save"
+							action="#{customTagSearch.saveSnapshot()}"
+							title="Save this results of the selected tags and fields as a new Snapshot." />
+					</h:panelGrid>
+					
+				</rich:tab>
+				<rich:tab label="Build Docbook">
+					<ui:include src="/WEB-INF/templates/TopicBuildDocbook.xhtml">
+						<ui:param name="docbookBuildingOptions"
+							value="#{customTagSearch.docbookBuildingOptions}" />
+					</ui:include>
+				</rich:tab>
+			</rich:tabPanel>
+
+			<div style="clear: both" />
+			<br />
+
+			<ui:include src="/WEB-INF/templates/TopicSearchButtons.xhtml">
+				<ui:param name="tagSearchBean" value="#{customTagSearch}" />
+				<ui:param name="disabled" value="#{false}"/>
+				<ui:param name="showCreateNewTopic" value="#{true}"/>
+			</ui:include>
+
+		</h:form>
+
+		<c:if test="#{not empty customTagSearch.displayMessage}">
+			<script type="text/javascript">
+				alert('#{customTagSearch.displayMessage}');
+			</script>
+		</c:if>
+
+	</ui:define>
+
+</ui:composition>

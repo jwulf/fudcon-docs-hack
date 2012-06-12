@@ -1,0 +1,48 @@
+# translation of Feedback.po to
+# Xi HUANG <xhuang@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-23 09:58+1000\n"
+"Last-Translator: Xi HUANG <xhuang@redhat.com>\n"
+"Language-Team:  <en@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "我们需要您的反馈！"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>反馈</primary> <secondary>本手册的联系人</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "如​果​你​发​现​了​排​印​错​误​或​者​有​改​进​本​文​档​的​建​议​，我​们​希​望​能​听​取​你​的​意​见​。​请​在 Bugzilla <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> 里​提​交​关​于产品 <application>&PRODUCT;.</application> 的​报​告​。​"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "提交报告时，请​记​得​提​及​文​档​的​标​识​符​：<citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "如​果​你​有​改​进​本​文​档​的​建​议​，请​尽​量​将​其​明​确​化​。​如​果​你​发​现​了​错​误​，请​指​出​章​节​号​以​及​其​周​围​的​相​关​文​字​，以​便​我​们​尽​快​找​到​并​更​正​该​错​误​。​"
+
+#~ msgid "feedback"
+#~ msgstr "反馈"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "本手册的联系人"
+
+#~ msgid "translator-credits"
+#~ msgstr "translator-credits"

@@ -1,0 +1,157 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="tagSearch" styleClass="edit">
+		
+		<s:div styleClass="actionButtons" rendered="#{empty from}">
+			<s:button styleClass="button" view="/TagEdit.xhtml" id="create"
+				propagation="none" value="Create Tag">
+				<f:param name="tagTagId" />
+			</s:button>
+		</s:div>
+		
+		<div style="clear: both" />
+		<br/>
+
+			<rich:simpleTogglePanel label="Tag Search Filter" switchType="client"
+				opened="false">
+				<h:panelGrid id="grid" columns="1">
+					<h:panelGroup>
+						<s:decorate template="layout/display.xhtml">
+							<ui:define name="label">Tag Name</ui:define>
+							<h:inputText id="tagName" value="#{tagList.tag.tagName}" />
+						</s:decorate>
+
+						<s:decorate template="layout/display.xhtml">
+							<ui:define name="label">Tag Description</ui:define>
+							<h:inputText id="tagDescription"
+								value="#{tagList.tag.tagDescription}" />
+						</s:decorate>
+
+						<s:decorate template="layout/display.xhtml">
+							<ui:define name="label">Match</ui:define>
+							<h:selectOneRadio id="logic"
+								value="#{tagList.restrictionLogicOperator}" styleClass="radio">
+								<f:selectItem itemLabel="All" itemValue="and" />
+								<f:selectItem itemLabel="Any" itemValue="or" />
+							</h:selectOneRadio>
+						</s:decorate>
+					</h:panelGroup>
+					<h:panelGroup>
+						<div class="actionButtons">
+							<h:commandButton styleClass="button" id="search" value="Search"
+								action="/TagList.xhtml" />
+							<s:button styleClass="button" id="reset" value="Reset"
+								includePageParams="false" />
+						</div>
+					</h:panelGroup>
+				</h:panelGrid>
+
+			</rich:simpleTogglePanel>
+
+		</h:form>
+
+		<br />
+		<br />
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{tagList}" />
+				<ui:param name="view" value="/TagList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">Tag Search Results (#{empty tagList.resultList ? 0 : (tagList.paginated ? tagList.resultCount : tagList.resultList.size)})</f:facet>
+
+			<div class="results" id="tagList">
+
+				<h:outputText value="The tag search returned no results."
+					rendered="#{empty tagList.resultList}" />
+
+				<rich:dataTable id="tagList" var="_tag"
+					value="#{tagList.resultList}"
+					rendered="#{not empty tagList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'Tag' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}" id="tagViewId">
+							<f:param name="tagTagId" value="#{_tag.tagId}" />
+						</s:link>
+			            #{' '}
+			            <s:link styleClass="smallButton" view="/TagEdit.xhtml"
+							value="Edit" propagation="none" id="tagEdit"
+							rendered="#{empty from}">
+							<f:param name="tagTagId" value="#{_tag.tagId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{tagList}" />
+								<ui:param name="propertyLabel" value="Tag id" />
+								<ui:param name="propertyPath" value="tag.tagId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_tag.tagId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{tagList}" />
+								<ui:param name="propertyLabel" value="Tag name" />
+								<ui:param name="propertyPath" value="tag.tagName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_tag.tagName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{tagList}" />
+								<ui:param name="propertyLabel" value="Tag description" />
+								<ui:param name="propertyPath" value="tag.tagDescription" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_tag.tagDescription}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+			                Tag Categories
+			            </f:facet>
+						<h:outputText value="#{_tag.categoriesList}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+			                Tag Properties
+			            </f:facet>
+						<rich:dataList var="property" value="#{_tag.sortedToPropertyTags}">
+							<h:outputText
+								value="#{property.propertyTag.propertyTagName}: #{property.value}" />
+						</rich:dataList>
+					</h:column>
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{tagList}" />
+				<ui:param name="view" value="/TagList.xhtml" />
+			</ui:include>
+
+		</rich:panel>
+
+
+	</ui:define>
+
+</ui:composition>

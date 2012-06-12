@@ -1,0 +1,49 @@
+# translation of Feedback.po to Bengali INDIA
+# Runa Bhattacharjee <runab@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-11-05 12:25+0530\n"
+"Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
+"Language-Team: Bengali INDIA\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "আপনার মতামত আমাদের নিশ্চয় জানাবেন!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>মতামত</primary> <secondary>এই সহায়ক-পুস্তিকা সম্বন্ধে যোগাযোগের তথ্য</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "যদি আপনি কোনো ত্রুটি লক্ষ্য করেন অথবা এই পুস্তিকাটি আরো উন্নত করার কোনো প্রস্তাব আপনি দিতে ইচ্ছুক থাকলে, আমাদের নির্দ্বিধায় তা জানান।! অনুগ্রহ করে <application>&PRODUCT;.</application> উৎপাদনের জন্য Bugzilla-তে সমস্ত বিবরণসহ একটি রিপোর্ট দায়ের করুন: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink>।"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "বাগ সম্পর্কে সূচনা দেওয়ার সময় সহায়ক-পুস্তিকার পরিচয় উল্লেখ করা আবশ্যক: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "যদি এই পুস্তিকাটিকে আরো উন্নত করার কোনো প্রস্তাব আপনি দিতে ইচ্ছুক থাকেন, তাহলে অনুগ্রহ করে অত্যন্ত স্পষ্টভাবে তার বিবরণ লিখুন। আপনি যদি কোনো ত্রুটি লক্ষ্য করে থাকেন, তাহলে অনুগ্রহ করে সংশ্লিষ্ট অনুচ্ছেদ সংখ্যা এবং পার্শ্ববর্তী কিছু অংশ উল্লেখ করুন যার সাহায্যে আমরা ত্রুটির অবস্থান সনাক্ত করতে পারব।"
+
+#~ msgid "feedback"
+#~ msgstr "মতামত"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "এই সহায়ক-পুস্তিকা সম্বন্ধে যোগাযোগের তথ্য"
+
+#~ msgid "translator-credits"
+#~ msgstr "রুণা ভট্টাচার্য্য <runab@redhat.com> ২০০৭"

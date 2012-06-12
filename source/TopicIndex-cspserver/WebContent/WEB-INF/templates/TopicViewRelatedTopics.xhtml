@@ -1,0 +1,104 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<rich:dataTable var="_topic" value="#{relatedTopicsArray}"
+		rendered="#{not empty relatedTopicsArray}"
+		styleClass="listTable"
+		columnsWidth="50px, 150px, 75px, 50px, 50px, 200px">
+
+		<f:facet name="header">
+			<h:outputText value="#{title}" />
+		</f:facet>
+
+		<rich:column
+			rendered="#{s:hasPermission('TopicListIDColumn', 'Rendered', null)}">
+			<f:facet name="header">
+				<ui:include src="/layout/sort.xhtml">
+					<ui:param name="entityList" value="#{topicList}" />
+					<ui:param name="propertyLabel" value="ID" />
+					<ui:param name="propertyPath" value="topic.topicId" />
+				</ui:include>
+			</f:facet>
+
+			<h:outputText value="#{_topic.topicId}" />
+		</rich:column>
+
+		<rich:column
+			rendered="#{s:hasPermission('TopicListTitleColumn', 'Rendered', null)}">
+			<f:facet name="header">
+				<ui:include src="/layout/sort.xhtml">
+					<ui:param name="entityList" value="#{topicList}" />
+					<ui:param name="propertyLabel" value="Topic Title" />
+					<ui:param name="propertyPath" value="topic.topicTitle" />
+				</ui:include>
+			</f:facet>
+			<h:outputText value="#{_topic.topicTitle}"
+				title="#{_topic.topicText}" />
+		</rich:column>
+
+		<rich:column
+			rendered="#{s:hasPermission('TopicListURLColumn', 'Rendered', null)}">
+			<f:facet name="header">
+				<h:outputText value="Source Material URL" />
+			</f:facet>
+			<rich:dataList var="url"
+				value="#{_topic.topicToTopicSourceUrls.toArray()}">
+				<h:outputLink value="#{url.topicSourceUrl.sourceUrl}"
+					title="#{url.topicSourceUrl.sourceUrl} &#13;#{url.topicSourceUrl.description}"
+					target="_blank">
+					<h:outputText value="Source URL"
+						rendered="#{empty url.topicSourceUrl.title}" />
+					<h:outputText value="#{url.topicSourceUrl.title}"
+						rendered="#{not empty url.topicSourceUrl.title}" />
+				</h:outputLink>
+			</rich:dataList>
+		</rich:column>
+
+		<rich:column
+			rendered="#{s:hasPermission('TopicListRelatedTopicsColumn', 'Rendered', null)}">
+			<f:facet name="header">
+				<h:outputText value="Out"
+					title="Outgoing relationships to other topics" />
+			</f:facet>
+			<a4j:repeat value="#{_topic.parentTopicToTopicsArray}"
+										var="topicToTopic">
+				<h:outputText
+					style="border: 0; background: transparent; color: green;"
+					value="This #{topicToTopic.relationshipTag.relationshipTagName} #{topicToTopic.relatedTopic.topicId}"
+					title="[#{topicToTopic.relatedTopic.topicTitle}] #{topicToTopic.relatedTopic.getCommaSeparatedTagList()}" />
+				<br />
+			</a4j:repeat>
+		</rich:column>
+
+		<rich:column
+			rendered="#{s:hasPermission('TopicListRelatedTopicsColumn', 'Rendered', null)}">
+			<f:facet name="header">
+				<h:outputText value="In"
+					title="Incoming relationships from other topics" />
+			</f:facet>
+			<a4j:repeat value="#{_topic.childTopicToTopicsArray}"
+										var="topicToTopic">
+				<h:outputText
+					style="border: 0; background: transparent; color: red;"
+					value="#{topicToTopic.mainTopic.topicId} #{topicToTopic.relationshipTag.relationshipTagName} This"
+					title="[#{topicToTopic.mainTopic.topicTitle}] #{topicToTopic.mainTopic.getCommaSeparatedTagList()}" />
+				<br />
+			</a4j:repeat>
+		</rich:column>
+
+		<rich:column
+			rendered="#{s:hasPermission('TopicListTagsColumn', 'Rendered', null)}">
+			<f:facet name="header">Topic Tags</f:facet>
+			<h:outputText escape="false" value="#{_topic.tagsList}" />
+		</rich:column>
+
+
+	</rich:dataTable>
+</ui:composition>

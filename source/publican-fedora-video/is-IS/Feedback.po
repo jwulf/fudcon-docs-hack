@@ -1,0 +1,47 @@
+# translation of Feedback.po to icelandic
+#
+# Sveinn í Felli <sveinki@nett.is>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-04-16 08:22+0000\n"
+"Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
+"Language-Team: icelandic <kde-isl@molar.is>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Við þurfum umsagnir notenda!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>umsagnir</primary> <secondary>upplýsingar um þá sem unnið hafa við þessa handbók</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Ef þú fannst stafsetningar/málfræðivillu, eða ef þú hefur hugmyndir um hvernig þessi handbók geti orðið betri, þá myndum við endilega vilja fá tillögur frá þér! Endilega sendu inn tilkynningu í Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> með tilvísun í  <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Þegar þú sendi villuskýrslu, gakktu úr skugga um að með fylgi auðkenni handbókarinnar: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Ef þú hefur tillögur að því hvernig hægt sé að bæta handbókina, reyndu þá að vera eins nákvæm(ur) í lýsingum og hægt er. Ef þú fannst villu, láttu fylgja í hvaða hluta hún er og hafðu með svolítið af nálægum texta svo auðveldara verði fyrir okkur að finna hana."
+
+#~ msgid "feedback"
+#~ msgstr "umsagnir"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "upplýsingar um þá sem unnið hafa við þessa handbók"

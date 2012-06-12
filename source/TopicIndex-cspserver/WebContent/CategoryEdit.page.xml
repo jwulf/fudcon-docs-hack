@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+	no-conversation-view-id="/CategoryList.xhtml" login-required="true">
+
+	<begin-conversation join="true" flush-mode="MANUAL" />
+
+	<action execute="#{categoryHome.wire}" />
+	<action execute="#{categoryHome.populate}" />
+
+	<param name="categoryFrom" />
+	<param name="categoryCategoryId" value="#{categoryHome.categoryCategoryId}" />
+
+
+	<navigation from-action="#{categoryHome.persist}">
+		<rule if-outcome="persisted">
+			<end-conversation />
+			<redirect view-id="/CategoryList.xhtml" />
+		</rule>
+	</navigation>
+
+	<navigation from-action="#{categoryHome.update}">
+		<rule if-outcome="updated">
+			<end-conversation />
+			<redirect view-id="/CategoryList.xhtml" />
+		</rule>
+	</navigation>
+
+	<navigation from-action="#{categoryHome.remove}">
+		<rule if-outcome="removed">
+			<end-conversation />
+			<redirect view-id="/CategoryList.xhtml" />
+		</rule>
+	</navigation>
+
+</page>

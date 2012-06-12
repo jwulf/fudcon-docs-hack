@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page no-conversation-view-id="/TagList.xhtml"
+	xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+	login-required="true">
+	<begin-conversation flush-mode="MANUAL" join="true" />
+
+	<action execute="#{tagHome.wire}" />
+	<action execute="#{tagHome.populate}" />
+	
+	<param name="tagTagId" value="#{tagHome.tagTagId}" />
+
+	<navigation from-action="#{tagHome.persist}">
+		<rule if-outcome="persisted">
+			<redirect view-id="/TagList.xhtml" />
+		</rule>
+	</navigation>
+	<navigation from-action="#{tagHome.update}">
+		<rule if-outcome="updated">
+			<redirect view-id="/TagList.xhtml" />
+		</rule>
+		<rule if-outcome="concurrentEdit">
+			<redirect view-id="/TagList.xhtml">
+				<param name="tagTagId" value="#{tagHome.tagTagId}" />
+				<param name="displayMessage" value="A concurrent edit was detected. Your changes have been saved, but please review the previous versions to make sure this Tag is in a consistent state." />
+			</redirect>
+		</rule>
+	</navigation>
+	<navigation from-action="#{tagHome.remove}">
+		<rule if-outcome="removed">
+			<redirect view-id="/TagList.xhtml" />
+		</rule>
+	</navigation>
+
+</page>

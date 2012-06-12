@@ -1,0 +1,145 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="exceptionSearch" styleClass="edit">
+
+			<rich:simpleTogglePanel label="Exception Search Filter"
+				switchType="client" opened="false">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Details</ui:define>
+					<h:inputText id="details"
+						value="#{exceptionList.skynetException.details}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Description</ui:define>
+					<h:inputText id="description"
+						value="#{exceptionList.skynetException.description}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio id="logic"
+						value="#{exceptionList.restrictionLogicOperator}"
+						styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="search" value="Search"
+						action="/ExceptionList.xhtml" />
+					<s:button id="reset" value="Reset" includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+		</h:form>
+
+		<br />
+		<br />
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{exceptionList}" />
+				<ui:param name="view" value="/ExceptionList.xhtm" />
+			</ui:include>
+
+			<f:facet name="header">Exception Search Results (#{empty exceptionList.resultList ? 0 : (exceptionList.paginated ? exceptionList.resultCount : exceptionList.resultList.size)})</f:facet>
+			<div class="results" id="exceptionList">
+
+				<h:outputText value="The exception search returned no results."
+					rendered="#{empty exceptionList.resultList}" />
+
+				<rich:dataTable id="exceptionList" var="_exception"
+					value="#{exceptionList.resultList}"
+					rendered="#{not empty exceptionList.resultList}">
+
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'Exception' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="exceptionViewId">
+							<f:param name="exceptionExceptionId"
+								value="#{_exception.exceptionId}" />
+						</s:link>
+					</rich:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{exceptionList}" />
+								<ui:param name="propertyLabel" value="Exception id" />
+								<ui:param name="propertyPath"
+									value="skynetException.exceptionId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_exception.exceptionId}"
+							title="#{_exception.details}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{exceptionList}" />
+								<ui:param name="propertyLabel" value="Timestamp" />
+								<ui:param name="propertyPath"
+									value="skynetException.exceptionId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_exception.timestamp}">
+							<s:convertDateTime type="both" dateStyle="short" />
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{exceptionList}" />
+								<ui:param name="propertyLabel" value="Description" />
+								<ui:param name="propertyPath"
+									value="skynetException.description" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_exception.description}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{exceptionList}" />
+								<ui:param name="propertyLabel" value="Expected" />
+								<ui:param name="propertyPath" value="skynetException.expected" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_exception.expected}" />
+					</h:column>
+
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{exceptionList}" />
+				<ui:param name="view" value="/ExceptionList.xhtm" />
+			</ui:include>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>

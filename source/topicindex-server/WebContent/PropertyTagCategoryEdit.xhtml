@@ -1,0 +1,87 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="propertytagcategory" styleClass="edit">
+
+			<div class="actionButtons">
+
+				<h:commandButton styleClass="button" id="save" value="Save"
+					action="#{propertyTagCategoryHome.persist}"
+					disabled="#{!propertyTagCategoryHome.wired}"
+					rendered="#{!propertyTagCategoryHome.managed}" />
+
+				<h:commandButton styleClass="button" id="update" value="Save"
+					action="#{propertyTagCategoryHome.update}"
+					rendered="#{propertyTagCategoryHome.managed}" />
+
+				<h:commandButton styleClass="button" id="delete" value="Delete"
+					action="#{propertyTagCategoryHome.remove}" immediate="true"
+					rendered="#{propertyTagCategoryHome.managed}" />
+
+				<s:button styleClass="button" id="cancelEdit" value="Cancel"
+					propagation="end" view="/PropertyTagCategory.xhtml"
+					rendered="#{propertyTagCategoryHome.managed}" />
+
+				<s:button styleClass="button" id="cancelAdd" value="Cancel"
+					propagation="end"
+					view="/#{empty propertyTagCategoryFrom ? 'PropertytagcategoryList' : PropertyTagCategoryFrom}.xhtml"
+					rendered="#{!propertyTagCategoryHome.managed}" />
+
+			</div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+
+				<rich:tab
+					label="#{propertyTagHome.managed ? 'Edit' : 'Add'} Property Tag Category">
+
+					<s:decorate id="propertyTagCategoryNameField"
+						template="layout/edit.xhtml">
+						<ui:define name="label">Name</ui:define>
+						<h:inputTextarea id="propertyTagCategoryName" cols="80" rows="6"
+							required="true"
+							value="#{propertyTagCategoryHome.instance.propertyTagCategoryName}" />
+					</s:decorate>
+
+					<s:decorate id="propertyTagCategoryDescriptionField"
+						template="layout/edit.xhtml">
+						<ui:define name="label">Description</ui:define>
+						<h:inputTextarea id="propertyTagCategoryDescription" cols="80"
+							rows="10"
+							value="#{propertyTagCategoryHome.instance.propertyTagCategoryDescription}" />
+					</s:decorate>
+				</rich:tab>
+
+				<rich:tab label="Property Tags">
+
+					<ui:include src="/WEB-INF/templates/UICategoriesData.xhtml">
+						<ui:param name="categories"
+							value="#{propertyTagCategoryHome.uiCategoriesData}" />
+					</ui:include>
+
+				</rich:tab>
+
+			</rich:tabPanel>
+
+			<div style="clear: both">
+				<span class="required">*</span> required fields
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

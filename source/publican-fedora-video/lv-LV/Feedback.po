@@ -1,0 +1,46 @@
+# Translation of Feedback.po to Latvian
+# Jurijs Kolomijecs <admin@irben.id.lv>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: publican-fedora\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-06-01 05:24+0\n"
+"Last-Translator: Jurijs Kolomijecs <admin@irben.id.lv>\n"
+"Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
+"Language: lv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Mums vajag atbalsi!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>atbalss</primary> <secondary>kontaktinformācija šai vadībai</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Ja Jūs atradat tipografisko kļūdu šajā vadībā vai Jums ir idejas, kā šo dokumentu uzlabot, mēs ar prieku izklausītos Jūs! Lūdzam aizsūtiet ziņu uz Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> par produktu <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Kad sūtat kļūdas ziņojumu, neaizmirsiet norādīt vadības identifikatoru: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Ja Jums ir idejas kā uzlabot dokumentāciju, mēģiniet būt specifiskam kad aprakstiet to. Ja Jūs atradat kļūdu, lūdzam ierakstīt sekcijas numuru un kādu apkārtējo tekstu lai mēs varētu vieglāk to atrast."
+
+#~ msgid "feedback"
+#~ msgstr "atbalss"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "kontaktinformācija šai vadībai"

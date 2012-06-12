@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd" login-required="true">
+
+   <param name="firstResult" value="#{propertyTagList.firstResult}"/>
+   <param name="sort" value="#{propertyTagList.orderColumn}"/>
+   <param name="dir" value="#{propertyTagList.orderDirection}"/>
+   <param name="logic" value="#{propertyTagList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="propertyTagName" value="#{propertyTagList.propertyTag.propertyTagName}"/>
+   <param name="propertyTagDescription" value="#{propertyTagList.propertyTag.propertyTagDescription}"/>
+
+</page>

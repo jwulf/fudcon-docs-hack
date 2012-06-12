@@ -1,0 +1,79 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<div class="actionButtons">
+
+			<s:button styleClass="button" view="/PropertyTagEdit.xhtml" id="edit"
+				value="Edit" />
+
+			<s:button styleClass="button"
+				view="/#{empty propertyTagFrom ? 'PropertyTagList' : propertyTagFrom}.xhtml"
+				id="done" value="Done" />
+		</div>
+
+		<div style="clear: both" />
+		<br />
+
+		<rich:panel>
+			<f:facet name="header">PropertyTag Details</f:facet>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">ID</ui:define>
+				<h:outputText value="#{propertyTagHome.instance.propertyTagId}" />
+			</s:decorate>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">Name</ui:define>
+				<h:outputText value="#{propertyTagHome.instance.propertyTagName}" />
+			</s:decorate>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">Description</ui:define>
+				<h:outputText
+					value="#{propertyTagHome.instance.propertyTagDescription}" />
+			</s:decorate>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">Regular Expression</ui:define>
+				<h:outputText value="#{propertyTagHome.instance.propertyTagRegex}" />
+			</s:decorate>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">Can Be Null</ui:define>
+				<h:selectBooleanCheckbox disabled="true"
+					value="#{propertyTagHome.instance.propertyTagCanBeNull}" />
+			</s:decorate>
+			
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">Is Unique</ui:define>
+				<h:selectBooleanCheckbox disabled="true"
+					value="#{propertyTagHome.instance.propertyTagIsUnique}" />
+			</s:decorate>
+
+			<s:decorate template="layout/display.xhtml">
+				<ui:define name="label">Property Tag Categories</ui:define>
+				<rich:dataList var="tag"
+					value="#{propertyTagHome.instance.propertyTagToPropertyTagCategories.toArray()}">
+					<h:outputText
+						value="#{tag.propertyTagCategory.propertyTagCategoryName}"
+						title="#{tag.propertyTagCategory.propertyTagCategoryDescription}" />
+				</rich:dataList>
+			</s:decorate>
+
+			<div style="clear: both" />
+		</rich:panel>
+
+
+
+	</ui:define>
+
+</ui:composition>

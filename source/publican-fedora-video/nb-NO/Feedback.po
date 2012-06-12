@@ -1,0 +1,46 @@
+# Feedback.po translated to Norwegian (bokmål)
+#
+# Sindre Wetjen <sindre.w@gmail.com>, 2009, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2010-04-15 02:05+0200\n"
+"Last-Translator: Sindre Wetjen <sindre.w@gmail.com>\n"
+"Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
+"Language: no\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: utf-8\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Vi Trenger Tilbakemeldinger!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>tilbakemeldinger</primary> <secondary>Kontaktinformasjon for denne manualen</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Hvis du finner typografiske feil i denne manualen, eller hvis du har noen ideer om hvordan vi kan gjøre denne manualen bedre, så vil vi svært gjerne høre fra deg! Vær så snill å legg inn en rapport i Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> i mot produktet <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Når du legger inn en feilrapport, husk å nevn manualens identifikasjon: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Hvis du har et forslag til hvordan vi kan gjøre dokumentasjonen bedre, prøv å vær så spesifikk som mulig når du beskriver det. Hvis du har funnet en feil, vær så snill å inkludere seksjonsnummeret og litt av den omliggende teksten sånn at vi lettere kan finne det."
+
+#~ msgid "feedback"
+#~ msgstr "tilbakemeldinger"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "Kontaktinformasjon for denne manualen"

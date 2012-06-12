@@ -1,0 +1,702 @@
+package Permissions;
+
+import java.security.Principal;
+
+import org.jboss.seam.security.permission.PermissionCheck;
+import org.jboss.seam.security.Role;
+
+###### RULES FOR ADMIN ###### 
+
+# All elements are rendered for the admin
+rule "ElementRendered"
+	when
+		c: PermissionCheck(action == "Rendered")
+		Role(name == "adminRole" )
+   	then
+		c.grant();
+end
+
+# All elements are enabled for the admin
+rule "ElementEnabled"
+	when
+		c: PermissionCheck(action == "Enabled")
+		Role(name == "adminRole" || == "editorRole")
+   	then
+		c.grant();
+end
+
+###### RULES FOR BASIC ######
+
+rule "TagChangeDescriptionEnabled"
+	when
+		c: PermissionCheck(name == "TagChangeDescription", action == "Enabled")
+		Role(name == "basicRole")
+   	then
+		c.grant();
+end
+
+rule "TopicTagsUpdateButtonEnabled"
+	when
+		c: PermissionCheck(name == "TopicTagsUpdateButton", action == "Enabled")
+		Role(name == "basicRole")
+   	then
+		c.grant();
+end
+
+### LINKS AT THE TOP OF THE PAGE RULES ###
+
+rule "TopicQikLinkRendered"
+	when
+		c: PermissionCheck(name == "TopicQikLink", action == "Rendered")
+		Role(name == "basicRole")
+   	then
+		c.grant();
+end
+
+rule "TagListLinkRendered"
+	when
+		c: PermissionCheck(name == "TagListLink", action == "Rendered")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "CategoryListLinkRendered"
+	when
+		c: PermissionCheck(name == "CategoryListLink", action == "Rendered")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "ImageListLinkRendered"
+	when
+		c: PermissionCheck(name == "ImageListLink", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole" || == "editorRole" || == "smeRole")
+   	then
+		c.grant();
+end
+
+
+rule "ReportsListLinkRendered"
+	when
+		c: PermissionCheck(name == "ReportsListLink", action == "Rendered")
+		Role(name == "basicRole")
+   	then
+		c.grant();
+end
+
+### TAGS RULES ###
+
+rule "IATriageTagEnabled"
+	when
+		c: PermissionCheck(name == "IA Triage", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "IAProposedEnabled"
+	when
+		c: PermissionCheck(name == "IA Proposed", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "IARejectedTagEnabled"
+	when
+		c: PermissionCheck(name == "IA Rejected", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "IALowPriorityTagEnabled"
+	when
+		c: PermissionCheck(name == "IA Low Priority", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "IAMediumPriorityTagEnabled"
+	when
+		c: PermissionCheck(name == "IA Medium Priority", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "IAHighPriorityTagEnabled"
+	when
+		c: PermissionCheck(name == "IA High Priority", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "SMEAcceptedTagEnabled"
+	when
+		c: PermissionCheck(name == "SME Accepted", action == "Enabled")
+		Role(name == "smeRole")
+   	then
+		c.grant();
+end
+
+rule "SMENotAcceptedTagEnabled"
+	when
+		c: PermissionCheck(name == "SME Not Accepted", action == "Enabled")
+		Role(name == "smeRole")
+   	then
+		c.grant();
+end
+
+rule "SMELowPriorityTagEnabled"
+	when
+		c: PermissionCheck(name == "SME Low Priority", action == "Enabled")
+		Role(name == "smeRole")
+   	then
+		c.grant();
+end
+
+rule "SMEMediumPriorityTagEnabled"
+	when
+		c: PermissionCheck(name == "SME Medium Priority", action == "Enabled")
+		Role(name == "smeRole")
+   	then
+		c.grant();
+end
+
+rule "SMEHighPriorityTagEnabled"
+	when
+		c: PermissionCheck(name == "SME High Priority", action == "Enabled")
+		Role(name == "smeRole")
+   	then
+		c.grant();
+end
+
+rule "WrittenTagEnabled"
+	when
+		c: PermissionCheck(name == "Written", action == "Enabled")
+		Role(name == "writerRole" || == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "TagChangeDescriptionTagEnabled"
+	when
+		c: PermissionCheck(name == "TagChangeDescription", action == "Enabled")
+		Role(name == "writerRole" || == "smeRole" || == "iaRole" || == "pmRole" || == "engRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TagCommittedEnabled"
+	when
+		c: PermissionCheck(name == "Committed", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "AssignedEnabled"
+	when
+		c: PermissionCheck(name == "Assigned", action == "Enabled")
+		Role(name == "iaRole")
+   	then
+		c.grant();
+end
+
+rule "QEPassEnabled"
+	when
+		c: PermissionCheck(name == "QE Pass", action == "Enabled")
+		Role(name == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "QEFailEnabled"
+	when
+		c: PermissionCheck(name == "QE Fail", action == "Enabled")
+		Role(name == "qeRole")
+   	then
+		c.grant();
+end
+
+
+### TOPIC FILTER RULES ###
+
+rule "FilterTextFreeSearchRendered"
+	when
+		c: PermissionCheck(name == "FilterTextFreeSearch", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+   		c.grant();
+end
+
+rule "FilterTopicEditedInLastRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicEditedInLast", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+   		c.grant();
+end
+		
+rule "FilterTopicEditDatesRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicEditDates", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicDatesRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicDates", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicXMLRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicXML", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicTextRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicText", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicHasRelationshipsRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicHasRelationships", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicHasIncomingRelationshipsRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicHasIncomingRelationships", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterHasXMLErrorsRendered"
+	when
+		c: PermissionCheck(name == "FilterHasXMLErrors", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterHasOpenBugzillaBugsRendered"
+	when
+		c: PermissionCheck(name == "FilterHasOpenBugzillaBugs", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterHasBugzillaBugsRendered"
+	when
+		c: PermissionCheck(name == "FilterHasBugzillaBugs", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicIsRelatedFromRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicIsRelatedFrom", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicIsIncludedInSpecRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicIsIncludedInSpec", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+
+rule "FilterTopicIsRelatedToRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicIsRelatedTo", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicUpdateDatesRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicUpdateDates", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicTitleRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicTitle", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicIDRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicID", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "FilterTopicAddedByRendered"
+	when
+		c: PermissionCheck(name == "FilterTopicAddedBy", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+### TOPIC LIST COLUMN RULES ###
+
+rule "TopicListPropertiesColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListPropertiesColumn", action == "Rendered")
+		Role(name == "basicRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListBugsColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListBugsColumn", action == "Rendered")
+		Role(name == "basicRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListTextColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListTextColumn", action == "Rendered")
+		Role(name == "iaRole" || == "editorRole" || == "smeRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListQuickTagsColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListQuickTagsColumn", action == "Rendered")
+		Role(name == "iaRole" || == "editorRole" || == "smeRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListSelectColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListSelectColumn", action == "Rendered")
+		Role(name == "iaRole" ||  == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListIDColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListIDColumn", action == "Rendered")
+		Role(name == "iaRole" ||  == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListAddedByColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListAddedByColumn", action == "Rendered")
+		Role(name == "iaRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListRelatedTopicsColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListRelatedTopicsColumn", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListTitleColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListTitleColumn", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListTagsColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListTagsColumn", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListURLColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListURLColumn", action == "Rendered")
+		Role(name == "editorRole" || == "iaRole" || == "smeRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+rule "TopicListSVNURLColumnRendered"
+	when
+		c: PermissionCheck(name == "TopicListSVNURLColumn", action == "Rendered")
+		Role(name == "editorRole" || == "iaRole" || == "smeRole" || == "writerRole" || == "qeRole")
+   	then
+		c.grant();
+end
+
+#### TOPIC LIST EDIT ELEMENTS ####
+
+
+rule "TopicListRelatedBulkTagButtonEnabled"
+	when
+		c: PermissionCheck(name == "TopicListRelatedBulkTagButton", action == "Enabled")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "EditTopicTitleRendered"
+	when
+		c: PermissionCheck(name == "EditTopicTitle", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "EditTopicXMLRendered"
+	when
+		c: PermissionCheck(name == "EditTopicXML", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "EditTopicTextRendered"
+	when
+		c: PermissionCheck(name == "EditTopicText", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "EditTopicAddedByRendered"
+	when
+		c: PermissionCheck(name == "EditTopicAddedBy", action == "Rendered")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole")
+   	then
+		c.grant();
+end
+
+rule "EditTopicSVNURLRendered"
+	when
+		c: PermissionCheck(name == "EditTopicSVNURL", action == "Rendered")
+		Role(name == "iaRole" || == "editorRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+
+rule "EditTopicSaveButtonEnabled"
+	when
+		c: PermissionCheck(name == "EditTopicSaveButton", action == "Enabled")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "EditTopicUpdateButtonEnabled"
+	when
+		c: PermissionCheck(name == "EditTopicUpdateButton", action == "Enabled")
+		Role(name == "smeRole" || == "iaRole" || == "editorRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+#### TOPIC LIST CONTEXT MENU ELEMENTS ####
+
+rule "SearchForBugsMenuItemRendered"
+	when
+		c: PermissionCheck(name == "SearchForBugsMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+rule "ConvertRelationshipTypeContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "ConvertRelationshipTypeContextMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+
+rule "ViewAddToTemporaryListContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "ViewAddToTemporaryListContextMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+rule "ViewRelatedContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "ViewRelatedContextMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+rule "DownloadTemplateContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "DownloadTemplateContextMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+rule "ViewContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "ViewContextMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+rule "EditContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "EditContextMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+rule "TagsContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "TagsContextMenuItem", action == "Rendered")
+		Role(name == "basicRole" )
+   	then
+		c.grant();
+end
+
+rule "RelatedContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "RelatedContextMenuItem", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "DeleteRelatedContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "DeleteRelatedContextMenuItem", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "MergeContextMenuItemRendered"
+	when
+		c: PermissionCheck(name == "MergeContextMenuItem", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "ListRelatedTopicsMenuItemRendered"
+	when
+		c: PermissionCheck(name == "ListRelatedTopicsMenuItem", action == "Rendered")
+		Role(name == "basicRole")
+   	then
+		c.grant();
+end
+
+rule "RemoveAllRelationshipsMenuItemRendered"
+	when
+		c: PermissionCheck(name == "RemoveAllRelationshipsMenuItem", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+### RELATED TOPICS COLUMN RULES ###
+
+
+rule "RelatedTopicTagsListPropertiesColumnRendered"
+	when
+		c: PermissionCheck(name == "RelatedTopicTagsListPropertiesColumn", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "RelatedTopicTagsListTitleColumnRendered"
+	when
+		c: PermissionCheck(name == "RelatedTopicTagsListTitleColumn", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "RelatedTopicTagsListTextColumnRendered"
+	when
+		c: PermissionCheck(name == "RelatedTopicTagsListTextColumn", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "RelatedTopicTagsListRelatedTopicsColumnRendered"
+	when
+		c: PermissionCheck(name == "RelatedTopicTagsListRelatedTopicsColumn", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+rule "RelatedTopicTagsListTagsColumnRendered"
+	when
+		c: PermissionCheck(name == "RelatedTopicTagsListTagsColumn", action == "Rendered")
+		Role(name == "iaRole" || == "writerRole")
+   	then
+		c.grant();
+end
+
+
+
+
+
+
+
+ 
+
+
+
+
+

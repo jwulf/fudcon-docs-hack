@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 02\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2010-08-27 15:44+0330\n"
+"Last-Translator: Mostafa <info@mostafadaneshvar.com>\n"
+"Language-Team: Persian <trans-fa@lists.fedoraproject.org>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Persian\n"
+"X-Poedit-Country: Iran\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "ما به بازخورد شما نیاز داریم!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>بازخورد</primary> <secondary>اطلاعات تماس  برای این راهنما</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "اگر شما در این راهنما خطای نگارشی یافتید یا اگر راه بهتری برای بهبود این راهنما دارید، ما دوست داریم آن را از شما بشنویم. لطفا گزارشی به باگزیلا ارسال کنید <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> برای محصول<application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "وقتی شما باگی را گزارش می کنید مطمئن شوید شناسه ی راهنما را ذکر کنید: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "اگر شما پیشنهادی برای بهتر شدن مستندات دارید،‌سعی کنید تا آنجایی که ممکن است با جزییات آن را توضیح دهید. اگر خطایی یافتید،‌لطفا شماره بخش و برخی از متن را وارد کنید تا ما به راحتی آن را پیدا کنیم."
+
+#~ msgid "feedback"
+#~ msgstr "بازخورد"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "اطلاعات تماس  برای این راهنما"

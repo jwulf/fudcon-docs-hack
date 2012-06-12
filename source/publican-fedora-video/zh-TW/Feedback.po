@@ -1,0 +1,48 @@
+# translation of Feedback.po to Traditional Chinese
+# Terry Chuang <terry.chuang@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-23 17:06+1000\n"
+"Last-Translator: Terry Chuang <terry.chuang@redhat.com>\n"
+"Language-Team: Traditional Chinese <zh-TW@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "我們需要您的意見！"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>意見</primary> <secondary>本指南的連絡人資訊</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "若您在本指南中發現印刷上的錯誤，或有讓本指南改進的方式，我們將誠摯歡迎您和我們取得聯繫！請在 Bugzilla 中對於 <application>&PRODUCT;.</application> 這個產品提交您的報表：<ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink>。"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "當您提交錯誤報告時，請務必提供指南的識別碼：<citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "若您擁有改善文件的建議，請儘可能地將它詳細描述清楚。若您您發現錯誤的話，請包含區段編號以及該錯誤周圍的部分文字，如此一來我們便能輕易地找到該錯誤。"
+
+#~ msgid "feedback"
+#~ msgstr "意見"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "本指南的連絡人資訊"
+
+#~ msgid "translator-credits"
+#~ msgstr "譯者姓名︰莊佳儒（Terry Chuang）2007"

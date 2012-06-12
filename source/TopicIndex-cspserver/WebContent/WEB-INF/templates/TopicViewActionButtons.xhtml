@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<div class="actionButtons">
+
+		<h:form>
+			<s:button styleClass="button" action="#{topicHome.reRender()}"
+				value="Refresh HTML" />
+
+			<s:button styleClass="button" view="/TopicEdit.xhtml"
+				value="Edit Latest Version">
+				<f:param name="topicRevision" value="" />
+			</s:button>
+
+			<s:button styleClass="button" view="/CustomSearchTopicList.xhtml"
+				 value="Done">
+				<f:param name="topicIds" value="#{topicHome.instance.topicId}" />
+			</s:button>
+			
+		        #{" "}
+		        <h:outputText value="View Revision: " />
+		        #{" "}
+		       	<h:selectOneMenu value="#{topicHome.revision}">
+				<c:forEach items="#{topicHome.instance.revisions}" var="revision">
+					<f:selectItem itemLabel="#{revision}" itemValue="#{revision}" />
+				</c:forEach>
+			</h:selectOneMenu>
+				#{" "}
+				<h:commandButton styleClass="button" value="View" />
+		</h:form>
+	</div>
+
+</ui:composition>

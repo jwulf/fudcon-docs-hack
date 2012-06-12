@@ -1,0 +1,51 @@
+# translation of Feedback.po to Hindi
+# Rajesh Ranjan <rranjan@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-30 13:16+0530\n"
+"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
+"Language-Team: Hindi <hindi.sf.net>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "हमें फीडबैक की जरूरत है!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>फीडबैक</primary> <secondary>इस मैनुअल के लिए संपर्क सूचना</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "यदि आप इस मैनुअल में टाइप की कोई गलती पाते हैं, या आपने इस मैनुअल को बेहतर बनाने का कोई तरीका सोचा है, हम आपकी राय जानना चाहेंगे! कृपया बगजिला में एक रिपोर्ट दर्ज करें: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> <application>&PRODUCT;.</application> उत्पाद के लिए."
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "जब आप एक बग रिपोर्ट सुपुर्द करते हैं, मैनुअल पहचानकर्ता का उल्लेख करना सुनिश्चित करें: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "यदि आपके पास दस्तावेजीकरण में सुधार करने के लिए कोई सलाह है, यथा संभव इसे निर्दिष्ट करने की कोशिश करें. यदि आपने कोई त्रुटि पाई है, कृपया खंड संख्या और कुछ जुड़े पाठ शामिल करें ताकि हम इसे आसानी से पता कर सकें."
+
+#~ msgid "feedback"
+#~ msgstr "फीडबैक"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "इस मैनुअल के लिए संपर्क सूचना"
+
+#~ msgid "translator-credits"
+#~ msgstr "Rajesh Ranjan (rranjan@redhat.com)"

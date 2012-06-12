@@ -1,0 +1,165 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form styleClass="edit">
+
+			<s:div styleClass="actionButtons" rendered="#{empty from}">
+				<s:button styleClass="button" view="/PropertyTagEdit.xhtml"
+					propagation="none" value="Create Property Tag">
+					<f:param name="propertyTagPropertyTagId" />
+				</s:button>
+			</s:div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:simpleTogglePanel label="Propert Tag Search Filter"
+				switchType="client" opened="false">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Name</ui:define>
+					<h:inputText value="#{propertyTagList.propertyTag.propertyTagName}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Description</ui:define>
+					<h:inputText
+						value="#{propertyTagList.propertyTag.propertyTagDescription}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio
+						value="#{propertyTagList.restrictionLogicOperator}"
+						styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" value="Search"
+						action="/propertyTagList.xhtml" />
+					<s:button styleClass="button" value="Reset"
+						includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+		</h:form>
+
+		<br />
+		<br />
+		<br />
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{propertyTagList}" />
+				<ui:param name="view" value="/PropertyTagList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">Property Tag Search Results (#{empty propertyTagList.resultList ? 0 : (propertyTagList.paginated ? propertyTagList.resultCount : propertyTagList.resultList.size)})</f:facet>
+
+			<div class="results">
+
+				<h:outputText value="The help search returned no results."
+					rendered="#{empty propertyTagList.resultList}" />
+
+				<rich:dataTable var="_propertyTag"
+					value="#{propertyTagList.resultList}"
+					rendered="#{not empty propertyTagList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'PropertyTag' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}">
+							<f:param name="propertyTagPropertyTagId"
+								value="#{_propertyTag.propertyTagId}" />
+						</s:link>
+			            #{' '}
+			            <s:link styleClass="smallButton"
+							view="/PropertyTagEdit.xhtml" value="Edit" propagation="none"
+							rendered="#{empty from}">
+							<f:param name="propertyTagPropertyTagId"
+								value="#{_propertyTag.propertyTagId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagList}" />
+								<ui:param name="propertyLabel" value="ID" />
+								<ui:param name="propertyPath" value="property.propertyTagId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_propertyTag.propertyTagId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagList}" />
+								<ui:param name="propertyLabel" value="Name" />
+								<ui:param name="propertyPath" value="property.propertyTagName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_propertyTag.propertyTagName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagList}" />
+								<ui:param name="propertyLabel" value="Description" />
+								<ui:param name="propertyPath"
+									value="property.propertyTagDescription" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_propertyTag.propertyTagDescription}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagList}" />
+								<ui:param name="propertyLabel" value="Regular Expression" />
+								<ui:param name="propertyPath" value="property.propertyTagRegex" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_propertyTag.propertyTagRegex}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagList}" />
+								<ui:param name="propertyLabel" value="Can Be Null" />
+								<ui:param name="propertyPath"
+									value="property.propertyTagCanBeNull" />
+							</ui:include>
+						</f:facet>
+						<h:selectBooleanCheckbox disabled="true"
+							value="#{_propertyTag.propertyTagCanBeNull}" />
+					</h:column>
+
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{propertyTagList}" />
+				<ui:param name="view" value="/PropertyTagList.xhtml" />
+			</ui:include>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>

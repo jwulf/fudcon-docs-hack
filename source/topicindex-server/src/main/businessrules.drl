@@ -1,0 +1,778 @@
+package BusinessRules;
+
+import java.util.Set;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import org.jboss.seam.security.Role;
+import com.redhat.topicindex.entity.Topic;
+import com.redhat.topicindex.entity.Tag;
+import com.redhat.topicindex.entity.TopicToTag;
+import com.redhat.topicindex.utils.structures.DroolsEvent;
+import com.redhat.topicindex.utils.structures.tags.UITagData;
+import com.redhat.topicindex.utils.structures.UserPrefsData;
+import com.redhat.ecs.commonutils.NotificationUtilities;
+import com.redhat.topicindex.reporting.ReportDataElement;
+import com.redhat.topicindex.reporting.ReportDataGroup;
+import com.redhat.topicindex.reporting.googlecharts.GooglePieChart;
+import com.redhat.topicindex.reporting.googlecharts.GoogleBarChart;
+
+global Topic topic;
+global TreeMap guiInputData;
+global ArrayList quickTags;
+global UserPrefsData userPrefsData;
+global HashMap tagExclusions;
+global Map reportDatabase;
+// this will hold the list of tags in the technology category 
+global Map technologyTagIds;
+// this will hold the list of tags in the concern category
+global Map concernTagIds;
+// this will hold the list of tags in the release category
+global Map releases;
+// this will hold the list of tags in the writers category
+global Map writers;
+
+function void addDefaultTag(Topic topic, Integer category, Integer tag)
+{
+	boolean foundTopic = false;
+	NotificationUtilities.dumpMessageToStdOut("Category: " + category + " Tag: " + tag);
+	for (TopicToTag myTag : topic.getTopicToTags())
+	{
+		if (myTag.getTag().isInCategory(category))
+		{
+			foundTopic = true;
+			break;
+		}
+	}
+	
+	if (!foundTopic)
+		topic.addTag(tag);
+}
+
+function void addDefaultTopicTags(Topic topic)
+{
+	// find out if we already have a default topic type
+	Integer topicTypeCategory = 4;
+	Integer topicLifecycleCategory = 5;
+	Integer taskTag = 4;
+//	Integer iaTriageTag = 34;
+	
+	addDefaultTag(topic, topicTypeCategory, taskTag);
+//	addDefaultTag(topic, topicLifecycleCategory, iaTriageTag);	
+}
+
+function void populateReportData(Map reportDatabase, Map technologyTagIds, Map concernTagIds, Map releases, Map writers)
+{
+	int eap6Tag = 132; // EAP6 Beta
+	String tagName = "EAP6 Beta";
+	
+	// start with a clean slate
+	reportDatabase.clear();
+	
+	// build generic lifecycle queries
+	
+	String notrejected = "select topic from Topic topic where " + 
+			"not " + createExistsCondition(14) +				// and not IA Rejected
+			" and not " + createExistsCondition(16) + 			// and not SME Rejected
+			" and not " + createExistsCondition(72) + 			// and not ENG Rejected
+			" and not " + createExistsCondition(18);   			// and not PM Rejected
+	
+	String planning = "select topic from Topic topic where " + 
+			"(" + 
+				createExistsCondition(34) +						// (IA Triage
+				" or " + createExistsCondition(13) + 			// or IA Proposed
+				" or " + createExistsCondition(15) + 			// or SME Proposed
+				" or " + createExistsCondition(33) + 			// or ENG Proposed
+				" or " + createExistsCondition(17) + 			// or PM Proposed)
+			")" +	
+			" and not " + createExistsCondition(14) +			// and not IA Rejected
+			" and not " + createExistsCondition(16) + 			// and not SME Rejected
+			" and not " + createExistsCondition(72) + 			// and not ENG Rejected
+			" and not " + createExistsCondition(18) +  			// and not PM Rejected
+			
+			" and not " + createExistsCondition(70) +   		// and not Committed
+			" and not " + createExistsCondition(71) +  			// and not Assigned
+			
+			" and not " + createExistsCondition(19) +  			// and not Written
+			" and not " + createExistsCondition(20) +  			// and not SME Reviewed
+			" and not " + createExistsCondition(23) +  			// and not Edited
+			" and not " + createExistsCondition(21) +  			// and not QE Pass
+			" and not " + createExistsCondition(22);   			// and not QE Fail
+				
+	String rejected = "select topic from Topic topic where " + 
+		"(" + 
+			createExistsCondition(14) +							// IA Rejected
+			" or " + createExistsCondition(16) +				// SME Rejected
+			" or " + createExistsCondition(72) +				// ENG Rejected
+			" or " + createExistsCondition(18) + 				// PM Rejected
+		")";
+	
+	String development = "select topic from Topic topic where " +  
+			"(" + 
+				createExistsCondition(70) + 					// Committed
+				" or " + createExistsCondition(71) +			// Assigned 
+			")" +		
+			" and not " + createExistsCondition(14) +			// and not IA Rejected
+			" and not " + createExistsCondition(16) + 			// and not SME Rejected
+			" and not " + createExistsCondition(72) + 			// and not ENG Rejected
+			" and not " + createExistsCondition(18) +   		// and not PM Rejected
+			
+			" and not " + createExistsCondition(19) +  			// and not Written
+			" and not " + createExistsCondition(20) +  			// and not SME Reviewed
+			" and not " + createExistsCondition(23) +  			// and not Edited
+			" and not " + createExistsCondition(21) +  			// and not QE Pass
+			" and not " + createExistsCondition(22);   			// and not QE Fail
+			
+	String qe = "select topic from Topic topic where " +
+			"(" + 
+				createExistsCondition(19) + 					// Written
+				" or " + createExistsCondition(20) + 			// SME Reviewed
+				" or " + createExistsCondition(23) + 			// Edited
+				" or " + createExistsCondition(21) + 			// QE Pass
+				" or " + createExistsCondition(22) + 			// QE Fail
+			")" +
+			" and not " + createExistsCondition(14) +			// and not IA Rejected
+			" and not " + createExistsCondition(16) + 			// and not SME Rejected
+			" and not " + createExistsCondition(72) + 			// and not ENG Rejected
+			" and not " + createExistsCondition(18);   			// and not PM Rejected
+			
+	String writtenAndQePass = "select topic from Topic topic where " +
+			createExistsCondition(19) + 						// Written
+			" and " + createExistsCondition(13) + 				// IA Proposed
+			" and " + createExistsCondition(eap6Tag) + 			// EAP6 Tag
+			" and " + createExistsCondition(21) + 				// QE Pass
+			" and not " + createExistsCondition(14) +			// and not IA Rejected
+			" and not " + createExistsCondition(16) + 			// and not SME Rejected
+			" and not " + createExistsCondition(72) + 			// and not ENG Rejected
+			" and not " + createExistsCondition(18);   			// and not PM Rejected
+			
+	String writtenAndQeFail = "select topic from Topic topic where " +
+			createExistsCondition(19) + 						// Written
+			" and " + createExistsCondition(13) + 				// IA Proposed
+			" and " + createExistsCondition(eap6Tag) + 			// EAP6 
+			" and " + createExistsCondition(22) + 				// QE Fail
+			" and not " + createExistsCondition(14) +			// and not IA Rejected
+			" and not " + createExistsCondition(16) + 			// and not SME Rejected
+			" and not " + createExistsCondition(72) + 			// and not ENG Rejected
+			" and not " + createExistsCondition(18);   			// and not PM Rejected
+			
+	String writtenAndNoQe = "select topic from Topic topic where " +
+			createExistsCondition(19) + 						// Written
+			" and " + createExistsCondition(13) + 				// IA Proposed
+			" and " + createExistsCondition(eap6Tag) + 			// EAP6 
+			" and not " + createExistsCondition(22) + 			// not QE Fail
+			" and not " + createExistsCondition(21) + 			// not QE Pass
+			" and not " + createExistsCondition(14) +			// and not IA Rejected
+			" and not " + createExistsCondition(16) + 			// and not SME Rejected
+			" and not " + createExistsCondition(72) + 			// and not ENG Rejected
+			" and not " + createExistsCondition(18);   			// and not PM Rejected
+	
+	/********************************************************
+		How to build a graph:
+		1. 	Create a new ArrayList that will hold the
+			HTMLChart instances that will be displayed on
+			a sinlge page, and put it in the reportDatabase
+			collection.
+		2.	Create one or more instances of a HTMLChart 
+			class. These represent a single graph.
+		3.	Create one or more instances of ReportDataGroup
+			classes. These represent an "entity" that will
+			be displayed on the graph.
+		4.	Create one or more instances of the 
+			ReportDataElement class, to be assigned to a 
+			ReportDataGroup instance. These represent queries
+			that whose row counts will be displayed on the
+			graph against an entity.	
+	********************************************************/                                                                                                        
+	
+	/*** technology lifecycle by release ***/
+
+	ArrayList concernLifecycleByReleaseReports = new ArrayList();
+	reportDatabase.put("Concern Lifecycle By Release", concernLifecycleByReleaseReports);
+
+	for (Object release : releases.keySet())
+	{
+		Integer releaseTagId = (Integer)release;
+		String releaseTagName = (String)releases.get(release);
+		
+		GoogleBarChart concernLifecycleChart = new GoogleBarChart("Concern Lifecycle for " + releaseTagName, true);
+		
+		// the first row should be displayed as a line
+		concernLifecycleChart.getLineSeries().add(0);
+		
+		concernLifecycleByReleaseReports.add(concernLifecycleChart);
+		
+		for (Object tagIdObject : concernTagIds.keySet())
+		{		
+			Integer myTagId = (Integer)tagIdObject;
+			String myTagName = (String)concernTagIds.get(myTagId);
+			
+			ReportDataGroup concern = new ReportDataGroup(myTagName);
+			concernLifecycleChart.getReportDataGroups().add(concern);
+			
+			concern.getReportDataElements().add(
+				new ReportDataElement(
+					notrejected + 
+					" and " + createExistsCondition(myTagId) +			// concern tag
+					" and (" + createExistsCondition(119) + " or " + createExistsCondition(132) + " or " +  createExistsCondition(133) + ")", 		
+					"Total"
+				)
+			);
+			
+			concern.getReportDataElements().add(
+				new ReportDataElement(
+					planning + 
+					" and " + createExistsCondition(myTagId) +			// concern tag
+					" and " + createExistsCondition(releaseTagId), 		// eap6 tag
+					"Planning"
+				)
+			);
+			
+			concern.getReportDataElements().add(
+				new ReportDataElement(
+					development + 
+					" and " + createExistsCondition(myTagId) +			// concern tag
+					" and " + createExistsCondition(releaseTagId), 		// eap6 tag
+					"Development"
+				)
+			);
+			
+			concern.getReportDataElements().add(
+				new ReportDataElement(
+					qe + 
+					" and " + createExistsCondition(myTagId) +			// concern tag
+					" and " + createExistsCondition(releaseTagId), 		// eap6 tag
+					"QE"
+				)
+			);
+		}
+	}
+	
+	/*** technology lifecycle by release ***/
+	
+	ArrayList technologyLifecycleByReleaseReports = new ArrayList();
+	reportDatabase.put("Technology Lifecycle By Release", technologyLifecycleByReleaseReports);
+
+	for (Object release : releases.keySet())
+	{
+		Integer releaseTagId = (Integer)release;
+		String releaseTagName = (String)releases.get(release);
+		
+		GoogleBarChart technologyLifecycleChart = new GoogleBarChart("Technology Lifecycle for " + releaseTagName, true);
+		
+		// the first row should be displayed as a line
+		technologyLifecycleChart.getLineSeries().add(0);
+		
+		technologyLifecycleByReleaseReports.add(technologyLifecycleChart);
+		
+		for (Object tagIdObject : technologyTagIds.keySet())
+		{		
+			Integer myTagId = (Integer)tagIdObject;
+			String myTagName = (String)technologyTagIds.get(myTagId);
+			
+			ReportDataGroup technology = new ReportDataGroup(myTagName);
+			technologyLifecycleChart.getReportDataGroups().add(technology);
+			
+			technology.getReportDataElements().add(
+				new ReportDataElement(
+					notrejected + 
+					" and " + createExistsCondition(myTagId) +			// technology tag
+					" and (" + createExistsCondition(119) + " or " + createExistsCondition(132) + " or " +  createExistsCondition(133) + ")", 		
+					"Total"
+				)
+			);
+			
+			technology.getReportDataElements().add(
+				new ReportDataElement(
+					planning + 
+					" and " + createExistsCondition(myTagId) +			// technology tag
+					" and " + createExistsCondition(releaseTagId), 		// eap6 tag
+					"Planning"
+				)
+			);
+			
+			technology.getReportDataElements().add(
+				new ReportDataElement(
+					development + 
+					" and " + createExistsCondition(myTagId) +			// technology tag
+					" and " + createExistsCondition(releaseTagId), 		// eap6 tag
+					"Development"
+				)
+			);
+			
+			technology.getReportDataElements().add(
+				new ReportDataElement(
+					qe + 
+					" and " + createExistsCondition(myTagId) +			// technology tag
+					" and " + createExistsCondition(releaseTagId), 		// eap6 tag
+					"QE"
+				)
+			);
+		}
+	}
+	
+	/*** build eap6 writer reports ***/
+	
+	ArrayList eap6AlphaWriterReports = new ArrayList();
+	
+	// build eap6 overview lifecycle overview by writer
+	GooglePieChart eap6AlphanotrejectedWriterReports = new GooglePieChart(
+		"Writers For EAP6 Beta Topics That Are Not Rejected");
+	eap6AlphaWriterReports.add(eap6AlphanotrejectedWriterReports);	
+	
+	GooglePieChart eap6AlphaPlanningWriterReports = new GooglePieChart(
+		"Writers for EAP6 Beta Topics in Planning - Tags: (Triage or Proposed) and not Rejected");
+	eap6AlphaWriterReports.add(eap6AlphaPlanningWriterReports);		
+	
+	GooglePieChart eap6AlphadevelopmentWriterReports = new GooglePieChart(
+		"Writers for EAP6 Beta Topics in Development - Tags: (Committed or Assigned) and not Rejected");
+	eap6AlphaWriterReports.add(eap6AlphadevelopmentWriterReports);
+	
+	GooglePieChart eap6AlphaqeWriterReports = new GooglePieChart(
+		"Writers for EAP6 Beta Topics in QE - Tags: (Written or SME Reviewed or Edited or QE Passed or QE Failed) and not Rejected");		
+	eap6AlphaWriterReports.add(eap6AlphaqeWriterReports);
+	
+	reportDatabase.put(tagName + " Topics States per Writer", eap6AlphaWriterReports);
+		
+	for (Object key : writers.keySet())
+	{
+		Integer keyInt = (Integer)key;
+		String value = writers.get(key).toString();
+		
+		eap6AlphanotrejectedWriterReports.getReportDataGroups().add(
+			new ReportDataGroup(
+				new ReportDataElement(
+					notrejected + 
+					" and " + createExistsCondition(keyInt) + 
+					" and " + createExistsCondition(eap6Tag), 
+					value
+				)
+			)
+		);
+		
+		// build planning lifecycle overview
+		eap6AlphaPlanningWriterReports.getReportDataGroups().add(
+			new ReportDataGroup(
+				new ReportDataElement(
+					planning + 
+					" and " + createExistsCondition(keyInt) + 
+					" and " + createExistsCondition(eap6Tag), 
+					value
+				)
+			)
+		);
+		
+		// build eap6 development lifecycle overview by writer
+		eap6AlphadevelopmentWriterReports.getReportDataGroups().add(
+			new ReportDataGroup(
+				new ReportDataElement(
+					development + 
+					" and " + createExistsCondition(keyInt) + 
+					" and " + createExistsCondition(eap6Tag), 
+					value
+				)
+			)
+		);
+		
+		// build eap6 qe lifecycle overview by writer		
+		eap6AlphaqeWriterReports.getReportDataGroups().add(
+			new ReportDataGroup(
+				new ReportDataElement(
+					qe + 
+					" and " + createExistsCondition(keyInt) + 
+					" and " + createExistsCondition(eap6Tag), 
+					value
+				)
+			)
+		);
+	}	
+	
+	/*** build eap6 writer reports ***/
+	ArrayList eap6AlphaWriterBarChartReports = new ArrayList();
+	
+	// build eap6 overview lifecycle overview by writer
+	GoogleBarChart stateByWriter = new GoogleBarChart(tagName + " Topic States by Writer", true);	
+	eap6AlphaWriterBarChartReports.add(stateByWriter);
+	
+	GoogleBarChart writerByState = new GoogleBarChart(tagName + " Writers by Topic States");
+	eap6AlphaWriterBarChartReports.add(writerByState);
+	
+	ReportDataGroup planningByWriter = new ReportDataGroup("Planning");
+	writerByState.getReportDataGroups().add(planningByWriter);
+	
+	ReportDataGroup developmentByWriter = new ReportDataGroup("Development");
+	writerByState.getReportDataGroups().add(developmentByWriter);
+	
+	ReportDataGroup qeByWriter = new ReportDataGroup("QE");
+	writerByState.getReportDataGroups().add(qeByWriter);
+	
+	ReportDataGroup notRejectedByWriter = new ReportDataGroup("Not Rejected");
+	writerByState.getReportDataGroups().add(notRejectedByWriter);
+	
+	reportDatabase.put(tagName + " Topics States per Writer Bar Charts", eap6AlphaWriterBarChartReports);
+		
+	for (Object key : writers.keySet())
+	{
+		Integer keyInt = (Integer)key;
+		String value = writers.get(key).toString();
+		
+		ReportDataGroup reportDataGroup = new ReportDataGroup(value);
+		stateByWriter.getReportDataGroups().add(reportDataGroup);
+
+		/*reportDataGroup.getReportDataElements().add(
+			new ReportDataElement(
+				notrejected + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				"Not Rejected"
+			)
+		);*/
+		
+		reportDataGroup.getReportDataElements().add(
+			new ReportDataElement(
+				qe + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				"QE"
+			)
+		);
+		
+		reportDataGroup.getReportDataElements().add(
+			new ReportDataElement(
+				planning + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				"Planning"
+			)
+		);
+		
+		reportDataGroup.getReportDataElements().add(
+			new ReportDataElement(
+				development + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				"Development"
+			)
+		);
+		
+
+		// build eap6 overview lifecycle overview by writer
+		planningByWriter.getReportDataElements().add(
+			new ReportDataElement(
+				planning + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				value
+			)
+		);
+			
+		developmentByWriter.getReportDataElements().add(
+			new ReportDataElement(
+				development + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				value
+			)
+		);
+		
+		qeByWriter.getReportDataElements().add(
+			new ReportDataElement(
+				qe + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				value
+			)
+		);
+		
+		notRejectedByWriter.getReportDataElements().add(
+			new ReportDataElement(
+				notrejected + 
+				" and " + createExistsCondition(keyInt) +		// writer tag
+				" and " + createExistsCondition(eap6Tag), 		// eap6 tag
+				value
+			)
+		);
+		
+	}
+		
+	
+	/*** build eap6 writer reports ***/
+	ArrayList eap6AlphaQeState = new ArrayList();
+	reportDatabase.put(tagName + " Topics QE State", eap6AlphaQeState);
+	
+	GooglePieChart eap6AlphaQeStatePie = new GooglePieChart("QE State Overview");
+	eap6AlphaQeState.add(eap6AlphaQeStatePie);
+	
+	eap6AlphaQeStatePie.getReportDataGroups().add(
+		new ReportDataGroup(
+			new ReportDataElement(
+				writtenAndQePass, 
+				"Written and QE Pass"
+			)
+		)
+	);		
+	eap6AlphaQeStatePie.getReportDataGroups().add(
+		new ReportDataGroup(
+			new ReportDataElement(
+				writtenAndQeFail, 
+				"Written and QE Fail"
+			)
+		)
+	);
+	eap6AlphaQeStatePie.getReportDataGroups().add(
+		new ReportDataGroup(
+			new ReportDataElement(
+				writtenAndNoQe, 
+				"Written and no QE"
+			)
+		)
+	);
+	
+}
+
+function String createExistsCondition(int tagId)
+{
+	return "(exists (select 1 from TopicToTag topicToTag where topicToTag.topic = topic and topicToTag.tag.tagId = " + tagId + "))";
+}
+
+function void configureGlobalPreferences()
+{
+
+}
+
+# This function calculates the relative priority of a topic based on the priority tags
+function Integer calculateRelativePriority(Topic topic)
+{
+	int lowPriorityFactor = 1;
+	int mediumPriorityFactor = 2;
+	int highPriorityFactor = 4;
+	
+	int iaPriorityFactor = 1;
+	int smePriorityFactor = 2;
+	int engPriorityFactor = 4;
+	int pmPriorityFactor = 8;
+	int navPriorityFactor = 16;
+	
+	int priority = 0;
+	
+	for (TopicToTag topicToTag : topic.getTopicToTags())
+	{
+		Tag tag = topicToTag.getTag();
+		
+		// IA Low Priority
+		if (tag.getTagId().equals(30)) priority += lowPriorityFactor * iaPriorityFactor;
+		// IA Medium Priority
+		if (tag.getTagId().equals(31)) priority += mediumPriorityFactor * iaPriorityFactor;
+		// IA High Priority
+		if (tag.getTagId().equals(32)) priority += highPriorityFactor * iaPriorityFactor;
+		
+		// SME Low Priority
+		if (tag.getTagId().equals(35)) priority += lowPriorityFactor * smePriorityFactor;
+		// SME Medium Priority
+		if (tag.getTagId().equals(36)) priority += mediumPriorityFactor * smePriorityFactor;
+		// SME High Priority
+		if (tag.getTagId().equals(37)) priority += highPriorityFactor * smePriorityFactor;
+		
+		// ENG Low Priority
+		if (tag.getTagId().equals(27)) priority += lowPriorityFactor * engPriorityFactor;
+		// ENG Medium Priority
+		if (tag.getTagId().equals(26)) priority += mediumPriorityFactor * engPriorityFactor;
+		// ENG High Priority
+		if (tag.getTagId().equals(25)) priority += highPriorityFactor * engPriorityFactor;
+		
+		// PM Low Priority
+		if (tag.getTagId().equals(40)) priority += lowPriorityFactor * pmPriorityFactor;
+		// PM Medium Priority
+		if (tag.getTagId().equals(39)) priority += mediumPriorityFactor * pmPriorityFactor;
+		// PM High Priority
+		if (tag.getTagId().equals(29)) priority += highPriorityFactor * pmPriorityFactor;
+		
+		// Nav Low Priority
+		if (tag.getTagId().equals(113)) priority += lowPriorityFactor * navPriorityFactor;
+		// Nav Medium Priority
+		if (tag.getTagId().equals(112)) priority += mediumPriorityFactor * navPriorityFactor;
+		// Nav High Priority
+		if (tag.getTagId().equals(111)) priority += highPriorityFactor * navPriorityFactor;
+		
+	}
+	
+	System.out.println("Topic " + topic.getTopicTitle() + " has a priority of " + priority);
+	
+	return priority;
+}
+
+# populate the repoting data
+rule "Set Reporting Data"
+	when
+		DroolsEvent(eventName == "SetReportingData")
+	then 
+		populateReportData(reportDatabase, technologyTagIds, concernTagIds, releases, writers);
+end
+
+
+# set the system preferences
+rule "Set System Preferences"
+	when
+		DroolsEvent(eventName == "SetSystemPreferences")
+	then 
+		configureGlobalPreferences();
+end
+
+# Calculate the relative priorty for a topic, based on its tags
+rule "Calculate Relative Priority"
+	when
+		DroolsEvent(eventName == "CalculateRelativePriority")
+	then 
+		topic.setTempRelativePriority(calculateRelativePriority(topic));
+end
+
+rule "Populate IA User Preferences"
+	when
+		DroolsEvent(eventName == "PopulateUserPrefs")
+		Role(name == "iaRole")
+	then
+		userPrefsData.setHomeFilter(14);
+end
+
+rule "Populate SME User Preferences"
+	when
+		DroolsEvent(eventName == "PopulateUserPrefs")
+		Role(name == "smeRole")
+	then
+		userPrefsData.setHomeFilter(13);
+end
+
+#### Triggered by TopicTagsHome.populate ####
+/*rule "Categorize Topic Tags"
+	when
+		DroolsEvent(eventName == "CategorizeTopicTags")
+	then 		
+		categorizeTopicTags(guiInputData);
+end*/
+
+#### Triggered by TopicHome.triggerCreateEvent ####
+rule "Default Topic Tags"
+	when
+		DroolsEvent(eventName == "NewTopicHome")
+	then 
+		addDefaultTopicTags(topic);
+end
+
+rule "Default IA Topic Tags"
+	when
+		Role(name == "iaRole")
+		DroolsEvent(eventName == "NewTopicHome")
+	then 
+		topic.addTag(30);	# IA Low Priority
+end
+
+rule "Default SME Topic Tags"
+	when
+		Role(name == "smeRole")
+		DroolsEvent(eventName == "NewTopicHome")
+	then 
+		topic.addTag(15);	# SME Proposed
+		topic.addTag(35);	# SME Low Priority
+end
+
+rule "Default PM Topic Tags"
+	when
+		Role(name == "pmRole")
+		DroolsEvent(eventName == "NewTopicHome")
+	then 
+		topic.addTag(17);	# PM Proposed
+		topic.addTag(40);	# PM Low Priority
+end
+
+rule "Default ENG Topic Tags"
+	when
+		Role(name == "engRole")
+		DroolsEvent(eventName == "NewTopicHome")
+	then 
+		topic.addTag(33);	# ENG Proposed
+		topic.addTag(27);	# ENG Low Priority
+end
+
+#### Triggered by TopicHome.update ####
+
+/*rule "Validate Topic Tags"
+	when
+		DroolsEvent(eventName == "UpdateTopicHome")
+	then 
+		validateTopic(topic);
+end*/
+
+#### Triggered by TopicTagsList.populate ####
+
+# the name of the tag, as assigned to the GuiInputData name field, 
+# will appear on the topic list page.
+# ideally it should match the name of the tag in the database, but
+# the tag NavData actually applied by the tag id, so a mismatch between
+# the tag name here and in the database won't stop a tag from being
+# applied (although the results will be confusing)
+
+# TODO: the tage name could be found by function lookup using the tagid
+
+rule "IA Quick Tags"
+	when
+		Role(name == "iaRole")
+		DroolsEvent(eventName == "PopulateQuickTags")
+	then 
+		quickTags.clear();
+	//	quickTags.add(new UITagData("IA Triage", 34)); 
+	//	quickTags.add(new UITagData("IA Proposed", 13));
+	//	quickTags.add(new UITagData("IA Rejected", 14));
+	//	quickTags.add(new UITagData("IA Low Priority", 30));
+	//	quickTags.add(new UITagData("IA Medium Priority", 31));
+	//	quickTags.add(new UITagData("IA High Priority", 32)); 
+end
+
+rule "SME Quick Tags"
+	when
+		Role(name == "smeRole")
+		DroolsEvent(eventName == "PopulateQuickTags")
+	then 
+		quickTags.clear();
+	//	quickTags.add(new UITagData("SME Proposed", 15)); 
+	//	quickTags.add(new UITagData("SME Rejected", 16));
+	//	quickTags.add(new UITagData("SME Low Priority", 35));
+	//	quickTags.add(new UITagData("SME Medium Priority", 36));
+	//	quickTags.add(new UITagData("SME High Priority", 37)); 
+end
+
+rule "PM Quick Tags"
+	when
+		Role(name == "pmRole")
+		DroolsEvent(eventName == "PopulateQuickTags")
+	then 
+		quickTags.clear();
+	//	quickTags.add(new UITagData("PM Proposed", 17)); 
+	//	quickTags.add(new UITagData("PM Rejected", 18));
+	//	quickTags.add(new UITagData("PM Low Priority", 40));
+	//	quickTags.add(new UITagData("PM Medium Priority", 39));
+	//	quickTags.add(new UITagData("PM High Priority", 29)); 
+end
+
+rule "ENG Quick Tags"
+	when
+		Role(name == "engRole")
+		DroolsEvent(eventName == "PopulateQuickTags")
+	then 
+		quickTags.clear();
+	//	quickTags.add(new UITagData("ENG Proposed", 33)); 
+	//	quickTags.add(new UITagData("ENG Rejected", 72));
+	//	quickTags.add(new UITagData("Eng Low Priority", 27));
+	//	quickTags.add(new UITagData("Eng Medium Priority", 26));
+	//	quickTags.add(new UITagData("Eng High Priority", 25)); 
+end
+
+rule "Editor Quick Tags"
+	when
+		Role(name == "editorRole")
+		DroolsEvent(eventName == "PopulateQuickTags")
+	then 
+		quickTags.clear();
+		//quickTags.add(new UITagData("Edited", 23)); 
+end

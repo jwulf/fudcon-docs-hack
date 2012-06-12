@@ -1,0 +1,48 @@
+# translation of Feedback.po to Malayalam
+# Ani Peter <apeter@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-30 13:25+0530\n"
+"Last-Translator: Ani Peter <apeter@redhat.com>\n"
+"Language-Team: Malayalam\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "ഞങ്ങള്‍ക്ക് അഭിപ്റായം അയച്ചു തരിക!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>അഭിപ്റായം</primary> <secondary>ഈ മാനുവലിനായി ബന്ധപ്പെടുവാനുള്ള വിവരങ്ങള്‍</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "നിങ്ങള്‍ക്ക് ഈ മാനുവലിലുള്ള പിശകുകള്‍ ഞങ്ങളെ അറിയിക്കണമെങ്കില്‍, അല്ലെങ്കില്‍ ഇത് കൂടുതല്‍ മെച്ചപ്പെടുത്തുന്നതിനുള്ള നിറ്‍ദ്ദേശങ്ങളും അഭിപ്റായങ്ങളും ഞങ്ങളെ അറിയിക്കുന്നതിനായി ദയവായി ബഗ്സിലായില്‍ <application>&PRODUCT;. </application> എന്ന പ്റൊഡക്ടിന് എതിരെ ഒരു റിപോറ്‍ട്ട് രേഖപ്പെടുത്തുക: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/ bugzilla/</ulink>."
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "ഒരു ബഗ് രേഖപ്പെടുത്തുമ്പോള്‍, മാനുവലിന്റെ ഐഡന്റിഫയറ്‍ നല്‍കുന്നു എന്ന് പ്റത്യേകം ഉറപ്പ് വരുത്തുക: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "ഈ വിവരണം നിങ്ങള്‍ക്ക് മെച്ചപ്പെടുത്തണമെങ്കില്‍, ദയവായി ഇത് വ്യക്തമായി വിവരിക്കേണ്ടതുണ്ട്. പിശകുകള്‍ രേഖപ്പെടുത്തുമ്പോള്‍, അത് ഏത് ഭാഗത്തെന്നും ചുറ്റുവട്ടത്തുള്ള ഏതെങ്കിലും വാചകളും ഉള്‍പ്പെടുത്തുന്നത് ഉത്തമമായിരിക്കും."
+
+#~ msgid "feedback"
+#~ msgstr "അഭിപ്റായം"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "ഈ മാനുവലിനായി ബന്ധപ്പെടുവാനുള്ള വിവരങ്ങള്‍"
+
+#~ msgid "translator-credits"
+#~ msgstr "അനി പീറ്ററ്‍ <apeter@redhat.com>"

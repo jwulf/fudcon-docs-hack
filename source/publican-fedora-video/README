@@ -1,0 +1,11 @@
+Copyright 2007 Red Hat, Inc.
+Author: Jeff Fearn <jfearn@redhat.com>
+
+Common files and scripts for building Fedora documentation.
+
+Assumptions: DocBook xml, *nix, en-US source language.
+
+Extended by: Joshua Wulf <jwulf@fedoraproject.org>
+
+This version of the brand enables video to display in both Google Chrome and Firefox using whatever codecs are present on the system.
+It also enables a book to be consumed by the FUDCon Docs Hack System.

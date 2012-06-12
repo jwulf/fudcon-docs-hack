@@ -1,0 +1,49 @@
+# translation of Feedback.po to Japanese
+# Kiyoto Hashida <khashida@redhat.com>, 2007.
+# Noriko Mizumoto <noriko@redhat.com>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-03-20 17:08+1000\n"
+"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
+"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "フィードバック"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>フィードバック</primary> <secondary>本ガイドに関する連絡先</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "本ガイドに誤植を見つけられた場合や本ガイドの改善案をお持ちの場合はぜひお知らせください。 Bugzilla <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> にて、 Product には <application>&PRODUCT;.</application> を選びレポートの提出をお願いいたします。"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "バグレポートを提出される場合は、 そのガイドの識別子となる <citetitle>&BOOKID;</citetitle> を必ず明記して頂くようお願いします。"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "ドキュメントに関する改善のご意見についてはできるだけ具体的にお願いいたします。 エラーを発見された場合は、 セクション番号および該当部分の前後の文章も含めてご報告頂くと照合が容易になります。"
+
+#~ msgid "feedback"
+#~ msgstr "フィードバック"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "本ガイドに関する連絡先"
+
+#~ msgid "translator-credits"
+#~ msgstr "kiyoto james hashida, khashida@redhat.com, 2007 Noriko Mizumoto, noriko@fedoraproject.org, 2009"

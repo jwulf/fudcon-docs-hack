@@ -1,0 +1,118 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/filterscripts.js"></script>
+
+		<!-- Disable the not fields once the page has loaded. Disabling them here in this file would also disable data binding,
+		 making the fields useless. So we have to do it at runtime.	 -->
+		<rich:jQuery selector="input[id*='tag-']" timing="onload"
+			query="each(function(index, element){if (element.checked){jQuery('input[id*=' + element.id.replace('tag', 'tagnot') + ']').removeAttr('disabled');} else {jQuery('input[id*=' + element.id.replace('tag', 'tagnot') + ']').attr('disabled', true);}})" />
+
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">Snapshot Details</f:facet>
+				<h:panelGrid columns="3" border="0">
+					<h:outputText value="Existing Snapshots" />
+
+					<h:selectOneMenu value="#{snapshots.selectedSnapshot}"
+						style="min-width:500px">
+						<f:selectItems value="#{snapshots.snapshots}" />
+					</h:selectOneMenu>
+
+					<h:commandButton styleClass="button" action="#{snapshots.loadSnapshot()}"
+						value="Load Snapshot" />
+
+					<h:outputText value="Snapshot Revisions" />
+
+					<h:selectOneMenu value="#{snapshots.selectedSnapshotRevision}"
+						style="min-width:500px"
+						disabled="#{snapshots.selectedSnapshot == null}">
+						<f:selectItems value="#{snapshots.snapshotRevisions}" />
+					</h:selectOneMenu>
+					
+					<h:outputText value="" />
+						
+					<h:outputText value="Create Snapshot Revision" />
+
+					<h:inputText value="#{snapshots.snapshotRevisionName}" style="min-width:500px"/>
+
+					<h:commandButton styleClass="button" action="#{snapshots.createRevision()}"
+						value="Create Revision"
+						disabled="#{snapshots.selectedSnapshot == null}" />
+				</h:panelGrid>
+
+				<h:commandButton styleClass="button" action="#{snapshots.pushToZanata()}"
+					value="Initiate Push From Snapshot To Zanata"
+					disabled="#{snapshots.selectedSnapshot == null}" />
+
+				<h:commandButton styleClass="button" action="#{snapshots.pullFromZanata()}"
+					value="Initiate Pull From Zanata To Snapshot Working Translations"
+					disabled="#{snapshots.selectedSnapshot == null}" />
+
+			</rich:panel>
+
+			<div style="clear: both" />
+			<br />
+
+			<ui:include src="/WEB-INF/templates/TopicSearchButtons.xhtml">
+				<ui:param name="tagSearchBean" value="#{snapshots}" />
+				<ui:param name="disabled" value="#{snapshots.selectedSnapshot == null}"/>
+				<ui:param name="showCreateNewTopic" value="#{false}"/>
+			</ui:include>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<rich:tab label="Tags">
+					<ui:include src="/WEB-INF/templates/TagSelectAndNotSelect.xhtml">
+						<ui:param name="selectedTags"
+							value="#{snapshots.selectedTags.projectCategories}" />
+						<ui:param name="header" value="Topic Tag Filters" />
+						<ui:param name="logicEnabled" value="#{true}" />
+					</ui:include>
+				</rich:tab>
+				<rich:tab label="Locales">
+				<ui:include src="/WEB-INF/templates/LocaleSelect.xhtml">
+						<ui:param name="selectedLocales"
+							value="#{snapshots.selectedLocales.locales}" />					
+					</ui:include>
+				
+				
+				</rich:tab>
+				<rich:tab label="Fields">
+					<ui:include src="/WEB-INF/templates/TopicFieldSearch.xhtml">
+						<ui:param name="topic" value="#{snapshots.topic}" />
+					</ui:include>
+				</rich:tab>
+				<rich:tab label="Build Docbook">
+					<ui:include src="/WEB-INF/templates/TopicBuildDocbook.xhtml">
+						<ui:param name="docbookBuildingOptions"
+							value="#{snapshots.docbookBuildingOptions}" />
+					</ui:include>
+				</rich:tab>
+			</rich:tabPanel>
+
+			<div style="clear: both" />
+			<br />
+
+			<ui:include src="/WEB-INF/templates/TopicSearchButtons.xhtml">
+				<ui:param name="tagSearchBean" value="#{snapshots}" />
+				<ui:param name="disabled" value="#{snapshots.selectedSnapshot == null}"/>
+				<ui:param name="showCreateNewTopic" value="#{false}"/>
+			</ui:include>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

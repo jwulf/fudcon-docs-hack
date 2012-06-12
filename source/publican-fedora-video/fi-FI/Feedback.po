@@ -1,0 +1,46 @@
+# Finnish translation of Feedback
+# Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-09-03 22:09+0300\n"
+"Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
+"Language-Team: Finnish <laatu@lokalisointi.org>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Haluamme palautetta!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>palaute</primary> <secondary>tämän oppaan tekijöiden yhteystiedot</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Jos löydät tästä oppaasta kirjoitusvirheen tai jos sinulla on kehitysideoita, kuulemme siitä mielellämme! Lähetä raportti Bugzillan kautta: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink>. Tee raportti tuotteelle <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Mainitse ilmoitusta tehtäessä tämän oppaan tunnus: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Jos sinulla on ehdotus dokumentaation parantamisesta, yritä kuvailla parannusehdotukset mahdollisimman tarkasti. Jos olet löytänyt virheen, ilmoita luvun numero ja jotain virhettä ympäröivää tekstiä, jotta löydämme virheen helposti."
+
+#~ msgid "feedback"
+#~ msgstr "palaute"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "tämän oppaan tekijöiden yhteystiedot"

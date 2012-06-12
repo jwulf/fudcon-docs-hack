@@ -1,0 +1,107 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<!-- Add jQuery to the page -->
+		<rich:jQuery query="console.log('Loaded jQuery')" />
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/filterscripts.js"></script>
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/codemirror.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/xmlpure.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/skynet-codemirror.js"></script>
+<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/closetags.js"></script>
+
+
+                <ui:include src="/WEB-INF/templates/KnownIssues.xhtml" />
+		<h:form>
+
+			<ui:include src="/WEB-INF/templates/TopicRevisionActionButtons.xhtml" /> 
+
+		<ui:include src="/WEB-INF/templates/DisplayErrorMessage.xhtml">
+			<ui:param name="messageComponent" value="#{topicHome}" />
+		</ui:include>
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<rich:tab
+					label="Web Editor Beta">
+					<h:outputText style="font-weight:bold"
+						value="WARNING: This editor is BETA software." />
+					<br />
+					<h:outputText
+						value="Save frequently, or safer still - edit it locally and paste it in." />
+					<br />
+					<br />
+
+					<h:panelGrid columns="2" columnClasses="name,">
+
+						<h:outputText value="ID" />
+						<h:outputText if="topicIdEdit"
+							value="#{topicHome.instance.topicId}" />
+
+
+						<h:outputText value="Title" />
+
+						<h:inputTextarea id="topicTitleEdit" cols="80" rows="1"
+							value="#{topicHome.instance.topicTitle}" />
+
+
+
+						<h:outputText value="Locale" />
+						<h:selectOneMenu id="topicLocaleEdit"
+							value="#{topicHome.instance.topicLocale}">
+							<c:forEach var="locale" items="${constants.locales}">
+								<f:selectItem itemLabel="#{locale}" itemValue="#{locale}" />
+							</c:forEach>
+						</h:selectOneMenu>
+
+						<h:outputText value="Notes - Put your deets in here to get props for your contribution"
+							title="#{customDataLookup.lookupHelpText('TopicTopicText')}" />
+						
+
+<h:inputTextarea id="topicTextEdit" cols="80" rows="10"
+							value="#{topicHome.instance.topicText}" />
+							
+									<h:commandButton styleClass="button"
+						disabled="#{not empty topicHome.instance.topicXML}"
+						action="#{topicHome.generateXMLFromTemplate()}"
+						value="Start with Template Text >>" />
+						
+						<br/>
+						<h:outputText value="Content - use Docbook XML if you can" />
+						<h:inputTextarea id="topicXMLEdit" binding="#{topicXML}" cols="80"
+							rows="20" value="#{topicHome.instance.topicXML}" />
+
+			<ui:include src="/WEB-INF/templates/TopicEditActionButtons.xhtml" />
+					</h:panelGrid>
+				</rich:tab>
+
+			</rich:tabPanel>
+		</h:form>
+
+		<script type="text/javascript">
+				initializeCodeMirror("#{rich:clientId('topicXMLEdit')}", false);
+				initializeCodeMirror("#{rich:clientId('topicXML')}", true);
+		</script>
+
+
+	</ui:define>
+
+</ui:composition>

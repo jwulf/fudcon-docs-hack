@@ -1,0 +1,47 @@
+# translation of Feedback.po to Czech
+#
+# Nikola Štohanzl <niko@srnet.cz>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-05-25 21:12+0200\n"
+"Last-Translator: Nikola Štohanzl <niko@srnet.cz>\n"
+"Language-Team: Czech\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Potřebujeme zpětnou vazbu!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>zpětná vazba</primary> <secondary>kontaktní informace pro tento manuál</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Pokud najdete v tomto manuálu typografickou chybu nebo máte návrh na jeho vylepšení, rádi se o tom dozvíme! Zapište prosím záznam do Bugzilly: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> k produktu <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Při zadávání hlášení o chybě vždy uveďte identifikátor manuálu: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Máte-li nějaký návrh na vylepšení dokumentace, pokuste se být při jeho popisu co nejkonkrétnější. Najdete-li chybu, uveďte prosím číslo oddílu a část okolního textu, abychom ji jednoduše našli."
+
+#~ msgid "feedback"
+#~ msgstr "zpětná vazba"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "kontaktní informace pro tento manuál"

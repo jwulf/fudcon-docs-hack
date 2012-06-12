@@ -1,0 +1,48 @@
+# translation of Feedback.po to Telugu
+# Krishna Babu K <kkrothap@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-29 17:40+0530\n"
+"Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
+"Language-Team: Telugu <en@li.org>\n"
+"Language: te\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "మాకు మీ ప్రతిస్పందన అవసరం!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>ప్రతిస్పందన</primary> <secondary>ఈ చేతి పుస్తకం కొరకు సంభందిత సమాచారం</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "మీరు ఈ చేతి పుస్తకం నందు టైపోగ్రాఫికల్ దోషాన్ని గాని, లేదా మీరు ఈ చేతిపుస్తకం ను ఇంకా బాగా తయారుచేసే మార్గం ఆలోచించిన, మీరు చెప్పింది వినుటకు మేము ఇష్టపడతాము.దయచేసి నివేదికను Bugzilla లో ఉంచండి: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink>ఉత్పత్తి కి విరుద్దంగా<application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "బగ్ ను అప్పగించు నప్పుడు,ఖచ్చితంగా చేతిపుస్తకం గుర్తింపును తెలియపరుచుట మరువవద్దు: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "మీరు పత్రికీకరణ మెరుగుదల కొరకు సలహా కలిగిఉంటే,దానిని వివరించేటప్పుడు సాద్యమైనంత వరకు ప్రత్యేకంగా ప్రయత్నించండి.మీరు ఒక దోషాన్ని కనుగొన్నట్లైతే,దయచేసి విభాగం సంఖ్య మరియు దాని చుట్టూఉన్న టెక్స్టును కలపండి అప్పుడు మేము సులభంగా కనుగొనకలుగుతాము."
+
+#~ msgid "feedback"
+#~ msgstr "ప్రతిస్పందన"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "ఈ చేతి పుస్తకం కొరకు సంభందిత సమాచారం"
+
+#~ msgid "translator-credits"
+#~ msgstr "KrishnaBabu k <kkrothap@redhat.com> 2007"

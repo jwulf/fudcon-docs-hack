@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<div class="tableControl">
+
+		<s:link styleClass="smallButton" view="/CustomSearchTopicList.xhtml"
+			rendered="#{groupedTopicTagsList.previousExists}"
+			value="#{messages.left}#{messages.left} First Page">
+			<f:param name="firstResult" value="0" />
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:link>
+		#{" "}
+		<s:link styleClass="smallButton" view="/CustomSearchTopicList.xhtml"
+			rendered="#{groupedTopicTagsList.previousExists}"
+			value="#{messages.left} Previous Page">
+			<f:param name="firstResult"
+				value="#{groupedTopicTagsList.previousFirstResult}" />
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:link>
+		#{" "}
+		<s:link styleClass="smallButton" view="/CustomSearchTopicList.xhtml"
+			rendered="#{groupedTopicTagsList.nextExists}"
+			value="Next Page #{messages.right}">
+			<f:param name="firstResult"
+				value="#{groupedTopicTagsList.nextFirstResult}" />
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:link>
+		#{" "}
+		<s:link styleClass="smallButton" view="/CustomSearchTopicList.xhtml"
+			rendered="#{groupedTopicTagsList.nextExists}"
+			value="Last Page #{messages.right}#{messages.right}">
+			<f:param name="firstResult"
+				value="#{groupedTopicTagsList.lastFirstResult}" />
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:link>
+	</div>
+
+</ui:composition>

@@ -1,0 +1,50 @@
+# translation of Feedback.po to marathi
+# sandeep shedmake <sandeep.shedmake@gmail.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-29 16:38+0530\n"
+"Last-Translator: sandeep shedmake <sandeep.shedmake@gmail.com>\n"
+"Language-Team: marathi\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "आम्हाला माघारी वृत पाठवा!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>माघारी वृत</primary> <secondary>ह्या पुस्तिकेकरीता संपर्क माहिती</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "टायपोग्राफी संबंधी त्रुटी आढळल्यास, किंवा ह्या पुस्तिकेला आणखी चांगले बनविण्याकरीता, आपले विचार आमच्यापर्यंत पोहचवा! कृपया अहवाल Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> येथे उत्पादना <application>&PRODUCT;.</application> विरूद्ध करा"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "दोषरहीत अहवाल सादर करतेवेळी, पुस्तिकेचे ओळखकार <citetitle>&BOOKID;</citetitle> विषयी उल्लेख जरूर करा"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "आपल्याकडे दस्ताऐवजीकरण उन्नत करण्याकरीता काही उपदेश असल्यास, स्पष्टपणे त्या सांगावेत. काही त्रुटी आढळल्यास, कृपया सत्र क्रमांक व काहीक भवतालीचे मजकुर पाठवावे ज्यामुळे पटकण समस्या शोधण्यास आम्हाला मदत मिळेल."
+
+#~ msgid "feedback"
+#~ msgstr "माघारी वृत"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "ह्या पुस्तिकेकरीता संपर्क माहिती"
+
+#~ msgid "translator-credits"
+#~ msgstr "sandeep shedmake <sshedmak@redhat.com> 2007"

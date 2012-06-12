@@ -1,0 +1,50 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<div class="actionButtons">
+	
+		<ui:include src="/WEB-INF/templates/DisplayConfirmationMessage.xhtml">
+			<ui:param name="tagSearchBean" value="#{topicHome}" />
+			<ui:param name="topicList" value="#{topicHome}" />
+		</ui:include>
+
+		<a4j:form style="display: inline;">
+			<a4j:commandButton styleClass="button" action="#{topicHome.reRender()}"
+				value="Refresh HTML" onclick="window.alert('This topic has been placed in a queue to be rendered. Please refresh the page in a few minutes.')" />
+		</a4j:form>
+		<h:form style="display: inline;">
+
+			<s:button styleClass="button" view="/TopicEdit.xhtml"
+				value="Edit Latest Version">
+				<f:param name="topicRevision" value="" />
+			</s:button>
+			
+			<a4j:commandButton styleClass="button" value="Push to Zanata"  rerender="confirmationBox" 
+				oncomplete="Richfaces.showModalPanel('confirmationBox');"
+				rendered="#{s:hasPermission('PushToZanataRendered', 'Rendered', null)}" />
+
+			<s:button styleClass="button" view="/CustomSearchTopicList.xhtml"
+				 value="Done">
+				<f:param name="topicIds" value="#{topicHome.instance.topicId}" />
+			</s:button>
+			
+		        #{" "}
+		        <h:outputText value="View Revision: " />
+		        #{" "}
+		       	<h:selectOneMenu value="#{topicHome.revision}">
+				<c:forEach items="#{topicHome.instance.revisions}" var="revision">
+					<f:selectItem itemLabel="#{revision}" itemValue="#{revision}" />
+				</c:forEach>
+			</h:selectOneMenu>
+				#{" "}
+				<h:commandButton styleClass="button" value="View" />
+		</h:form>
+	</div>
+
+</ui:composition>

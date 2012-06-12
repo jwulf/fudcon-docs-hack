@@ -1,0 +1,51 @@
+# translation of Feedback.po to Oriya
+# Subhransu Behera <arya_subhransu@yahoo.co.in>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-11-06 18:13+0530\n"
+"Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
+"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
+"Language: or\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "ଆମେ ପ୍ରତିକ୍ରିୟା ଆବଶ୍ଯକ କରୁଅଛୁ!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>ପ୍ରତିକ୍ରିୟା</primary> <secondary>ଏହି ମେନ୍ଯୁଆଲ ପାଇଁ ଯୋଗାଯୋଗ ସୂଚନା</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "ଆପଣ ଏହି ମେନ୍ଯୁଆଲରେ ଗୋଟିଏ ମୂଦ୍ରଣ ଜନିତ ତୃଟି ପାଇଲେ, କିମ୍ବା ଏହାକୁ ଉନ୍ନତ କରିବା ପାଇଁ ଆପଣଙ୍କ ନିକଟରେ କୌଣସି ଉପାୟ ଥିଲେ, ଆମେ ଆପଣଙ୍କ ନିକଟରୁ ସେ ବିଷୟରେ ଶୁଣିବା ପାଇଁ ଚାହିଁବୁ! ଦୟାକରି <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> କୁ ଯାଇ ବଗଜିଲାରେ <application>&PRODUCT;</application> ବିରୋଧରେ ଗୋଟିଏ ତୃଟି ବିବରଣୀ ଦିଅନ୍ତୁ।"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "ଗୋଟିଏ ତୃଟି ବିବରଣୀ ଦେବା ସମୟରେ, ମେନ୍ଯୁଆଲର ପରିଚୟକକୁ ଉଲ୍ଲେଖ କରିବା ପାଇଁ ନିଶ୍ଚିତ ହୁଅନ୍ତୁ:<citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr " ଆପଣଙ୍କ ନିକଟରେ ଦଲିଲକୁ ଉନ୍ନତ କରିବା ପାଇଁ କୌଣସି ପ୍ରସ୍ତା ଥିଲେ, ଏହାକୁ ବର୍ଣ୍ଣନା କରିବା ସମୟରେ ଯେତେ ସମ୍ଭବ ସେତେ ସ୍ପଷ୍ଟ ଭାବରେ ଏହାକୁ ବ୍ଯାଖ୍ଯା କରିବା ପାଇଁ ଚେଷ୍ଟା କରନ୍ତୁ। ଆପଣ ଗୋଟିଏ ତୃଟି ପାଇଥିଲେ, ଦୟାକରି ବିଭାଗର ସଂଖ୍ଯା ଏବଂ ତା ସହିତ ଥିବା କିଛି ପାଠ୍ଯକୁ ଅନ୍ତର୍ଭୂକ୍ତ କରନ୍ତୁ ଯେପରିକି ଆମେ ତାହାକୁ ସହଜରେ ପାଇପାରିବୁ। "
+
+#~ msgid "feedback"
+#~ msgstr "ପ୍ରତିକ୍ରିୟା"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "ଏହି ମେନ୍ଯୁଆଲ ପାଇଁ ଯୋଗାଯୋଗ ସୂଚନା"
+
+#~ msgid "translator-credits"
+#~ msgstr "ଶୁଭ୍ରାଂଶୁ ବେହେରା <arya_subhransu@yahoo.co.in>"

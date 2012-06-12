@@ -1,0 +1,46 @@
+# Russian Translation.
+# Alexey Vasyukov <vasyukov@vdel.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-03-09 18:42+0300\n"
+"Last-Translator: Alexey Vasyukov <vasyukov@gmail.com>\n"
+"Language-Team: Russian Fedora Team <fedora-localization@www.russianfedora.ru>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Нам нужны ваши отзывы!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>обратная связь</primary> <secondary>контактная информация для этого руководства</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Если вы нашли опечатку в этом руководстве, или у вас есть идеи по его усовершенствованию, мы будем рады их выслушать. Пожалуйста, оставьте сообщение в Bugzilla по адресу <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink>, выбрав компонент <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Не забудьте указать в запросе идентификатор данного руководства: <citetitle>&BOOKID;</citetitle>."
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Если у вас есть предложения по улучшению этого руководства, постарайтесь описать их как можно подробнее. Если же вы нашли ошибку, пожалуйста, укажите номер раздела и окружающий текст, чтобы мы могли быстро ее найти."
+
+#~ msgid "feedback"
+#~ msgstr "обратная связь"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "контактная информация для этого руководства"

@@ -1,0 +1,71 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="help" styleClass="edit">
+
+			<div class="actionButtons">
+
+				<h:commandButton id="save" styleClass="button" value="Save"
+					action="#{helpHome.persist}" disabled="#{!helpHome.wired}"
+					rendered="#{!helpHome.managed}" />
+
+				<h:commandButton id="update" styleClass="button" value="Save"
+					action="#{helpHome.update}" rendered="#{helpHome.managed}" />
+
+				<h:commandButton id="delete" styleClass="button" value="Delete"
+					action="#{helpHome.remove}" immediate="true"
+					rendered="#{helpHome.managed}" />
+
+				<s:button id="cancelEdit" styleClass="button" value="Cancel"
+					propagation="end" view="/Help.xhtml" rendered="#{helpHome.managed}" />
+
+				<s:button id="cancelAdd" styleClass="button" value="Cancel"
+					propagation="end"
+					view="/#{empty helpFrom ? 'HelpList' : helpFrom}.xhtml"
+					rendered="#{!helpHome.managed}" />
+
+			</div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:panel>
+				<f:facet name="header">#{helpHome.managed ? 'Edit' : 'Add'} Help</f:facet>
+
+
+
+				<s:decorate id="tableColIdField" template="layout/edit.xhtml">
+					<ui:define name="label">Table col id</ui:define>
+					<h:inputTextarea id="tableColId" cols="80" rows="6"
+						value="#{helpHome.instance.tableColId}" />
+				</s:decorate>
+
+
+				<s:decorate id="helpTextField" template="layout/edit.xhtml">
+					<ui:define name="label">Help text</ui:define>
+					<h:inputTextarea id="helpText" cols="80" rows="10"
+						value="#{helpHome.instance.helpText}" />
+				</s:decorate>
+
+				<div style="clear: both">
+					<span class="required">*</span> required fields
+				</div>
+
+			</rich:panel>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

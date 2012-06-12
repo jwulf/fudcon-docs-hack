@@ -1,0 +1,154 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="propertyTagCategorySearch" styleClass="edit">
+
+			<s:div styleClass="actionButtons" rendered="#{empty from}">
+				<s:button styleClass="button" view="/PropertyTagCategoryEdit.xhtml"
+					id="create" propagation="none" value="Create Property Tag Category">
+					<f:param name="propertyTagCategoryPropertyTagCategoryId" />
+				</s:button>
+			</s:div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:simpleTogglePanel label="Property Tag Category Search Filter"
+				switchType="client" opened="false">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Name</ui:define>
+					<h:inputText id="propertyTagCategoryName"
+						value="#{propertyTagCategoryList.propertyTagCategory.propertyTagCategoryName}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Description</ui:define>
+					<h:inputText id="propertyTagCategoryDescription"
+						value="#{propertyTagCategoryList.propertyTagCategory.propertyTagCategoryDescription}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio id="logic"
+						value="#{propertyTagCategoryList.restrictionLogicOperator}"
+						styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="search" value="Search"
+						action="/propertyTagCategoryList.xhtml" />
+					<s:button styleClass="button" id="reset" value="Reset"
+						includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+		</h:form>
+
+		<br />
+		<br />
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject"
+					value="#{propertyTagCategoryList}" />
+				<ui:param name="view" value="/PropertyTagCategoryList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">Property Tag Category Search Results (#{empty propertyTagCategoryList.resultList ? 0 : (propertyTagCategoryList.paginated ? propertyTagCategoryList.resultCount : propertyTagCategoryList.resultList.size)})</f:facet>
+
+			<div class="results" id="propertyTagCategoryList">
+
+				<h:outputText
+					value="The propertyTagCategory search returned no results."
+					rendered="#{empty propertyTagCategoryList.resultList}" />
+
+				<rich:dataTable id="propertyTagCategoryList"
+					var="_propertyTagCategory"
+					value="#{propertyTagCategoryList.resultList}"
+					rendered="#{not empty propertyTagCategoryList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'PropertyTagCategory' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="propertyTagCategoryViewId">
+							<f:param name="propertyTagCategoryPropertyTagCategoryId"
+								value="#{_propertyTagCategory.propertyTagCategoryId}" />
+						</s:link>
+            #{' '}
+            <s:link styleClass="smallButton"
+							view="/PropertyTagCategoryEdit.xhtml" value="Edit"
+							propagation="none" id="propertyTagCategoryEdit"
+							rendered="#{empty from}">
+							<f:param name="propertyTagCategoryPropertyTagCategoryId"
+								value="#{_propertyTagCategory.propertyTagCategoryId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagCategoryList}" />
+								<ui:param name="propertyLabel" value="ID" />
+								<ui:param name="propertyPath"
+									value="propertyTagCategory.propertyTagCategoryId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText
+							value="#{_propertyTagCategory.propertyTagCategoryId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagCategoryList}" />
+								<ui:param name="propertyLabel" value="Name" />
+								<ui:param name="propertyPath"
+									value="propertyTagCategory.propertyTagCategoryName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText
+							value="#{_propertyTagCategory.propertyTagCategoryName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{propertyTagCategoryList}" />
+								<ui:param name="propertyLabel" value="Description" />
+								<ui:param name="propertyPath"
+									value="propertyTagCategory.propertyTagCategoryDescription" />
+							</ui:include>
+						</f:facet>
+						<h:outputText
+							value="#{_propertyTagCategory.propertyTagCategoryDescription}" />
+					</h:column>
+
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject"
+					value="#{propertyTagCategoryList}" />
+				<ui:param name="view" value="/PropertyTagCategoryList.xhtml" />
+			</ui:include>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,49 @@
+# translation of Feedback.po to Assamese
+# Amitakhya Phukan <aphukan@fedoraproject.org>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-30 17:35+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
+"Language-Team: Assamese\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1)\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "আমাক মতামতৰ প্ৰয়োজন!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>মতামত</primary> <secondary>এই হাতপুথিৰ বাবে যোগাযোগৰ তথ্য</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "এই হাতপুথিত আপুনি অক্ষৰমূদ্ৰণৰ ভুল পালে, বা এই হাতপুথি আৰু উন্নত কৰিবৰ বাবে কোনো দিশ পালে, আমি আপোনাৰ মতামত পাবলৈ ভাল পাম! Bugzilla ত এটা বৰ্ণনা নথিভূক্ত কৰক: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink>  <application>&PRODUCT;</application> ৰ বিৰুদ্ধে ।"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "বাগৰ প্ৰতিবেদন দিওঁতে, হাতপুথিৰ চিনাক্তকাৰীক উল্লেখ কৰিবলৈ মনত ৰাখিব: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "এই আলেখ্যন উন্নত কৰিবলৈ আপোনাৰ কোনো চিন্তা থাকিলে, তাৰ বিৱৰণত যিমান পাৰে বিতং হ'ব । আপুনি কোনো ভুল পালে, অনুগ্ৰহ কৰি বিভাৰ নম্বৰ আৰু তাৰ ওচৰৰ কিছু লিপি অন্তৰ্ভুক্ত কৰিব যাতে আমি সহজে বিচাৰিব পাৰোঁ ।"
+
+#~ msgid "feedback"
+#~ msgstr "মতামত"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "এই হাতপুথিৰ বাবে যোগাযোগৰ তথ্য"
+
+#~ msgid "translator-credits"
+#~ msgstr "অমিতাক্ষ ফুকন <aphukan@redhat.com>"

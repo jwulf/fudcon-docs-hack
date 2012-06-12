@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:panelGrid columns="2" columnClasses="name,">
+		<h:outputText value="Topic Revision" />
+		<h:outputText
+			value="#{empty topicHome.revision ? 'Latest' : topicHome.revision}" />
+
+		<h:outputText value="Topic ID" />
+		<h:outputText value="#{topic.topicId}" />
+
+		<h:outputText value="Topic Title" />
+		<h:outputText value="#{topic.topicTitle}" />
+
+		<h:outputText value="Topic Locale" />
+		<h:outputText value="#{topic.topicLocale}" />
+
+		<h:outputText value="Topic Description" />
+		<h:inputTextarea id="topicText" cols="80" rows="10" readonly="true"
+			value="#{topic.topicText}" />
+			
+		<h:outputText value="Topic XML" />
+		<h:inputTextarea id="topicXML" cols="80" rows="10" readonly="true"
+			value="#{topic.topicXML}" />
+
+		<h:outputText value="Topic XML Errors" />
+		<h:inputTextarea id="topicXMLErrors" cols="80" rows="10"
+			readonly="true" value="#{topic.topicSecondOrderData.topicXMLErrors}" />
+
+		<h:outputText value="Properties" />
+		<rich:dataList var="property"
+			value="#{empty topicHome.revision ? topicHome.instance.sortedToPropertyTags : topicHome.revisionInstance.sortedToPropertyTags}">
+			<h:outputText
+				value="#{property.propertyTag.propertyTagName}: #{property.value}" />
+		</rich:dataList>
+
+		<h:outputText value="Topic Source URLs" />
+		<rich:dataList var="url"
+			value="#{topic.topicToTopicSourceUrls.toArray()}">
+			<h:outputLink value="#{url.topicSourceUrl.sourceUrl}"
+				title="#{url.topicSourceUrl.description}">
+				<h:outputText value="Source URL"
+					rendered="#{empty url.topicSourceUrl.title}" />
+				<h:outputText value="#{url.topicSourceUrl.title}"
+					rendered="#{not empty url.topicSourceUrl.title}" />
+			</h:outputLink>
+		</rich:dataList>
+
+		<h:outputText value="Topic TimeStamp" />
+		<h:outputText value="#{topic.topicTimeStamp}">
+			<s:convertDateTime type="both" dateStyle="full" />
+		</h:outputText>
+
+		<h:outputText value="Topic Tags" />
+		<h:outputText value="#{topic.tagsList}" escape="false" />
+
+	</h:panelGrid>
+</ui:composition>

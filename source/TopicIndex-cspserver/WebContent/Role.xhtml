@@ -1,0 +1,51 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<div class="actionButtons">
+			<s:button styleClass="button" view="/RoleEdit.xhtml" id="edit"
+				value="Edit" />
+			<s:button styleClass="button"
+				view="/#{empty roleFrom ? 'RoleList' : roleFrom}.xhtml" id="done"
+				value="Done" />
+		</div>
+
+		<div style="clear: both" />
+		<br />
+
+		<rich:panel>
+			<f:facet name="header">Role Details</f:facet>
+
+
+			<s:decorate id="roleName" template="layout/display.xhtml">
+				<ui:define name="label">Role name</ui:define>
+				<h:outputText value="#{roleHome.instance.roleName}" />
+			</s:decorate>
+
+			<s:decorate id="description" template="layout/display.xhtml">
+				<ui:define name="label">Description</ui:define>
+				<h:outputText value="#{roleHome.instance.description}" />
+			</s:decorate>
+
+			<s:decorate id="users" template="layout/display.xhtml">
+				<ui:define name="label">Users</ui:define>
+				<h:outputText value="#{roleHome.instance.usersCommaSeperatedList}" />
+			</s:decorate>
+
+			<div style="clear: both" />
+
+		</rich:panel>
+
+
+
+	</ui:define>
+
+</ui:composition>

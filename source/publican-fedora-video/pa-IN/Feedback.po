@@ -1,0 +1,48 @@
+# translation of Feedback.po to Punjabi
+# Jaswinder Singh <jsingh@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-30 11:59+0530\n"
+"Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
+"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
+"Language: pa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "ਸਾਨੂੰ ਫੀਡਬੈਕ ਦੀ ਲੋੜ ਹੈ!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>ਫੀਡਬੈਕ</primary> <secondary>ਇਸ ਦਸਤਾਵੇਜ਼ ਲਈ ਸੰਪਰਕ ਜਾਣਕਾਰੀ</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "ਜੇ ਤੁਸੀਂ ਇਸ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਟਾਈਪੋਗਰਾਫੀਕਲ ਗਲਤੀ ਵੇਖੀ ਹੈ, ਜਾਂ ਜੇ ਤੁਸੀਂ ਇਸ ਦਸਤਾਵੇਜ਼ ਨੂੰ ਵਧੀਆਂ ਬਣਾ ਸਕਦੇ ਹੋ, ਤਾਂ ਅਸੀਂ ਤੁਹਾਡੇ ਯੋਗਦਾਨ ਦੀ ਕਦਰ ਕਰਦੇ ਹਾਂ! ਕਿਰਪਾ ਕਰਕੇ ਬੱਗਜ਼ੀਲਾ ਵਿੱਚ ਰਿਪੋਰਟ ਪੇਸ਼ ਕਰੋ: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "ਬੱਗ ਰਿਪੋਰਟ ਪੇਸ਼ ਕਰਨ ਸਮੇਂ, ਦਸਤਾਵੇਜ਼ ਦੇ ਪਛਾਣਕਾਰ ਦਾ ਵੇਰਵਾ ਦਿਓ: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "ਜੇ ਤੁਸੀਂ ਦਸਤਾਵੇਜ਼ੀ ਵਿੱਚ ਸੋਧ ਬਾਰੇ ਸੁਝਾਅ ਹਨ, ਤਾਂ ਵਿਸ਼ੇਸ਼ ਸੁਝਾਅ ਹੀ ਦਿਓ। ਜੇ ਤੁਸੀਂ ਕੋਈ ਗਲਤੀ ਵੇਖੀ ਹੈ, ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸ਼ੈਕਸ਼ਨ ਨੰਬਰ ਅਤੇ ਕੁਝ ਪਾਠ ਸ਼ਾਮਿਲ ਕਰੋ ਤਾਂ ਕਿ ਅਸੀਂ ਇਸ ਨੂੰ ਅਸਾਨੀ ਨਾਲ ਲੱਭ ਸਕੀਏ।"
+
+#~ msgid "feedback"
+#~ msgstr "ਫੀਡਬੈਕ"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "ਇਸ ਦਸਤਾਵੇਜ਼ ਲਈ ਸੰਪਰਕ ਜਾਣਕਾਰੀ"
+
+#~ msgid "translator-credits"
+#~ msgstr "ਜਸਵਿੰਦਰ ਸਿੰਘ <jsingh@redhat.com>"

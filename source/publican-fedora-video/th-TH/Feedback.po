@@ -1,0 +1,46 @@
+# Publican Feedback
+# Manatsawin Hanmongkolchai <manatsawin@gmail.com>, 2009
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-04-19 16:06+0700\n"
+"Last-Translator: Manatsawin Hanmongkolchai <manatsawin@gmail.com>\n"
+"Language-Team: Thai <thai-l10n@googlegroups.com>\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "เราอยากได้ผลตอบรับ!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>ผลตอบรับ</primary> <secondary>ข้อมูลการติดต่อสำหรับคู่มือนี้</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "หากคุณพบข้อผิดพลาดในการพิมพ์ หรือคุณมีคำแนะนำให้คู่มือนี้ดีขึ้น ความคิดเห็นของท่านมีคุณค่า!โปรดส่งรายงานเข้ามาที่ Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> ในผลิตภัณฑ์<application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "เมื่อส่งรายงานข้อผิดพลาด โปรดระบุข้อมูลคู่มือเล่มนี้: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "หากคุณมีข้อเสนอแนะที่จะพัฒนาเอกสารฉบับนี้ โปรดระบุให้ละเอียดที่สุด หากคุณพบข้อผิดพลาดโปรดระบุเลขหมวดและข้อความโดยรอบเพื่อให้เราค้นหามันได้โดยง่าย"
+
+#~ msgid "feedback"
+#~ msgstr "ผลตอบรับ"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "ข้อมูลการติดต่อสำหรับคู่มือนี้"

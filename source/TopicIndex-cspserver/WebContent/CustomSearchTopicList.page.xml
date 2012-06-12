@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd" login-required="true">
+	<param name="firstResult" value="#{groupedTopicTagsList.firstResult}" />
+	<param name="sort" value="#{groupedTopicTagsList.orderColumn}" />
+	<param name="dir" value="#{groupedTopicTagsList.orderDirection}" />
+	<param name="from" />
+	<param name="tab" value="#{groupedTopicTagsList.tab}" />
+	
+	
+	
+	<navigation from-action="#{groupedTopicTagsList.searchForBugs}">
+		<rule if-outcome="redirect">
+			<redirect url="#{groupedTopicTagsList.externalURL}" />
+		</rule>
+	</navigation>
+</page>

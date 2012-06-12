@@ -1,0 +1,136 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="helpSearch" styleClass="edit">
+
+			<s:div styleClass="actionButtons" rendered="#{empty from}">
+				<s:button styleClass="button" view="/HelpEdit.xhtml" id="create"
+					propagation="none" value="Create help">
+					<f:param name="helpHelpId" />
+				</s:button>
+			</s:div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:simpleTogglePanel label="Help Search Filter"
+				switchType="client" opened="false">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Table col id</ui:define>
+					<h:inputText id="tableColId" value="#{helpList.help.tableColId}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Help text</ui:define>
+					<h:inputText id="helpText" value="#{helpList.help.helpText}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio id="logic"
+						value="#{helpList.restrictionLogicOperator}" styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="search" value="Search"
+						action="/HelpList.xhtml" />
+					<s:button styleClass="button" id="reset" value="Reset"
+						includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+
+
+		</h:form>
+
+		<br />
+
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{helpList}" />
+				<ui:param name="view" value="/HelpList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">Help Search Results (#{empty helpList.resultList ? 0 : (helpList.paginated ? helpList.resultCount : helpList.resultList.size)})</f:facet>
+			<div class="results" id="helpList">
+
+				<h:outputText value="The help search returned no results."
+					rendered="#{empty helpList.resultList}" />
+
+				<rich:dataTable id="helpList" var="_help"
+					value="#{helpList.resultList}"
+					rendered="#{not empty helpList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'Help' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}" id="helpViewId">
+							<f:param name="helpHelpId" value="#{_help.helpId}" />
+						</s:link>
+				        #{' '}
+				        <s:link styleClass="smallButton" view="/HelpEdit.xhtml"
+							value="Edit" propagation="none" id="helpEdit"
+							rendered="#{empty from}">
+							<f:param name="helpHelpId" value="#{_help.helpId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{helpList}" />
+								<ui:param name="propertyLabel" value="Help id" />
+								<ui:param name="propertyPath" value="help.helpId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_help.helpId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{helpList}" />
+								<ui:param name="propertyLabel" value="Table col id" />
+								<ui:param name="propertyPath" value="help.tableColId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_help.tableColId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{helpList}" />
+								<ui:param name="propertyLabel" value="Help text" />
+								<ui:param name="propertyPath" value="help.helpText" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_help.helpText}" />
+					</h:column>					
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{helpList}" />
+				<ui:param name="view" value="/HelpList.xhtml" />
+			</ui:include>
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>

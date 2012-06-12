@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+	<h:panelGrid columns="9" border="0">
+		<s:link styleClass="button" view="/CustomSearchTopicList.xhtml"
+			value="Done">
+			<c:forEach items="#{relatedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:link>
+		<h:outputText value="Relationship Type: " />
+		<h:selectOneMenu
+			value="#{relatedTopicTagsList.selectedRelationshipTagID}">
+			<f:selectItems value="#{relatedTopicTagsList.relationshipTags}" />
+		</h:selectOneMenu>
+		<h:commandLink styleClass="button"
+			action="#{relatedTopicTagsList.oneWayToAll()}"
+			value="Create One Way Link To All Topics"
+			title="This will create a link from the main topic to those listed below. This will not affect relationships between topics that don't match the current filter.">
+			<c:forEach items="#{relatedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</h:commandLink>
+		<h:commandLink styleClass="button"
+			action="#{relatedTopicTagsList.oneWayFromAll()}"
+			value="Create One Way Link From All Topics"
+			title="This will create a link from those topics listed below to the main topic. This will not affect relationships between topics that don't match the current filter.">
+			<c:forEach items="#{relatedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</h:commandLink>
+		<h:commandLink styleClass="button"
+			action="#{relatedTopicTagsList.twoWayWithAll()}"
+			value="Create Two Way Link With All Topics"
+			title="This will create two way links between the main topic and those listed below. This will not affect relationships between topics that don't match the current filter.">
+			<c:forEach items="#{relatedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</h:commandLink>
+		<h:commandLink styleClass="button"
+			action="#{relatedTopicTagsList.removeToAll()}"
+			value="Remove All Links To Topics"
+			title="This will remove all links from the main topic to those topics that are listed below. This will not affect relationships between topics that don't match the current filter.">
+			<c:forEach items="#{relatedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</h:commandLink>
+		<h:commandLink styleClass="button"
+			action="#{relatedTopicTagsList.removeFromAll()}"
+			value="Remove All Links From Topics"
+			title="This will remove all links from the topics that are listed below to the main topic. This will not affect relationships between topics that don't match the current filter.">
+			<c:forEach items="#{relatedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</h:commandLink>
+		<h:commandLink styleClass="button"
+			action="#{relatedTopicTagsList.removeBetweenAll()}"
+			value="Remove All Links To and From Topics"
+			title="This will remove all links between the main topic and those that are listed below. This will not affect relationships between topics that don't match the current filter.">
+			<c:forEach items="#{relatedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</h:commandLink>
+	</h:panelGrid>
+
+
+</ui:composition>

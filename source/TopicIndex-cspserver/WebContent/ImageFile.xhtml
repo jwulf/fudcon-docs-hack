@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<div class="actionButtons">
+			<s:button styleClass="button" view="/ImageFileEdit.xhtml" id="edit"
+				value="Edit" />
+			<s:button styleClass="button"
+				view="/#{empty imageFileFrom ? 'ImageFileList' : imageFileFrom}.xhtml"
+				id="done" value="Done" />
+		</div>
+
+		<div style="clear: both" />
+		<br />
+
+		<rich:panel>
+			<f:facet name="header">Image File Details</f:facet>
+
+			<s:decorate id="imageFileId" template="layout/display.xhtml">
+				<ui:define name="label">Image File ID</ui:define>
+				<h:outputText value="#{imageFileHome.instance.imageFileId}" />
+			</s:decorate>
+
+			<s:decorate id="docbookFileName" template="layout/display.xhtml">
+				<ui:define name="label">Docbook File Name</ui:define>
+				<h:outputText value="#{imageFileHome.instance.docbookFileName}" />
+			</s:decorate>
+
+			<s:decorate id="originalFileName" template="layout/display.xhtml">
+				<ui:define name="label">Original File Name</ui:define>
+				<h:outputText value="#{imageFileHome.instance.originalFileName}" />
+			</s:decorate>
+
+			<s:decorate id="description" template="layout/display.xhtml">
+				<ui:define name="label">Description</ui:define>
+				<h:outputText value="#{imageFileHome.instance.description}" />
+			</s:decorate>
+
+			<s:decorate id="imageData" template="layout/display.xhtml">
+				<ui:define name="label">Image</ui:define>
+				<h:outputText
+					value="Note: This is a lower quality sample of the uploaded image." />
+				<br />
+				<br />
+				<h:graphicImage
+					value="data:image/jpg;base64,#{imageFileHome.instance.imageDataBase64String}" />
+			</s:decorate>
+
+			<div style="clear: both" />
+
+		</rich:panel>
+
+
+
+	</ui:define>
+
+</ui:composition>

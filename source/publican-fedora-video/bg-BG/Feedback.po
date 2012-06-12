@@ -1,0 +1,47 @@
+# Feedback
+# Martin Stefanov<f0x1@mail.bg>, 2009.
+#
+# Martin Stefanov <f0x1@mail.bg>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.44\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-10-13 23:09+0300\n"
+"Last-Translator: Martin Stefanov <f0x1@mail.bg>\n"
+"Language-Team: Bulgarian <f0x1@mail.bg>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Нуждаем се от обратна връзка!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>обратна връзка</primary> <secondary>контакти, относно това ръководство</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Ако намерите шрифтова грешка в ръководството, или сте измислили начин да го направите по-пълно, бихме желали да го чуем от вас! Моля дайте сведения в Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> за <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Когато сигнализирате за грешка, бъдете сигурни,че сте споменали идентификатора на ръководството: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Ако имате предложение за подобряване на документацията, бъдете колкото се може по-конкретни, когато го описвате. Ако сте намерили грешка, моля включете номера на секцията и някакъв обграждащ текст, за да можем да я намерим лесно."
+
+#~ msgid "feedback"
+#~ msgstr "обратна връзка"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "контакти, относно това ръководство"

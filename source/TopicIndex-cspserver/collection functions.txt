@@ -1,0 +1,10 @@
+Some common lambdaj calls to replicate the functionality of a collection
+
+import static ch.lambdaj.Lambda.*;
+import static ch.lambdaj.collection.LambdaCollections.*;
+import static org.hamcrest.Matchers.*;
+
+Count/Exists	filter(having(on(TopicToTag.class).getTag(), equalTo(tagToCategory.getTag())), topic.getTopicToTags()).size() != 0
+Filter: 		filter(having(on(TopicToTag.class).getTag(), equalTo(tagToCategory.getTag())), topic.getTopicToTags()).size()
+Get first of:	selectFirst(topic.getTopicToTags(), having(on(TopicToTag.class).getTag(), equalTo(tagToCat.getTag())))
+Remove: 		with(topic.getTopicToTags()).remove(having(on(TopicToTag.class).getTag(), equalTo(exclusionTag)));

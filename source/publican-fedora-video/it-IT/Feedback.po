@@ -1,0 +1,47 @@
+# translation of Feedback.po to
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-23 12:28+1000\n"
+"Last-Translator: \n"
+"Language-Team:  <it@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Inviateci i vostri commenti!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>commento</primary> <secondary>informazioni di contatto per questo manuale</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Se individuate degli errori di battitura in questo manuale, o se pensate di poter contribuire al suo miglioramento, contattateci subito! Inviate i vostri suggerimenti tramite Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> sul componente <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Quando inviate un bug report, assicuratevi di indicare l'identificatore del manuale: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Se inviate un suggerimento per contribuire al miglioramento della guida, cercate di essere il più specifici possibile. Se avete individuato un errore, indicate il numero della sezione e alcune righe di testo, in modo da agevolare la ricerca dell'errore."
+
+#~ msgid "feedback"
+#~ msgstr "commento"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "informazioni di contatto per questo manuale"
+
+#~ msgid "translator-credits"
+#~ msgstr "crediti-traduttore"

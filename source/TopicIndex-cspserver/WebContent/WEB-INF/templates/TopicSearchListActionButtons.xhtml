@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<s:div styleClass="actionButtons" rendered="#{not empty groupedTopicTagsList.resultList}">
+		<s:button styleClass="button"
+			view="#{groupedTopicTagsList.createPopulatedTopic()}" 
+			propagation="none" value="Create New Topic">
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:button>
+
+		<s:button styleClass="button"
+			action="#{groupedTopicTagsList.doBackToSearchLink()}"
+			value="Back To Search">
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:button>
+
+		<s:button styleClass="button"
+			action="#{groupedTopicTagsList.downloadCSV()}" value="Download CSV">
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:button>
+
+		<s:button styleClass="button"
+			action="#{groupedTopicTagsList.downloadXML()}" value="Download XML">
+			<c:forEach items="#{groupedTopicTagsList.filterVars}" var="filtervar">
+				<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+			</c:forEach>
+		</s:button>
+	</s:div>
+
+</ui:composition>

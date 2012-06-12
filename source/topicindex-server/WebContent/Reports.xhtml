@@ -1,0 +1,34 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:c="http://java.sun.com/jstl/core"
+    template="layout/cleantemplate.xhtml">
+    
+    <ui:define name="head">
+    	<h:outputText escape="false" value="#{reporting.head}"/>
+    </ui:define>
+    
+    <ui:define name="body">
+    
+	    <h:form>
+	        <rich:toolBar>
+				<c:forEach items="#{reporting.getReportCategories()}" var="category">
+					<rich:menuItem submitMode="ajax" value="#{category}" action="/Reports.xhtml">
+						<f:param name="reportName" value="#{category}"/>
+					</rich:menuItem>			
+				</c:forEach>
+			</rich:toolBar>
+		</h:form>
+		
+		<br/><br/>
+	        		
+		<h:outputText escape="false" value="#{reporting.body}"/>        	
+
+    </ui:define>
+    
+</ui:composition>

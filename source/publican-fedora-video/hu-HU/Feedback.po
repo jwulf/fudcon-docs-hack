@@ -1,0 +1,46 @@
+# Feedback Section for Fedora Publican Docs
+# Sulyok Péter <peti@fedoraproject.org>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-03-08 11:22+0100\n"
+"Last-Translator: Sulyok Péter <peti@fedoraproject.org>\n"
+"Language-Team: Hungarian <fedora-trans-hu@redhat.com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Visszajelzés kell nekünk!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>visszajelzés</primary> <secondary>kapcsolat tájékoztató e kézikönyvhöz</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Ha nyomdahibát talál e kézikönyvben, vagy bármilyen gondolata támad arról, hogyan javíthatnánk e kézikönyvet, szeretnénk tudni róla! Kérem adjon fel egy jelentést a Bugzillába: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> a következő termékre: <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Hibajelentés feladása során győződjön meg arról, hogy megemlítette a kézikönyv azonosítóját: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Ha akad bármilyen az irat javítását célzó javaslata, próbálja azt olyan részletesen leírni, amennyire csak lehetséges. Ha hibát talált, kérem adja meg a szakasz számát és a szövegkörnyezetet, hogy könnyen megtaláljuk."
+
+#~ msgid "feedback"
+#~ msgstr "visszajelzés"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "kapcsolat tájékoztató e kézikönyvhöz"

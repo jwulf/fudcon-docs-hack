@@ -1,0 +1,48 @@
+# translation of Feedback.po to Español
+# Manuel Ospina <mospina@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-23 14:10+1000\n"
+"Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
+"Language-Team: Español <en@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "¡Necesitamos sus comentarios!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>comentarios</primary> <secondary>información de contacto para este manual</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Si encuentra un error tipográfico en este manual o si sabe de alguna manera de mejorarlo, nos gustaría escuchar sus sugerencias. Por favor complete un reporte en Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> usando el producto <application>&PRODUCT;</application>."
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Cuando envíe un reporte de error no olvide mencionar el identificador del manual: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Si tiene una sugerencia para mejorar la documentación, intente ser tan específico como sea posible cuando describa su sugerencia. Si ha encontrado un error, por favor incluya el número de sección y parte del texto que rodea el error para que podamos encontrarlo más fácilmente."
+
+#~ msgid "feedback"
+#~ msgstr "comentarios"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "información de contacto para este manual"
+
+#~ msgid "translator-credits"
+#~ msgstr "Manuel Ospina (mospina@redhat.com) 2007"

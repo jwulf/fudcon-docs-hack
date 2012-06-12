@@ -1,0 +1,464 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<rich:jQuery selector="input[id*='tag-']" timing="onload"
+			query="each(function(index, element){if (element.checked){jQuery('input[id*=' + element.id.replace('tag', 'nottag') + ']').removeAttr('disabled');} else {jQuery('input[id*=' + element.id.replace('tag', 'nottag') + ']').attr('disabled', true);}})" />
+
+		<ui:include src="/WEB-INF/templates/RelationshipMenu.xhtml">
+			<ui:param name="topicListBean" value="#{groupedTopicTagsList}" />
+		</ui:include>
+
+		<h:form>
+			<rich:contextMenu id="topicContextMenu" submitMode="server"
+				attached="false">
+
+				<rich:menuItem value="View" action="#{ajaxHelper.getTopicUrl}"
+					rendered="#{s:hasPermission('ViewContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTopicId}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}" value="/Topic.xhtml" />
+					<a4j:actionparam name="revisionNumber"
+						assignTo="#{ajaxHelper.otherVars}" value="#{null}" />
+
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="View New Window"
+					action="#{ajaxHelper.getTopicUrlAndEndConverstaion}"
+					target="_blank"
+					rendered="#{s:hasPermission('ViewContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTopicId}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}" value="/Topic.xhtml" />
+					<a4j:actionparam name="revisionNumber"
+						assignTo="#{ajaxHelper.otherVars}" value="#{null}" />
+
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="Edit and Tag"
+					action="#{ajaxHelper.getTopicUrl}"
+					rendered="#{s:hasPermission('EditContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTopicId}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}" value="/TopicEdit.xhtml" />
+
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="Edit and Tag New Window"
+					action="#{ajaxHelper.getTopicUrlAndEndConverstaion}"
+					target="_blank"
+					rendered="#{s:hasPermission('EditContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTopicId}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}" value="/TopicEdit.xhtml" />
+
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="Manage Relationships"
+					action="#{ajaxHelper.getTopicUrl}"
+					rendered="#{s:hasPermission('RelatedContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTopicId}" />
+					<a4j:actionparam name="actionOtherVars"
+						assignTo="#{ajaxHelper.otherVars}" value="{otherVars}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}"
+						value="/CustomRelatedTopicList.xhtml" />
+
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="Manage Relationships New Window"
+					action="#{ajaxHelper.getTopicUrlAndEndConverstaion}"
+					target="_blank"
+					rendered="#{s:hasPermission('RelatedContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTopicId}" />
+					<a4j:actionparam name="actionOtherVars"
+						assignTo="#{ajaxHelper.otherVars}" value="{otherVars}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}"
+						value="/CustomRelatedTopicList.xhtml" />
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="List Topics Related From Me"
+					action="#{groupedTopicTagsList.getRelatedTopicsUrl()}"
+					rendered="#{s:hasPermission('ListRelatedTopicsMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{groupedTopicTagsList.actionTopicId}"
+						value="{actionTopicId}" />
+					<a4j:actionparam name="tab" assignTo="#{groupedTopicTagsList.tab}"
+						value="{tab}" />
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="List Topics Related To Me"
+					action="#{groupedTopicTagsList.getIncomingRelatedTopicsUrl()}"
+					rendered="#{s:hasPermission('ListRelatedTopicsMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{groupedTopicTagsList.actionTopicId}"
+						value="{actionTopicId}" />
+					<a4j:actionparam name="tab" assignTo="#{groupedTopicTagsList.tab}"
+						value="{tab}" />
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="Remove All Outgoing Relationships"
+					action="#{groupedTopicTagsList.removeOutgoingRelationships()}"
+					rendered="#{s:hasPermission('RemoveAllRelationshipsMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{groupedTopicTagsList.actionTopicId}"
+						value="{actionTopicId}" />
+					<a4j:actionparam name="tab" assignTo="#{groupedTopicTagsList.tab}"
+						value="{tab}" />
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="Remove All Incoming Relationships"
+					action="#{groupedTopicTagsList.removeIncomingRelationships()}"
+					rendered="#{s:hasPermission('RemoveAllRelationshipsMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{groupedTopicTagsList.actionTopicId}"
+						value="{actionTopicId}" />
+					<a4j:actionparam name="tab" assignTo="#{groupedTopicTagsList.tab}"
+						value="{tab}" />
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="Remove All Relationships"
+					action="#{groupedTopicTagsList.removeAllRelationships()}"
+					rendered="#{s:hasPermission('RemoveAllRelationshipsMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTopicId"
+						assignTo="#{groupedTopicTagsList.actionTopicId}"
+						value="{actionTopicId}" />
+					<a4j:actionparam name="tab" assignTo="#{groupedTopicTagsList.tab}"
+						value="{tab}" />
+					<c:forEach items="#{groupedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+			</rich:contextMenu>
+		</h:form>
+
+
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{groupedTopicTagsList.searchTagHeading}" />
+			</f:facet>
+
+
+			<rich:simpleTogglePanel style="width: 100%; overflow: auto;"
+				switchType="client" opened="false">
+				<f:facet name="header">Bulk Tags</f:facet>
+				<h:form>
+
+					<ui:include src="/WEB-INF/templates/TagSelectAndNotSelect.xhtml">
+						<ui:param name="selectedTags"
+							value="#{groupedTopicTagsList.selectedTags.projectCategories}" />
+						<ui:param name="logicEnabled" value="#{false}" />
+					</ui:include>
+
+					<br />
+					<br />
+
+					<div>
+						<!-- 
+							We need to supply the urlVars as f:param. Use a h:commandLink instead 
+							of a h:CommandButton, because h:CommandButton has no support for f:param  
+						-->
+						<h:commandLink styleClass="button" id="topicTagsUpdateButton"
+							value="Apply Bulk Tags"
+							action="#{groupedTopicTagsList.applyBulkTags()}"
+							disabled="#{!s:hasPermission('TopicListRelatedBulkTagButton', 'Enabled', null)}">
+							<c:forEach items="#{groupedTopicTagsList.filterVars}"
+								var="filtervar">
+								<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+							</c:forEach>
+						</h:commandLink>
+					</div>
+				</h:form>
+			</rich:simpleTogglePanel>
+
+			<br />
+
+			<ui:include
+				src="/WEB-INF/templates/TopicSearchListActionButtons.xhtml" />
+
+			<ui:include src="/WEB-INF/templates/TopicListNavigationButtons.xhtml" />
+
+			<div style="clear: both" />
+
+			<div class="results" id="groupedTopicTagsList">
+
+				<h:outputText value="The topic search returned no results."
+					rendered="#{empty groupedTopicTagsList.resultList}" />
+
+				<rich:tabPanel switchType="client"
+					selectedTab="#{groupedTopicTagsList.tab}"
+					rendered="#{not empty groupedTopicTagsList.resultList}">
+					<c:forEach items="#{groupedTopicTagsList.groupedLists}"
+						var="groupedTopicList">
+						<rich:tab
+							label="#{groupedTopicList.group} (#{groupedTopicList.entityList.resultCount})"
+							name="#{groupedTopicList.group}">
+
+							<rich:dataTable var="_topic"
+								value="#{groupedTopicList.entityList.resultList}"
+								styleClass="listTable"
+								columnsWidth="50px, 150px, 75px, 75px, 75px, 100px, 100px, 100px, 200px">
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListIDColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<ui:include src="layout/sort.xhtml">
+											<ui:param name="entityList" value="#{topicList}" />
+											<ui:param name="propertyLabel" value="ID" />
+											<ui:param name="propertyPath" value="topic.topicId" />
+											<ui:param name="filterVars"
+												value="#{groupedTopicTagsList.filterVars}" />
+										</ui:include>
+									</f:facet>
+
+									<h:commandButton
+										style="border: 0; background: transparent; color: green;"
+										value="#{_topic.topicId}">
+										<rich:componentControl event="onclick" for="topicContextMenu"
+											operation="show">
+											<f:param value="#{_topic.topicId}" name="actionTopicId" />
+											<f:param
+												value="#{groupedTopicTagsList.urlVars}#{empty groupedTopicTagsList.urlVars ? '?' : '&amp;'}tab=#{groupedTopicList.group}"
+												name="otherVars" />
+											<f:param value="#{groupedTopicList.group}" name="tab" />
+										</rich:componentControl>
+									</h:commandButton>
+								</rich:column>
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListTitleColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<ui:include src="layout/sort.xhtml">
+											<ui:param name="entityList" value="#{topicList}" />
+											<ui:param name="propertyLabel" value="Topic Title" />
+											<ui:param name="propertyPath" value="topic.topicTitle" />
+											<ui:param name="filterVars"
+												value="#{groupedTopicTagsList.filterVars}" />
+										</ui:include>
+									</f:facet>
+									<h:outputText value="#{_topic.topicTitle}"
+										title="#{_topic.topicText}" />
+								</rich:column>
+
+								<h:column
+									rendered="#{s:hasPermission('TopicListBugsColumn', 'Rendered', null)}">
+									<f:facet name="header">
+						                Bugzilla Bugs
+						            </f:facet>
+									<rich:dataList var="bug"
+										value="#{_topic.topicToBugzillaBugs.toArray()}">
+										<h:outputLink
+											style="text-decoration: none"
+											value="https://#{constants.bugzillaUrl}/show_bug.cgi?id=#{bug.bugzillaBug.bugzillaBugBugzillaId}"
+											title="#{bug.bugzillaBug.bugzillaBugSummary}"
+											target="_blank">
+											<h:outputText style="color:#{bug.bugzillaBug.bugzillaBugOpen ? 'red' : 'green'};"
+												value="#{bug.bugzillaBug.bugzillaBugBugzillaId}" />
+										</h:outputLink>
+									</rich:dataList>
+								</h:column>
+
+								<h:column
+									rendered="#{s:hasPermission('TopicListPropertiesColumn', 'Rendered', null)}">
+									<f:facet name="header">
+						                Topic Properties
+						            </f:facet>
+									<rich:dataList var="property"
+										value="#{_topic.sortedToPropertyTags}">
+										<h:outputText
+											value="#{property.propertyTag.propertyTagName}"
+											title="#{property.value}" />
+									</rich:dataList>
+								</h:column>
+
+								<rich:column styleClass="action quickTagsColumn"
+									rendered="#{s:hasPermission('TopicListQuickTagsColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<h:outputText value="Quick Tags"
+											title="Use these links to toggle the tags applied to a topic" />
+									</f:facet>
+									<h:form>
+										<c:forEach items="#{groupedTopicTagsList.quickTags}"
+											var="tagID">
+											<h:commandLink styleClass="smallButton" value="#{tagID.name}"
+												action="#{groupedTopicTagsList.addTagById(_topic.topicId, tagID.id)}">
+												<c:forEach items="#{groupedTopicTagsList.filterVars}"
+													var="filtervar">
+													<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+												</c:forEach>
+												<f:param name="tab" value="#{groupedTopicList.group}" />
+											</h:commandLink>
+											<br />
+											<br />
+										</c:forEach>
+									</h:form>
+								</rich:column>
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListURLColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<h:outputText value="Source Material URL" />
+									</f:facet>
+									<rich:dataList var="url"
+										value="#{_topic.topicToTopicSourceUrls.toArray()}">
+										<h:outputLink value="#{url.topicSourceUrl.sourceUrl}"
+											title="#{url.topicSourceUrl.sourceUrl} &#13;#{url.topicSourceUrl.description}"
+											target="_blank">
+											<h:outputText value="Source URL"
+												rendered="#{empty url.topicSourceUrl.title}" />
+											<h:outputText value="#{url.topicSourceUrl.title}"
+												rendered="#{not empty url.topicSourceUrl.title}" />
+										</h:outputLink>
+									</rich:dataList>
+								</rich:column>
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListRelatedTopicsColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<h:outputText value="Out"
+											title="Outgoing relationships to other topics" />
+									</f:facet>
+									<a4j:repeat value="#{_topic.parentTopicToTopicsArray}"
+										var="topicToTopic">
+										<h:commandButton
+											style="border: 0; background: transparent; color: green;"
+											value="This #{topicToTopic.relationshipTag.relationshipTagName} #{topicToTopic.relatedTopic.topicId}"
+											title="#{topicToTopic.relatedTopic.topicTitle} &#13;#{topicToTopic.relatedTopic.commaSeparatedTagList}">
+											<rich:componentControl event="onclick"
+												for="relatedContentMenu" operation="show">
+												<f:param value="#{topicToTopic.mainTopic.topicId}"
+													name="actionTopicId" />
+												<f:param value="#{topicToTopic.relatedTopic.topicId}"
+													name="otherTopicId" />
+												<f:param
+													value="#{topicToTopic.relationshipTag.relationshipTagId}"
+													name="relationshipTagId" />
+												<f:param value="#{groupedTopicList.group}" name="tab" />
+											</rich:componentControl>
+										</h:commandButton>
+									</a4j:repeat>
+								</rich:column>
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListRelatedTopicsColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<h:outputText value="In"
+											title="One way relationships from other topics" />
+									</f:facet>
+									<a4j:repeat value="#{_topic.childTopicToTopicsArray}"
+										var="topicToTopic">
+										<h:commandButton
+											style="border: 0; background: transparent; color: red;"
+											value="#{topicToTopic.mainTopic.topicId} #{topicToTopic.relationshipTag.relationshipTagName} This"
+											title="#{topicToTopic.mainTopic.topicTitle} &#13;#{topicToTopic.mainTopic.commaSeparatedTagList}">
+											<rich:componentControl event="onclick"
+												for="relatedContentMenu" operation="show">
+												<f:param value="#{topicToTopic.mainTopic.topicId}"
+													name="actionTopicId" />
+												<f:param value="#{topicToTopic.relatedTopic.topicId}"
+													name="otherTopicId" />
+												<f:param
+													value="#{topicToTopic.relationshipTag.relationshipTagId}"
+													name="relationshipTagId" />
+												<f:param value="#{groupedTopicList.group}" name="tab" />
+											</rich:componentControl>
+										</h:commandButton>
+
+									</a4j:repeat>
+								</rich:column>
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListTagsColumn', 'Rendered', null)}">
+									<f:facet name="header">Topic Tags</f:facet>
+
+									<h:outputText escape="false" value="#{_topic.tagsList}" />
+
+								</rich:column>
+
+								<a4j:support reRender="selectiontable"
+									action="#{groupedTopicTagsList.takeSelection}"
+									event="onselectionchange" />
+
+							</rich:dataTable>
+						</rich:tab>
+					</c:forEach>
+				</rich:tabPanel>
+			</div>
+
+			<div style="clear: both" />
+
+			<ui:include src="/WEB-INF/templates/TopicListNavigationButtons.xhtml" />
+
+			<ui:include
+				src="/WEB-INF/templates/TopicSearchListActionButtons.xhtml"
+				rendered="#{not empty groupedTopicTagsList.resultList}" />
+
+			<br />
+			<br />
+
+		</rich:panel>
+
+
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<div class="actionButtons">
+		<h:commandButton styleClass="button"
+			value="Save And Continue" title="Save this topic, and add a new one"
+			action="#{topicHome.persistEx(true)}"
+			disabled="#{!topicHome.wired or !s:hasPermission('EditTopicSaveButton', 'Enabled', null)}"
+			rendered="#{!topicHome.managed}" />
+
+		<h:commandButton styleClass="button"
+			value="Save And List Topics"
+			title="Save this topic, and return to the list of topics you have created"
+			action="#{topicHome.persistEx(false)}"
+			disabled="#{!topicHome.wired or !s:hasPermission('EditTopicSaveButton', 'Enabled', null)}"
+			rendered="#{!topicHome.managed}" />
+
+		<h:commandButton styleClass="button"
+			value="Update"
+			title="Update this topic, and return to this screen"
+			action="#{topicHome.updateAndStay}" rendered="#{topicHome.managed}"
+			disabled="#{!s:hasPermission('EditTopicUpdateButton', 'Enabled', null)}" />
+		
+		<h:commandButton styleClass="button"
+			value="Update And List Topics"
+			title="Update this topic, and return to the list of topics"
+			action="#{topicHome.update}" rendered="#{topicHome.managed}"
+			disabled="#{!s:hasPermission('EditTopicUpdateButton', 'Enabled', null)}" />
+
+		<!-- <h:commandButton styleClass="button" id="delete"
+	                          value="Delete"
+	                         action="#{topicHome.remove}"
+	                      immediate="true"
+	                       rendered="#{topicHome.managed}"/>  -->
+
+		<s:button styleClass="button" value="Cancel"
+			view="/CustomSearchTopicList.xhtml"
+			rendered="#{topicHome.managed and !topicHome.doingMultipleUpdates}" />
+
+		<s:button styleClass="button" value="Cancel"
+			view="/CustomSearchTopicList.xhtml"
+			rendered="#{!topicHome.managed and !topicHome.doingMultipleUpdates}" />
+
+		<s:button styleClass="button"
+			value="List Topics"
+			title="Return to a list of the topics that were modifed in this operation."
+			view="#{topicHome.multipleUpdateUrl}"
+			rendered="#{topicHome.managed and topicHome.doingMultipleUpdates}" />
+
+		<s:button styleClass="button"
+			value="List Topics"
+			title="Return to a list of the topics that were modifed in this operation."
+			view="#{topicHome.multipleUpdateUrl}"
+			rendered="#{!topicHome.managed and topicHome.doingMultipleUpdates}" />
+
+	</div>
+</ui:composition>

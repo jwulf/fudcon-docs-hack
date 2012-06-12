@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd" login-required="true">
+ <param name="firstResult" value="#{userList.firstResult}"/>
+ <param name="sort" value="#{userList.orderColumn}"/>
+ <param name="dir" value="#{userList.orderDirection}"/>
+ <param name="logic" value="#{userList.restrictionLogicOperator}"/>
+ <param name="from"/>
+ <param name="userName" value="#{userList.user.userName}"/>
+ <param name="description" value="#{userList.user.description}"/>
+</page>

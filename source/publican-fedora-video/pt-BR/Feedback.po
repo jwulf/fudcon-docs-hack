@@ -1,0 +1,48 @@
+# translation of Feedback.po to Brazilian Portuguese
+# Leticia de Lima <ldelima@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-23 14:26+1000\n"
+"Last-Translator: Leticia de Lima <ldelima@redhat.com>\n"
+"Language-Team: Brazilian Portuguese <en@li.org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Nós precisamos de seu comentário"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>comentário</primary> <secondary>contato de informação para este manual</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Se você encontrar erro ortográfico neste manual, ou se você tem uma sugestão para melhoramento deste manual, nós gostaríamos muito de ouvir sua opinião! Por favor submita um relatório em Bugzilla:<ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> contra o produto <application>&PRODUCT;.</application>."
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "Uma vez submetendo um relatório de bug, por favor mencione a identificação do manual:<citetitle>&BOOKID;</citetitle>."
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Se você tiver uma sugestão para o melhoramento deste documento, por favor tente ser o mais específico possível em sua descrição. Caso você tenha encontrado um erro, por favor inclua o número da seção e alguns detalhes a respeito do texto para a nossa melhor identificação."
+
+#~ msgid "feedback"
+#~ msgstr "comentário"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "contato de informação para este manual"
+
+#~ msgid "translator-credits"
+#~ msgstr "créditos do tradutor"

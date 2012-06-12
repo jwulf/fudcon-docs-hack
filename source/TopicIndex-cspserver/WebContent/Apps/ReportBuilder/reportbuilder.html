@@ -1,0 +1,918 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Skynet Report Generator</title>
+		<style type="text/css">
+		table.queriesClass 
+		{
+			border-width: 1px;
+			border-spacing: 1px;
+			border-style: solid;
+			border-color: gray;
+			border-collapse: collapse;
+			background-color: white;
+		}
+		
+		table.queriesClass th 
+		{
+			border-width: 1px;
+			padding: 4px;
+			border-style: inset;
+			border-color: gray;
+			background-color: white;
+			-moz-border-radius: ;
+		}
+		
+		table.queriesClass td 
+		{
+			border-width: 1px;
+			padding: 4px;
+			border-style: inset;
+			border-color: gray;
+			background-color: white;
+			-moz-border-radius: ;
+		}
+		</style>
+		
+		<script language="javascript" type="text/javascript" src="jquery.js"></script>
+		<script language="javascript" type="text/javascript"
+			src="jquery.flot.js"></script>
+		<script language="javascript" type="text/javascript"
+			src="jquery.flot.pie.js"></script>
+		<script language="javascript" type="text/javascript" src="jquery.flot.stack.js"></script>
+		
+	</head>
+	<body>
+		<h1>Overview</h1>
+		<p>This tool allows you to create reports against the Skynet database. See <a href="http://vimeo.com/36264186">this video</a> for an overview.</p>
+	
+		<h1>Standard Reports</h1>
+		<table>
+			<tr>
+				<td>
+					<select id="standardReportsSelect"></select>
+				</td>
+				<td>
+					<button type="button" id="loadStandard" onclick="loadStandardReport()">Load</button>
+				</td>
+			</tr>
+		</table>
+		
+		<h1>Saved Reports</h1>
+		<table>
+			<tr>
+				<td>
+					<select id="savedReports"></select>
+				</td>
+				<td>
+					<button type="button" id="load" onclick="loadReport()">Load</button>
+				</td>
+				<td>
+					<button type="button" id="deleteBtn" onclick="deleteReport()">Delete</button>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="text" name="reportName" id="reportName" size="80" />
+				</td>
+				<td>
+					<button type="button" id="save" onclick="saveReport()">Save</button>
+				</td>
+				<td>
+					<button type="button" id="openUrl" onclick="openUrl()">Open Url</button>
+				</td>
+			</tr>
+		</table>
+		
+		<h1>Graph Type</h1>
+		<select id="graphType">
+			<option value="pie">Pie Chart</option>
+			<option value="bar">Stacked Bar Chart</option>
+		</select>
+		
+		<h1>Source Topics</h1>
+		<table>
+			<tr>
+				<td>URL:</td>
+				<td><input type="text" name="url" id="url" size="160" /></td>
+			</tr>
+			<tr>
+				<td>First Level Grouping Tags</td>
+				<td><input type="text" name="firstLevelTags" id="firstLevelTags" size="160" /></td>
+			</tr>
+			<tr>
+				<td>Second Level Grouping Tags</td>
+				<td><input type="text" name="secondLevelTags" id="secondLevelTags" size="160" /></td>
+			</tr>
+			<tr>
+				<td>Exclude Tags</td>
+				<td><input type="text" name="ignoreTags" id="ignoreTags" size="160" /></td>
+			</tr>
+			<tr>
+				<td>Show Other As Field</td>
+				<td><input type="checkbox" name="showOther" value="showOther" id="showOther" /></td>
+			</tr>
+		</table>
+		<br/>
+				
+		<button type="button" id="generate" onclick="executeQueries(0)">Generate</button>
+		
+		<br />
+		<br />
+		
+		<div id="progress"></div>
+		<table id="queryResultsTable" class="queriesClass"></table>
+		
+		<br />
+		<br />
+		
+		<div id="chart" style="width: 1024px; height: 768px;"></div>
+		
+		
+		<script language="javascript" type="text/javascript">
+
+			var skynetHostname = "skynet.cloud.lab.eng.bne.redhat.com"
+			
+			// http://jquery-howto.blogspot.com.au/2009/09/get-url-parameters-values-with-jquery.html
+			$.extend({
+				getUrlVars: function(){
+				  var vars = [], hash;
+				  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				  for(var i = 0; i < hashes.length; i++)
+				  {
+				    hash = hashes[i].split('=');
+				    vars.push(hash[0]);
+				    vars[hash[0]] = hash[1];
+				  }
+				  return vars;
+				},
+				getUrlVar: function(name){
+				  return $.getUrlVars()[name];
+				}
+			});
+		
+			var standardReports = 
+			[
+				{
+					id: 1,
+					name: "EAP6 Topics In QE by Writer", 
+					url: "http://" + skynetHostname + ":8080/TopicIndex/CustomSearchTopicList.seam?tag19=1&tag22=1&tag23=1&tag132=1&tag20=1&tag21=1", 
+					firstLevelTags: "[1 / 12]",
+					ignoreTags: "14, 16, 72, 18", 
+					graphType: "pie"
+				},
+				{
+					id: 2,
+					name: "EAP 6 Topics In Development by Writer", 
+					url: "http://" + skynetHostname + ":8080/TopicIndex/CustomSearchTopicList.seam?tag132=1&tag70=1&tag71=1", 
+					firstLevelTags: "[1 / 12]",
+					ignoreTags: "14, 16, 72, 18, 22, 21, 23, 20, 19", 
+					graphType: "pie"
+				},
+				{
+					id: 3,
+					name: "EAP 6 Topics In Planning by Writer", 
+					url: "http://" + skynetHostname + ":8080/TopicIndex/CustomSearchTopicList.seam?tag132=1&tag13=1&tag34=1", 
+					firstLevelTags: "[1 / 12]",
+					ignoreTags: "14, 16, 72, 18, 22, 21, 23, 20, 19, 70, 71", 
+					graphType: "pie"
+				},
+				{
+					id: 4,
+					name: "EAP 6 Topics by Writer", 
+					url: "http://" + skynetHostname + ":8080/TopicIndex/CustomSearchTopicList.seam?tag18=0&catint5=And&tag132=1&tag14=0&tag16=0&tag72=0", 
+					firstLevelTags: "[1 / 12]",
+					graphType: "pie"
+				},
+				{
+					id: 5,
+					name: "EAP 6 Topics by QE State", 
+					url: "http://" + skynetHostname + ":8080/TopicIndex/CustomSearchTopicList.seam?tag19=1&tag119=1&catint5=And&tag133=1&tag14=0&tag132=1", 
+					firstLevelTags: "21, 22",
+					showOther: true,
+					graphType: "pie"
+				},
+				{
+					id: 6,
+					name: "EAP 6 Topics with Open Bugs by Writer", 
+					url: "http://" + skynetHostname + ":8080/TopicIndex/CustomSearchTopicList.seam?tag19=1&tag119=1&catint5=And&tag133=1&tag132=1&tag14=0&topicHasOpenBugzillaBugs=true", 
+					firstLevelTags: "[1/12]",
+					showOther: true,
+					graphType: "pie"
+				}
+			];
+
+			var expand = 
+			{
+				"branches":
+			  	[
+					{
+				  		"trunk":
+				  		{
+							"name": "topics", 
+				  		},
+				  		"branches":
+				  		[
+							{
+					  			"trunk":
+					  			{
+									"name":"tags"
+					  			},
+					  			"branches":
+					  			[
+									{
+						  				"trunk":
+						  				{
+											"name":"categories"
+						  				}
+									}
+					  			]
+							}
+				  		]
+					}
+			  	]
+			};
+
+			var categoriesExpand = 
+			{
+				"branches":
+			  	[
+					{
+				  		"trunk":
+				  		{
+							"name": "categories", 
+				  		},
+				  		"branches":
+				  		[
+							{
+					  			"trunk":
+					  			{
+									"name":"tags"
+					  			},
+					  			"branches":
+					  			[
+									{
+						  				"trunk":
+						  				{
+											"name":"projects"
+						  				}
+									}
+					  			]
+							}
+				  		]
+					}
+			  	]
+			};
+
+			/* The query database */
+			queryDatabase = [];
+
+			/* The saved reports */
+			localStorgaeReports = null;
+
+			/* Populate the list of existing reports */
+			selectAllReports();
+
+			/* the last position of the tooltip */
+			previousPoint = null;
+			previousSeries = null;
+			
+			/* load any reports supplied in the url */
+			loadReportFromUrl();
+			
+			function loadReportFromUrl()
+			{
+				var reportJson = $.getUrlVar("report");
+				if (reportJson != undefined)
+				{
+					var reportJsonDecoded = unescape(reportJson);
+					var report = JSON.parse(reportJsonDecoded);
+					displayLoadedQuery(report);
+				}
+			}
+			
+			function openUrl()
+			{
+				var report = generateReportObject();
+				window.open("reportbuilder.html?report=" + encodeURIComponent(JSON.stringify(report)));
+			}
+
+			function showTooltip(x, y, contents) 
+			{
+		        $('<div id="tooltip">' + contents + '</div>').css( {
+		            position: 'absolute',
+		            display: 'none',
+		            top: y + 5,
+		            left: x + 5,
+		            border: '1px solid #fdd',
+		            padding: '2px',
+		            'background-color': '#fee',
+		            opacity: 0.80
+		        }).appendTo("body").fadeIn(200);
+		    }
+
+			/* display or hide the tool tip */
+		    $("#chart").bind("plothover", 
+				function (event, pos, item) 
+				{
+		            if (item) 
+			        {
+		                if (previousPoint != item.dataIndex || previousSeries != item.seriesIndex) 
+			           	{
+		                    previousPoint = item.dataIndex;
+		                    previousSeries = item.seriesIndex;
+		                    
+		                    $("#tooltip").remove();
+		                    showTooltip(item.pageX, item.pageY, item.series.label + " (" + (item.datapoint[1] - item.datapoint[2]) + ")");
+		                }
+		            }
+		            else 
+			        {
+		                $("#tooltip").remove();
+		                previousPoint = null;            
+		            }
+				}
+		    );
+
+			function selectAllReports()
+			{
+				$("#savedReports")[0].options = [];
+				$("#standardReportsSelect")[0].options = [];
+
+				try
+				{
+					localStorgaeReports = JSON.parse(localStorage.getItem('SkynetReports'));
+				}
+				catch(ex)
+				{
+					localStorgaeReports = [];
+				}
+				
+				if (localStorgaeReports == null || !localStorgaeReports instanceof Array)
+					localStorgaeReports = [];
+
+				for (i = 0; i < localStorgaeReports.length; ++i)
+				{
+					var thisReport = localStorgaeReports[i];
+
+					if (thisReport.name == undefined)
+					{
+						localStorgaeReports = [];
+						localStorage.setItem('SkynetReports', localStorgaeReports);
+						break;
+					}
+						
+					$("#savedReports")[0].options.add(new Option(thisReport.name, thisReport.id));
+				}	
+
+				if (standardReports != undefined && standardReports != null && standardReports instanceof Array)
+				{	
+					for (i = 0; i < standardReports.length; ++i)
+					{
+						$("#standardReportsSelect")[0].options.add(new Option(standardReports[i].name, standardReports[i].id));
+					}
+				}			
+			}
+			
+			function generateReportObject()
+			{
+				var report = 
+				{
+					name: $("#reportName")[0].value, 
+					url: $("#url")[0].value, 
+					firstLevelTags: $("#firstLevelTags")[0].value,
+					secondLevelTags: $("#secondLevelTags")[0].value, 
+					graphType: $("#graphType")[0].value,
+					ignoreTags: $("#ignoreTags")[0].value,
+					showOther: $("#showOther")[0].checked
+				};
+				
+				return report;
+			}
+
+			function saveReport()
+			{
+				var report = generateReportObject();
+
+				/* Remove any existing report with the same name */
+				for (i = 0; i < localStorgaeReports.length; ++i)
+				{
+					if (localStorgaeReports[i].name == report.name)
+					{
+						localStorgaeReports.splice(i, 1);
+						break;
+					}
+				}
+
+				report.id = localStorgaeReports.length;
+
+				/* Add the report */
+				localStorgaeReports.push(report);
+
+				/* Save the report */
+				localStorage.setItem('SkynetReports', JSON.stringify(localStorgaeReports));
+
+				selectAllReports();
+			}		
+
+			function loadReport()
+			{
+				var selectedItem = $("#savedReports")[0].options[$("#savedReports")[0].selectedIndex];
+				if (selectedItem != null)
+				{
+					$("#reportName").value = selectedItem.text;
+
+					for (i = 0; i < localStorgaeReports.length; ++i)
+					{
+						if (localStorgaeReports[i].id == selectedItem.value)
+						{
+							var loadedReport = localStorgaeReports[i];
+							displayLoadedQuery(loadedReport);							
+							break;
+						}
+					}
+				}			
+			}
+
+			function loadStandardReport()
+			{
+				var selectedItem = $("#standardReportsSelect")[0].options[$("#standardReportsSelect")[0].selectedIndex];
+				if (selectedItem != null)
+				{
+					$("#reportName").value = selectedItem.text;
+
+					for (i = 0; i < standardReports.length; ++i)
+					{
+						if (standardReports[i].id == selectedItem.value)
+						{
+							var loadedReport = standardReports[i];
+							displayLoadedQuery(loadedReport);							
+							break;
+						}
+					}
+				}			
+			}
+
+			function displayLoadedQuery(loadedReport)
+			{
+				if (loadedReport.graphType != undefined && document.getElementById("graphType") != null)
+					$("#graphType")[0].value = loadedReport.graphType;
+
+				$("#reportName")[0].value = loadedReport.name == undefined ? "" : loadedReport.name;
+				$("#firstLevelTags")[0].value = loadedReport.firstLevelTags == undefined ? "" : loadedReport.firstLevelTags;
+				$("#secondLevelTags")[0].value = loadedReport.secondLevelTags == undefined ? "" : loadedReport.secondLevelTags;
+				$("#url")[0].value = loadedReport.url == undefined ? "" : loadedReport.url;
+				$("#ignoreTags")[0].value = loadedReport.ignoreTags == undefined ? "" : loadedReport.ignoreTags;
+				$("#showOther")[0].checked = loadedReport.showOther == undefined ? false : loadedReport.showOther;
+			}
+
+			function deleteReport()
+			{
+				var selectedItem = $("#savedReports")[0].options[$("#savedReports")[0].selectedIndex];
+				if (selectedItem != null)
+				{
+					for (i = 0; i < localStorgaeReports.length; ++i)
+					{
+						if (localStorgaeReports[i].id == selectedItem.value)
+						{
+							localStorgaeReports.splice(i, 1);
+							localStorage.setItem('SkynetReports', JSON.stringify(localStorgaeReports));
+							break;
+						}
+					}
+					selectAllReports();
+				}
+			}
+
+			function enableUI()
+			{
+				$(':button').attr("disabled", false);
+				$(':input').attr("disabled", false);
+				$("#progress")[0].innerHTML = "";
+				$("#generate")[0].innerHTML = "Generate";
+			}
+
+			function disableUI()
+			{
+				$(':button').attr("disabled", true);
+				$(':input').attr("disabled", true);
+				$("#queryResultsTable")[0].innerHTML = "";
+				$("#chart")[0].innerHTML = "";
+				$("#generate")[0].innerHTML = "Please Wait";
+			}
+			
+			function updateQueriesDisplay()
+			{
+				queries.innerHTML = "<tr><td><strong>Label</strong></td><td><strong>URL</strong></td><td><strong>Actions</strong></td></tr>";
+				for (i = 0; i < queryDatabase.length; ++i)
+				{
+					query = queryDatabase[i];
+					queries.innerHTML += "<tr><td>" + query.label + "</td><td>" + query.url + "</td><td><button type=\"button\" id=\"remove" + i + "\" onclick=\"removeQuery(" + i + ")\">Remove</button></td></tr>";
+				}
+				updateGenerateButton();
+			}	
+			
+			function getSanatisedUrl()
+			{
+				var sanatisedUrl = $("#url")[0].value;
+				sanatisedUrl = sanatisedUrl.replace(/;cid=\d+/, "");
+				return sanatisedUrl;
+			}
+			
+			
+			function executeQueries()
+			{				
+				disableUI();
+
+				var sanatisedUrl = getSanatisedUrl();				
+				var hostName = sanatisedUrl.match(/http:\/\/(.*?)(:|\/)/)[1];	
+				
+				var queryParameters = sanatisedUrl.replace("http://" + hostName + ":8080/TopicIndex/CustomSearchTopicList.seam?", "");
+				queryParameters = queryParameters.replace(/&/g, ";");
+
+				var topicsRestUrl = "http://" + hostName + ":8080/TopicIndex/seam/resource/rest/1/topics/get/jsonp/query;" + queryParameters + "?expand=" + encodeURIComponent(JSON.stringify(expand)) + "&callback=?";
+				var categoryiesRestUrl = "http://" + hostName + ":8080/TopicIndex/seam/resource/rest/1/categories/get/jsonp/all?expand=" + encodeURIComponent(JSON.stringify(categoriesExpand)) + "&callback=?";
+
+				$.getJSON(
+					categoryiesRestUrl,
+					function (categroiesJson)
+					{
+						var firstLevelTagsIdArray = [];
+						var secondLevelTagsIdArray = [];
+						var ignoreTagsIdArray = [];
+		
+						var firstLevelTagsArray = $("#firstLevelTags")[0].value.split(",");
+						var secondLevelTagsArray = $("#secondLevelTags")[0].value.split(",");
+						var ignoreTagsArray = $("#ignoreTags")[0].value.split(",");
+		
+						/* clean up the strings, and  convert them into numbers */									
+						for (h = 0; h < 3; ++h)
+						{
+							if (h == 0)
+							{
+								tagsArray = firstLevelTagsArray;
+								tagsIdArray = firstLevelTagsIdArray;
+							}
+							else if (h == 1)
+							{
+								tagsArray = secondLevelTagsArray;
+								tagsIdArray = secondLevelTagsIdArray;
+							}
+							else if (h == 2)
+							{
+								tagsArray = ignoreTagsArray;
+								tagsIdArray = ignoreTagsIdArray;
+							}
+
+							for (i = 0; i < tagsArray.length; ++i)
+							{
+								var trimmedString = $.trim(tagsArray[i]);
+								var isCategory = trimmedString.charAt(0) == '[' && trimmedString.charAt(trimmedString.length-1) == ']';
+															
+								if (isCategory)
+								{
+									var projectId = null;
+									var categoryId = null;
+
+									/* remove the square brackets */
+									trimmedString = trimmedString.substr(1, trimmedString.length - 2);
+
+									/* split the string up into project and category */
+									var projectCategorySplit = trimmedString.split("/");
+
+									if (projectCategorySplit.length == 1)
+									{
+										categoryId = parseInt($.trim(projectCategorySplit[0]))
+									}									
+									else if (projectCategorySplit.length == 2)
+									{
+										projectId = parseInt($.trim(projectCategorySplit[0]))
+										categoryId = parseInt($.trim(projectCategorySplit[1]))
+									}
+									else
+									{
+										/* we need to get 1 or 2 numbers out of the field. anything else is an error */
+										continue;
+									}
+	
+									/* must have valid numbers */
+									if (isNaN(categoryId) || isNaN(projectId))
+										continue;
+	
+									/* find the specified category */
+									for (j = 0; j < categroiesJson.items.length; ++j)
+									{
+										var category = categroiesJson.items[j];
+																			
+										if (category.id == categoryId)
+										{
+											for (k = 0; k < category.tags.items.length; ++k)
+											{
+												tag = category.tags.items[k];
+
+												if (projectId != null)
+												{
+													for (l = 0; l < tag.projects.items.length; ++l)
+													{
+														var project = tag.projects.items[l];
+														if (project.id == projectId)
+														{
+															tagsIdArray.push(tag.id);
+															break;	
+														}
+													}	
+												}
+												else
+												{
+													/* The default project holds tags that have no specific project */
+													if (tag.projects.items.length == 0)
+														tagsIdArray.push(tag.id);
+												}									
+											}
+										}
+									}
+								}
+								else
+								{
+									var number = parseInt(trimmedString);
+									if (!isNaN(number))
+									{
+										tagsIdArray.push(number);
+									}
+								}	
+								
+							}
+						}						
+	
+						$.getJSON(
+							topicsRestUrl, 
+							function(json)
+							{
+								try
+								{
+									var data = [];
+		
+									/* pie charts only show one level */
+									if ($("#graphType")[0].value == "pie")
+									{
+										if (firstLevelTagsIdArray.length == 0)
+										{
+											alert("A stacked bar chart requires both a first level of grouping tags. That field was either left empty, or there were no tags found that matched the Project and Category combination.");
+											return;
+										}
+
+										for (i = 0; i < firstLevelTagsIdArray.length; ++i)
+										{
+											var firstLevelTag = firstLevelTagsIdArray[i];
+											var topicCount = 0;
+											var tagName = "";
+											var tagId = null;
+											
+											for (j = 0; j < json.items.length; ++j)
+											{							
+												var topic = json.items[j];
+												var foundTag = false;
+												
+												for (k = 0; k < topic.tags.items.length; ++k)
+												{
+													var tag = topic.tags.items[k];
+
+													var foundIgnoreTag = false;
+													for (m = 0; m < ignoreTagsArray.length; ++m)
+													{
+														if (tag.id == ignoreTagsIdArray[m])
+														{
+															
+															foundIgnoreTag = true;
+															break;
+														}
+													}
+
+													if (foundIgnoreTag)
+													{
+														foundTag = false;
+														break;
+													}
+
+													if (tag.id == firstLevelTag)
+													{
+														foundTag = true;															
+														tagName = "[" + tag.id + "] " + tag.name;
+														tagId = tag.id;
+													}																									
+												}
+
+												/* This topic has a tag that we are ignoring, so exit */
+												if (foundTag)
+												{
+													++topicCount;
+												}
+											}
+
+											if (topicCount != 0)
+												data.push({label: tagName, id: tagId, data: topicCount});
+										}
+
+										if ($("#showOther")[0].checked)
+										{
+											var totalWithoutOther = 0;
+											for (i = 0 ; i < data.length; ++i)
+											{
+												totalWithoutOther += data[i].data;
+											}
+
+											var otherCount = json.items.length - totalWithoutOther; 
+
+											data.push({label: "Other", data: otherCount});
+										}
+
+		
+										$.plot(
+											$("#chart"), 
+											data, 
+											{
+										        series: 
+											    {
+										            pie: 
+											        { 
+										                show: true
+										            }
+										        },
+										        legend: 
+											    {
+										            show: false
+										    	}
+											}
+										);
+
+										var total = 0;
+										for (i = 0 ; i < data.length; ++i)
+										{
+											total += data[i].data;
+										}
+
+										
+										var tableHTML = "";									
+										for (i = 0 ; i < data.length; ++i)
+										{
+											var dataItem = data[i];
+											tableHTML += "<tr><td>";											
+											
+											if (dataItem.id != undefined)
+											{
+												tableHTML += '<a href="' + getSanatisedUrl().replace(/&/g, "&amp;") + "&amp;tag" + dataItem.id + '=1">' +  dataItem.label + "</a>";
+											}
+											else
+											{
+												tableHTML += dataItem.label;
+											}
+												
+											tableHTML += "</td><td>" + dataItem.data + "</td><td>" + Math.round(dataItem.data / total * 100.0) + "%</td></tr>";
+										}
+
+										tableHTML += '<tr><td><a href="' + getSanatisedUrl().replace(/&/g, "&amp;") + '">Total</a></td><td>' + total + "</td><td>100%</td></tr>";
+										
+										$("#queryResultsTable")[0].innerHTML = tableHTML;
+									}
+									/* all others show two levels */
+									else
+									{
+										if (firstLevelTagsIdArray.length == 0 || secondLevelTagsIdArray.length == 0)
+										{
+											alert("A stacked bar chart requires both a first and second level of grouping tags. These fields were either left empty, or there were no tags found that matched the Project and Category combination.");
+											return;
+										}
+
+										/* A mapping of the tag indexes in firstLevelTagsIdArray to the tag names, to be displayed on the x axis */
+										var xAxisLabels = [];
+
+										/* The data that will be fed to FLOT */
+										var twoLevelData = [];
+		
+										for (j = 0; j < secondLevelTagsIdArray.length; ++j)
+										{
+											var secondLevelTag = secondLevelTagsIdArray[j];											
+											var levelTwoTagName = "";
+											var data = [];
+											
+											for (i = 0; i < firstLevelTagsIdArray.length; ++i)
+											{
+												var xLabelSet = false;
+												var levelOneTagName = "";
+												var firstLevelTag = firstLevelTagsIdArray[i];
+		
+												var topicCount = 0;									
+		
+												/* find those topics that match both tags */
+												for (k = 0; k < json.items.length; ++k)
+												{							
+													var topic = json.items[k];
+		
+													/* some sanity checking */
+													if (topic.tags != undefined && topic.tags.items != null)
+													{
+														var foundFirstTag = false;
+														var foundSecondTag = false;
+														var foundIgnoreTag = false;
+																											
+														for (l = 0; l < topic.tags.items.length; ++l)
+														{
+															var tag = topic.tags.items[l];
+
+															for (m = 0; m < ignoreTagsArray.length; ++m)
+															{
+																if (tag.id == ignoreTagsIdArray[m])
+																{
+																	foundIgnoreTag = true;
+																	break;
+																}
+															}
+
+															/* This topic has a tag that we are ignoring, so exit */
+															if (foundIgnoreTag)
+															{
+																foundFirstTag = false;
+																foundSecondTag = false;
+																break;
+															}
+		
+															if (tag.id == firstLevelTag)
+															{
+																levelOneTagName = "[" + tag.id + "] " + tag.name;
+																foundFirstTag = true;
+															}
+															
+															if (tag.id == secondLevelTag)
+															{
+																foundSecondTag = true;
+																levelTwoTagName = "[" + tag.id + "] " + tag.name;
+															}
+														}														
+		
+														if (foundFirstTag && foundSecondTag)
+															++topicCount;
+													}																			
+												}
+
+												/* Level 1 tags that were no found to have any topics are displayed as empty bars, with the tag id */
+												if (levelOneTagName == "")
+													levelOneTagName = "[" + firstLevelTag + "]"
+											
+												data.push([i, topicCount]);
+		
+												/* make a note of the x axis positions and their labels */
+												var alreadyDefined = false;
+												for (k = 0; k < xAxisLabels.length; ++k)
+												{
+													if (xAxisLabels[k][0] == i)
+													{
+														alreadyDefined = true;
+														break;
+													}
+												}	
+
+												if (!alreadyDefined)	
+													xAxisLabels.push([i, levelOneTagName]);
+												
+											}
+
+											
+
+											/* Level 2 topics (i.e the stacked areas in the bars) simply don't get added if they were not found.*/
+											if (levelTwoTagName != "")
+												twoLevelData.push({label: levelTwoTagName, data: data});
+										}
+												
+										$.plot(
+											$("#chart"), 
+											twoLevelData, 
+											{													
+												series: 
+												{
+													stack: 0,
+													lines: {show: false, steps: false},
+													bars: {show: true, barWidth: 0.9, align: "center"}
+												},
+												xaxis: {ticks: xAxisLabels},
+												legend: {show: false},												
+												grid: {hoverable: true}
+											}
+										);		
+									}	
+								}
+								finally
+								{
+									enableUI();
+								}										
+							}
+							
+						)
+						.error(function(){enableUI();});		
+					}
+				)
+				.error(function(){enableUI();});		
+			}							
+   		</script>
+	</body>
+</html>

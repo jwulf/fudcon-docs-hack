@@ -1,0 +1,49 @@
+# translation of Feedback.po to Sinhala
+# Danishka Navin <snavin@redhat.com>, 2007.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2007-10-30 15:16+0530\n"
+"Last-Translator: Danishka Navin <snavin@redhat.com>\n"
+"Language-Team: Sinhala <en@li.org>\n"
+"Language: si\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "අපට ප්‍රථිචාර අවශ්‍යයි!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>ප්‍රථිචාරය</primary> <secondary>මෙම අත්පොත සඳහා සම්බන්ධතා තොරතුරු</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "මෙම අත්පොතේ මුද්‍රණ දෝෂයක් ඔබට හමුවුවහොත් හෝ මෙම අත්පොත් වඩා ගුණාත්මක ලෙස සැකසීමට අදහසක් ඇතිවුවහොත් ඔබගේ අදහස් සදාරයෙන් පිළිගන්නෙමු! කරුණාකර Bugzilla තුළ වාර්තාවක් ලබාදෙන්න: <application>&PRODUCT;.</application> වෙනුවෙන් <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "දෝෂ වාර්තාවක් ලබාදිමේදි අත්පොත් හදුනාගැනීම සඳහන් කිරීමට සැළකිළිමත් වන්න: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "මෙම ප්‍රලේඛනය දියුණු කිරීම සඳහා ඔබට යෝජනා ඇත්නම් එය විස්තර කිරීමෙදි හැකිතරම් විශේෂිතව දැක්වීමට උත්සාහ කරන්න. ඔබට දෝෂයක් හමුවුවහොත් කරුණාකර අංශයේ අංකය සහ අදාලා පෙදෙසේ වචන ස්වල්පයක් එක්කරන්න, එවිට අපහට එය පහසුවෙන් හදුනා ගත හැක."
+
+#~ msgid "feedback"
+#~ msgstr "ප්‍රථිචාරය"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "මෙම අත්පොත සඳහා සම්බන්ධතා තොරතුරු"
+
+#~ msgid "translator-credits"
+#~ msgstr "Danishka Navin"

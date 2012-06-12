@@ -1,0 +1,50 @@
+# Ukrainian translation of Feedback
+# Copyright (C) Free Software Foundation
+# Maxim Dziumanenko <dziumanenko@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Feedback\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2010-04-09 10:25+0300\n"
+"Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "Нам потрібні ваші відгуки!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>зворотний зв'язок</primary> <secondary>контактна інформація стосовно цього посібника</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "Якщо ви знайдете типографську помилку у цій довідці, або якщо маєте пропозиції щодо її покращення, ми будемо раді вас почути! Надішліть повідомлення у Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> для продукту <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "При надсиланні повідомлення, не забудьте вказати ідентифікатор документу довідки: <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "Якщо ви маєте пропозиції щодо вдосконалення документації, намагайтесь точніше описати їх. Якщо знайшли помилку, будь ласка, включайте номер розділу та уривок тексту поблизу помилки, щоб її можна було швидко знайти."
+
+#~ msgid "feedback"
+#~ msgstr "зворотний зв'язок"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "контактна інформація стосовно цього посібника"
+
+#~ msgid "translator-credits"
+#~ msgstr "Максим Дзюманенко"

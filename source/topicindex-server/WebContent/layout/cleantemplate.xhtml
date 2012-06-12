@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:rich="http://richfaces.org/rich" contentType="text/html">
+	<html style="height: 100%">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TopicIndex</title>
+<link rel="shortcut icon" href="#{request.contextPath}/favicon.png" />
+<a:loadStyle src="/stylesheet/theme.xcss" />
+<a:loadStyle src="/stylesheet/theme.css" />
+<a:loadStyle src="/stylesheet/codemirror.css" />
+<a:loadStyle src="/stylesheet/codemirror-default.css" />
+<ui:insert name="head" />
+</head>
+<body style="height: 100%" class="docsHackContainer" >
+<div class="dh-span-menu">
+	<h:form>
+		<rich:toolBar styleClass="dh-span-menu">
+			<rich:toolBarGroup>
+        
+        <h:outputLink id="book"
+					value="/TopicIndex/Books/index.seam"
+					>				
+        <h:outputText value="Book List" />
+      </h:outputLink>
+        
+        
+    <!--     <h:outputLink id="book"
+					value="http://www.fedorareloaded.com:8080/TopicIndex/Introducing_Fedora/index.seam"
+					>				
+        <h:outputText value="Go to the Live Editable Book" />
+      </h:outputLink>
+
+				<h:outputLink id="instructions"
+					value="http://www.fedorareloaded.com:8080/TopicIndex/Help.seam"
+					>
+					<h:outputText>Instructions</h:outputText>
+				</h:outputLink>
+				 -->
+
+			</rich:toolBarGroup>
+			<rich:toolBarGroup
+                                                rendered="#{s:hasPermission('ImageListLink', 'Rendered', null)}">
+                                                <s:link view="/ImageFileList.xhtml" value="Image Library"
+                                                        propagation="none" />
+                                                       
+						
+				
+						
+			</rich:toolBarGroup>
+			
+			<rich:toolBarGroup location="right">
+			
+			<h:outputLink id="menuBugzillaList"
+						value="https://bugzilla.redhat.com/buglist.cgi" target="_blank">
+						<f:param name="product" value="Topic Tool" />
+						<f:param name="component" value="FUDCon Docs Hack" />
+						<h:outputText>Bugzilla</h:outputText>
+						</h:outputLink>
+						
+			 <h:outputLink id="menuBugzillaBug"
+							value="https://bugzilla.redhat.com/enter_bug.cgi" target="_blank">
+							<f:param name="product" value="Topic Tool" />
+							<f:param name="component" value="FUDCon Docs Hack" />
+							<f:param name="comment"
+								value="#{webConstants.build} #{facesContext.viewRoot.viewId}" />
+							<h:outputText>Open Bug or RFE</h:outputText>
+						</h:outputLink>
+						
+						
+						<!-- uncomment the parts below to get twitter links in the interface -->
+						
+		<!--  			<h:outputLink id="twitter"
+					value="https://twitter.com/#!/FUDConDocsHack"
+					target="_blank">
+					<h:outputText>Twitter feed</h:outputText>
+				</h:outputLink>
+				
+				<h:outputLink id="rss"
+					value="https://api.twitter.com/1/statuses/user_timeline.rss?screen_name=FUDConDocsHack"
+					target="_blank">
+					<h:outputText>RSS</h:outputText>
+				</h:outputLink>
+				-->
+				
+				<h:outputText value="CONNECTED TO PRODUCTION DATABASE"
+					rendered="#{systemInfo.liveDatabase}" />
+			</rich:toolBarGroup>
+			
+			<rich:toolBarGroup location="right">
+				<h:outputText id="menuWelcomeId"
+					value="signed in as: #{credentials.username}"
+					title="#{identityDetails.rolesString}"
+					rendered="#{identity.loggedIn}" />
+				<s:link id="menuLoginId" view="/login.xhtml" value="Login"
+					rendered="#{not identity.loggedIn}" propagation="none" />
+				<s:link id="menuLogoutId" view="/CustomSearchTopics.xhtml"
+					action="#{identity.logout}" value="Logout"
+					rendered="#{identity.loggedIn}" propagation="end" />
+			</rich:toolBarGroup>
+		</rich:toolBar>
+	</h:form>
+</div>
+	<div class="body docsHackDocContainer">
+		<ui:insert name="body" />
+	</div>
+
+	<div>
+		<h:messages id="messages" globalOnly="true" styleClass="message"
+			errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"
+			rendered="#{showGlobalMessages != 'false'}" />
+	</div>
+
+
+</body>
+	</html>
+</f:view>

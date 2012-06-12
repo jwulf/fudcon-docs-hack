@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:panelGrid columns="2" columnClasses="docBookOptions">
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.emailTo}" />
+		<h:outputText
+			value="Send docbook file to this email address." />
+		
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.publicanShowRemarks}" />
+		<h:outputText value="Show remarks" />
+
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.processRelatedTopics}" />
+		<h:outputText value="Include all related topics" />
+
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.enableDynamicTreeToc}" />
+		<h:outputText
+			value="Create dynamic TOC tree view. When disabled, the links can be styled against the topic lifecycle." />
+
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.buildNarrative}" />
+		<h:outputText
+			value="Build a narrative documentation style. The sequence of topic IDs in the 'Topic ID' filter field defines the order of the narrative. With this option set the 'Create dynamic TOC tree view' and 'Include all related topics' options will be ignored." />
+
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.ignoreMissingCustomInjections}" />
+		<h:outputText
+			value="Ignore topics that have been referenced in a custom injection point, but are not included by the filter. WARNING: This may lead to some strange results e.g. if a 'Inject' has been used inline, but the topic it references is not available." />
+
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.suppressErrorsPage}" />
+		<h:outputText value="Suppress errors page" />
+
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.taskAndOverviewOnly}" />
+		<h:outputText
+			value="Display only the Task and Overview topic types in the TOC and landing pages. If not enabled, all topic types will be displayed in the TOC." />
+
+		<h:selectBooleanCheckbox
+			value="#{docbookBuildingOptions.insertSurveyLink}" />
+		<h:outputText value="Insert a link to the EAP6 survey in every topic." />
+
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.cvsPkgOption}" />
+		<h:outputText
+			value="Defines the value of the csv_pkg option in the publican.cfg file." />
+
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.makefileProductOption}" />
+		<h:outputText
+			value="Defines the value of the PRODUCT option in the Makefile file." />
+
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.makefileProdVersionOption}" />
+		<h:outputText
+			value="Defines the value of the PROD_VERSION option in the Makefile file." />
+
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.makefileLangOption}" />
+		<h:outputText
+			value="Defines the value of the LANG option in the Makefile file." />
+
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.makefileBooksOption}" />
+		<h:outputText
+			value="Defines the value of the BOOKS option in the Makefile file." />
+
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.makefileVersionOption}" />
+		<h:outputText
+			value="Defines the value of the VERSION option in the Makefile file." />
+
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.makefileReleaseOption}" />
+		<h:outputText
+			value="Defines the value of the RELEASE option in the Makefile file." />
+			
+		<h:inputText size="45"
+			value="#{docbookBuildingOptions.buildName}" />
+		<h:outputText
+			value="Defines the name of the build, which is included in the Bugzilla links." />
+	</h:panelGrid>
+
+</ui:composition>

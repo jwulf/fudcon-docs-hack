@@ -1,0 +1,98 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+	<rich:tabPanel switchType="client">
+
+		<c:forEach items="#{selectedTags}" var="project">
+			<rich:tab label="#{project.name}">
+
+				<h:panelGrid id="panel-#{project.id}" columns="6" border="0"
+					cellpadding="5px"
+					columnClasses="alignTop,alignTop,alignTop,alignTop,alignTop,alignTop">
+
+					<c:forEach items="#{project.categories}" var="category">
+
+						<rich:panel style="height: 100%; width: 100%; overflow: auto;">
+							<f:facet name="header">
+								<h:outputText value="#{category.name}"
+									title="#{category.description}#{not empty category.description?'&#13;&#13;':''}Category ID: #{category.id}" />
+							</f:facet>
+
+							<rich:simpleTogglePanel
+								id="logicPanel-#{project.id}-#{category.id}"
+								label="Search Logic" switchType="client" opened="false"
+								rendered="#{logicEnabled}">
+								<h:outputText value="Internal Logic" />
+
+								<h:selectOneRadio value="#{category.internalLogic}"
+									required="true"
+									title="The 'And' options specifies that all the tags selected in this category need to be matched for this catgeory to be considered a match. The 'Or' specifies that one or more of the the tags selected in this category need to be matched for this catgeory to be considered a match.">
+									<f:selectItem itemLabel="And" itemValue="And" />
+									<f:selectItem itemLabel="Or" itemValue="Or" />
+								</h:selectOneRadio>
+
+								<h:outputText value="External Logic" />
+
+								<h:selectOneRadio value="#{category.externalLogic}"
+									required="true"
+									title="All categories that have the 'And' option selected need to be matched for a topic to be returned. One or more categories that have the 'Or' option selected need to be matched for a topic to be returned. The 'Or' option will only have an effect if more than one category has the 'Or' option selected.">
+									<f:selectItem itemLabel="And" itemValue="And" />
+									<f:selectItem itemLabel="Or" itemValue="Or" />
+								</h:selectOneRadio>
+							</rich:simpleTogglePanel>
+
+							<br />
+
+							<h:panelGroup layout="block" style="align: center"
+								rendered="#{logicEnabled}">
+								<input class="button" value="Toggle all tags" type="button"
+									id="alltag-#{project.id}-#{category.id}"
+									onclick="toggleTags('#{project.id}', '#{category.id}')" />
+								<br />
+								<input class="button" value="Toggle all not tags" type="button"
+									id="notalltag-#{category.id}"
+									onclick="toggleNotTags('#{project.id}', '#{category.id}')" />
+							</h:panelGroup>
+
+							<h:panelGrid columns="4">
+
+								<h:outputText value="" />
+								<h:outputText value="" />
+								<h:outputText value="Not" />
+								<h:outputText value="Grp" />
+
+								<c:forEach items="#{category.tags}" var="categoryTag">
+
+									<h:outputText value="#{categoryTag.name}"
+										title="#{categoryTag.toolTip}" />
+									<h:selectBooleanCheckbox
+										id="tag-#{project.id}-#{category.id}-#{categoryTag.id}"
+										value="#{categoryTag.selected}"
+										title="Check this box to include this tag in the search"
+										onclick="tagChecked(this, '#{project.id}', '#{category.id}')" />
+									<h:selectBooleanCheckbox
+										id="tagnot-#{project.id}-#{category.id}-#{categoryTag.id}"
+										value="#{categoryTag.notSelected}"
+										title="Select this box along with the box to the left to exclude this tag from the search" />
+									<h:selectBooleanCheckbox
+										id="taggroup-#{project.id}-#{category.id}-#{categoryTag.id}"
+										value="#{categoryTag.groupBy}"
+										title="Select this box to group the resulting search by this tag" />
+								</c:forEach>
+
+							</h:panelGrid>
+						</rich:panel>
+					</c:forEach>
+				</h:panelGrid>
+			</rich:tab>
+		</c:forEach>
+	</rich:tabPanel>
+
+</ui:composition>

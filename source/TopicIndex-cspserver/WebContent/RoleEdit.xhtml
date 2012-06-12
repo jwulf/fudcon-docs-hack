@@ -1,0 +1,88 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:define name="body">
+
+		<h:form id="role" styleClass="edit">
+
+			<div class="actionButtons">
+
+				<h:commandButton styleClass="button" id="save" value="Save"
+					action="#{roleHome.persist}" disabled="#{!roleHome.wired}"
+					rendered="#{!roleHome.managed}" />
+
+				<h:commandButton styleClass="button" id="update" value="Save"
+					action="#{roleHome.update}" rendered="#{roleHome.managed}" />
+
+				<h:commandButton styleClass="button" id="delete" value="Delete"
+					action="#{roleHome.remove}" immediate="true"
+					rendered="#{roleHome.managed}" />
+
+				<s:button styleClass="button" id="cancelEdit" value="Cancel"
+					propagation="end" view="/Role.xhtml" rendered="#{roleHome.managed}" />
+
+				<s:button styleClass="button" id="cancelAdd" value="Cancel"
+					propagation="end"
+					view="/#{empty roleFrom ? 'RoleList' : roleFrom}.xhtml"
+					rendered="#{!roleHome.managed}" />
+
+			</div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<f:facet name="header">#{roleHome.managed ? 'Edit' : 'Add'} Role</f:facet>
+
+
+				<rich:tab label="Role Details">
+					<s:decorate id="roleNameField" template="layout/edit.xhtml">
+						<ui:define name="label">Role name</ui:define>
+						<h:inputTextarea id="roleName" cols="80" rows="6" required="true"
+							value="#{roleHome.instance.roleName}" />
+					</s:decorate>
+
+
+					<s:decorate id="descriptionField" template="layout/edit.xhtml">
+						<ui:define name="label">Description</ui:define>
+						<h:inputTextarea id="description" cols="80" rows="10"
+							value="#{roleHome.instance.description}" />
+					</s:decorate>
+				</rich:tab>
+				<rich:tab label="User Roles">
+					<h:panelGrid columns="2">
+						<s:label>User Name</s:label>
+						<s:label>Include User</s:label>
+
+						<s:label>#{' '}</s:label>
+						<s:label>#{' '}</s:label>
+
+						<c:forEach items="#{roleHome.users}" var="user">
+							<s:label>#{user.name}</s:label>
+							<h:selectBooleanCheckbox value="#{user.checked}"
+								title="Check this box to include this user in the role" />
+						</c:forEach>
+					</h:panelGrid>
+				</rich:tab>
+
+			</rich:tabPanel>
+
+			<div style="clear: both">
+				<span class="required">*</span> required fields
+			</div>
+
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>

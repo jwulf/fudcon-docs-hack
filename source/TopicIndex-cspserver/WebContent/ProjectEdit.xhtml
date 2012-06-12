@@ -1,0 +1,80 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="project" styleClass="edit">
+
+			<div class="actionButtons">
+
+				<h:commandButton styleClass="button" id="save" value="Save"
+					action="#{projectHome.persist}" disabled="#{!projectHome.wired}"
+					rendered="#{!projectHome.managed}" />
+
+				<h:commandButton styleClass="button" id="update" value="Save"
+					action="#{projectHome.update}" rendered="#{projectHome.managed}" />
+
+				<!-- <h:commandButton styleClass="button" id="delete" value="Delete"
+					action="#{projectHome.remove}" immediate="true"
+					rendered="#{projectHome.managed}" /> -->
+
+				<s:button styleClass="button" id="cancelEdit" value="Cancel"
+					propagation="end" view="/Project.xhtml"
+					rendered="#{projectHome.managed}" />
+
+				<s:button styleClass="button" id="cancelAdd" value="Cancel"
+					propagation="end"
+					view="/#{empty projectFrom ? 'ProjectList' : projectFrom}.xhtml"
+					rendered="#{!projectHome.managed}" />
+
+			</div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<rich:tab
+					label="#{projectHome.managed ? 'Edit' : 'Add'} Project Details">
+					<s:decorate id="projectNameField" template="layout/edit.xhtml">
+						<ui:define name="label">Project Name</ui:define>
+						<h:inputTextarea id="projectName" cols="80" rows="6"
+							required="true" value="#{projectHome.instance.projectName}" />
+					</s:decorate>
+
+					<s:decorate id="projectDescriptionField"
+						template="layout/edit.xhtml">
+						<ui:define name="label">Project Description</ui:define>
+						<h:inputTextarea id="projectDescription" cols="80" rows="10"
+							value="#{projectHome.instance.projectDescription}" />
+					</s:decorate>
+
+					<div style="clear: both">
+						<span class="required">*</span> required fields
+					</div>
+				</rich:tab>
+
+				<rich:tab label="Project Tags">
+					<ui:include src="/WEB-INF/templates/TagSelect.xhtml">
+						<ui:param name="selectedTags"
+							value="#{projectHome.selectedTags.projectCategories}" />
+						<ui:param name="homeObject" value="#{projectHome}" />
+						<ui:param name="showSort" value="#{false}" />
+					</ui:include>
+				</rich:tab>
+			</rich:tabPanel>
+
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/hot"/>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.servlet.api"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.codec"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.io"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.lang"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.jboss.resteasy.resteasy-atom-provider"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.faces.api 1.2"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.xalan"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.persistence.api"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.hibernate.3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.jboss.resteasy.resteasy-jaxrs"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.transaction.api"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.codehaus.jackson.jackson-mapper-asl"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.codehaus.jackson.jackson-core-asl"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.hibernate.search"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javax.ws.rs.api"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/org.apache.commons.http"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/faces/api/1.2/jsf-api-1.2_13.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/persistence/api/main/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/transaction/api/main/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/ws/rs/api/main/jboss-jaxrs-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/codec/main/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/http/main/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/io/main/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/lang/main/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/xalan/main/xalan-2.7.1.jbossorg-1.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/codehaus/jackson/jackson-core-asl/main/jackson-core-asl-1.6.3.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/codehaus/jackson/jackson-mapper-asl/main/jackson-mapper-asl-1.6.3.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/jboss/resteasy/resteasy-atom-provider/main/resteasy-atom-provider-2.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-jaxrs-2.2.1.GA.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/hibernate/3/hibernate3.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/hibernate/search/main/hibernate-search-4.0.0.Alpha1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

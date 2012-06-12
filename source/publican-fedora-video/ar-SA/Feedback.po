@@ -1,0 +1,49 @@
+# Publican Fedora feedback.
+# Muayyad Alsadi <alsadi@ojuba.org>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Publican Fedora Feedback 0.18\n"
+"Report-Msgid-Bugs-To: http://bugzilla.redhat.com\n"
+"POT-Creation-Date: 2010-10-26T04:15:16\n"
+"PO-Revision-Date: 2009-03-12 21:39+0000\n"
+"Last-Translator: Muayyad Alsadi <alsadi@ojuba.org>\n"
+"Language-Team: Arabic <core@ojuba.org>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: application/x-xml2pot; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Tag: title
+#, no-c-format
+msgid "We Need Feedback!"
+msgstr "راسلونا!"
+
+#. Tag: indexterm
+#, no-c-format
+msgid "<primary>feedback</primary> <secondary>contact information for this manual</secondary>"
+msgstr "<primary>التغذية الراجعة</primary> <secondary>إليك معلومات الاتصال بنا فيما يتعلق بهذا الكتيب</secondary>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you find a typographical error in this manual, or if you have thought of a way to make this manual better, we would love to hear from you! Please submit a report in Bugzilla: <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> against the product <application>&PRODUCT;.</application>"
+msgstr "إن وجدت خطأ مطبعيا في هذا الكتيب أو كان لديك فكرة لتحسينه فاعلم أنه يسرنا أن نسمع منك!فضلا قم بتسليم تقرير إلى Bugzilla على العنوان <ulink url=\"http://bugzilla.redhat.com/bugzilla/\">http://bugzilla.redhat.com/bugzilla/</ulink> على المنتج <application>&PRODUCT;.</application>"
+
+#. Tag: para
+#, no-c-format
+msgid "When submitting a bug report, be sure to mention the manual's identifier: <citetitle>&BOOKID;</citetitle>"
+msgstr "عند تعبئة التقرير اذكر معرّف الدليل وهو : <citetitle>&BOOKID;</citetitle>"
+
+#. Tag: para
+#, no-c-format
+msgid "If you have a suggestion for improving the documentation, try to be as specific as possible when describing it. If you have found an error, please include the section number and some of the surrounding text so we can find it easily."
+msgstr "إن كان لديك اقتراح لتحسين التوثيق جرب أن تكون محددا في وصفه.إن وجدت خلالا ما اذكر رقم الفصل وبعض النص المحيط به لتسهيل البحث عنه."
+
+#~ msgid "feedback"
+#~ msgstr "التغذية الراجعة"
+
+#~ msgid "contact information for this manual"
+#~ msgstr "إليك معلومات الاتصال بنا فيما يتعلق بهذا الكتيب"
+
+#~ msgid "translator-credits"
+#~ msgstr "Muayyad Alsadi <alsadi@ojuba.org>, 2009."

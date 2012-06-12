@@ -1,0 +1,185 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<!-- Add jQuery to the page -->
+		<rich:jQuery query="console.log('Loaded jQuery')" />
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/filterscripts.js"></script>
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/propertyTagAddScript.js"></script>
+
+		<h:form id="tag" styleClass="edit">
+
+			<div class="actionButtons">
+
+				<h:commandButton styleClass="button" id="save" value="Save"
+					action="#{tagHome.persist}" disabled="#{!tagHome.wired}"
+					rendered="#{!tagHome.managed}" />
+
+				<h:commandButton styleClass="button" id="update" value="Update"
+					action="#{tagHome.update}" rendered="#{tagHome.managed}" />
+
+				<h:commandButton styleClass="button" id="delete" value="Delete"
+					action="#{tagHome.remove}" immediate="true"
+					rendered="#{tagHome.managed and s:hasPermission('ViewTagDeleteButton', 'Rendered', null)}" />
+
+				<s:button styleClass="button" id="cancelEdit" value="Cancel"
+					propagation="end" view="/Tag.xhtml" rendered="#{tagHome.managed}" />
+
+				<s:button styleClass="button" id="cancelAdd" value="Cancel"
+					propagation="end"
+					view="/#{empty tagFrom ? 'TagList' : tagFrom}.xhtml"
+					rendered="#{!tagHome.managed}" />
+
+			</div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<rich:tab label="#{tagHome.managed ? 'Edit' : 'Add'} Tag Details">
+
+					<s:decorate id="tagNameField" template="layout/edit.xhtml">
+						<ui:define name="label">Tag name</ui:define>
+						<h:inputTextarea id="tagName" cols="80" rows="6" required="true"
+							value="#{tagHome.instance.tagName}" />
+					</s:decorate>
+
+					<s:decorate id="tagDescriptionField" template="layout/edit.xhtml">
+						<ui:define name="label">Tag description</ui:define>
+						<h:inputTextarea id="tagDescription" cols="80" rows="10"
+							value="#{tagHome.instance.tagDescription}" />
+					</s:decorate>
+
+					<div style="clear: both">
+						<span class="required">*</span> required fields
+					</div>
+
+				</rich:tab>
+				<rich:tab label="Tag Categories">
+
+					<h:panelGrid columns="3">
+						<s:label>Category Name</s:label>
+						<s:label>Include in Category</s:label>
+						<s:label>Sort Position in Category</s:label>
+
+						<s:label>#{' '}</s:label>
+						<s:label>#{' '}</s:label>
+						<s:label>#{' '}</s:label>
+
+						<c:forEach items="#{tagHome.categories}" var="category">
+							<s:label>#{category.name}</s:label>
+							<h:selectBooleanCheckbox value="#{category.selected}"
+								title="Check this box to include this tag in the category." />
+							<h:inputText cols="20" required="false" value="#{category.sort}" />
+						</c:forEach>
+					</h:panelGrid>
+
+				</rich:tab>
+				<rich:tab label="Encompassed Tags">
+					<ui:include src="/WEB-INF/templates/TagSelect.xhtml">
+						<ui:param name="selectedTags"
+							value="#{tagHome.selectedTags.projectCategories}" />
+						<ui:param name="homeObject" value="#{tagHome}" />
+						<ui:param name="showSort" value="#{false}" />
+					</ui:include>
+				</rich:tab>
+				<rich:tab label="Tag Projects">
+					<h:panelGrid columns="2">
+						<s:label>Project Name</s:label>
+						<s:label>Include in Project</s:label>
+
+						<s:label>#{' '}</s:label>
+						<s:label>#{' '}</s:label>
+
+						<c:forEach items="#{tagHome.projects}" var="project">
+							<s:label>#{project.project.projectName}</s:label>
+							<h:selectBooleanCheckbox value="#{project.selected}"
+								title="Check this box to include this tag in the project." />
+						</c:forEach>
+					</h:panelGrid>
+				</rich:tab>
+				<rich:tab label="Properties">
+
+					<rich:dataTable value="#{tagHome.instance.sortedToPropertyTags}"
+						var="property">
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Property Name" />
+							</f:facet>
+							<h:outputText value="#{property.propertyTag.propertyTagName}" />
+							<f:facet name="footer">
+								<h:selectOneMenu value="#{tagHome.newPropertyTagId}"
+									id="propertyComboBox"
+									onchange="propertyTagComboBoxItemSelected(this, '#{rich:clientId('newPropertyTagValue')}', '#{rich:clientId('saveProperty')}')">
+									<f:selectItems value="#{tagHome.properties}" />
+								</h:selectOneMenu>
+							</f:facet>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Value" />
+							</f:facet>
+							<h:inputText value="#{property.value}" size="80" />
+							<f:facet name="footer">
+								<h:inputTextarea cols="80" rows="1" id="newPropertyTagValue"
+									value="#{tagHome.newPropertyTagValue}" />
+							</f:facet>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Description" />
+							</f:facet>
+							<h:outputText
+								value="#{property.propertyTag.propertyTagDescription}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Is Valid" />
+							</f:facet>
+							<h:selectBooleanCheckbox value="#{property.valid}"
+								disabled="true" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Actions" />
+							</f:facet>
+							<h:commandLink styleClass="button" value="Delete"
+								action="#{tagHome.removeProperty(property)}" />
+							<f:facet name="footer">
+								<h:commandButton styleClass="button" value="Add"
+									id="saveProperty" action="#{tagHome.saveNewProperty}" />
+							</f:facet>
+						</rich:column>
+					</rich:dataTable>
+
+				</rich:tab>
+			</rich:tabPanel>
+
+		</h:form>
+
+		<script>
+			// set the state of the text box to match the initial state of the combo box
+			propertyTagComboBoxItemSelected(document.getElementById('#{rich:clientId('propertyComboBox')}'), '#{rich:clientId('newPropertyTagValue')}', '#{rich:clientId('saveProperty')}');
+		</script>
+
+		<ui:include src="/WEB-INF/templates/DisplayErrorMessage.xhtml">
+			<ui:param name="messageComponent" value="#{tagHome}" />
+		</ui:include>
+
+	</ui:define>
+
+</ui:composition>

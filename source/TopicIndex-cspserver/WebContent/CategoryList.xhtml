@@ -1,0 +1,147 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<s:div styleClass="actionButtons" rendered="#{empty from}">
+			<s:button styleClass="button" view="/CategoryEdit.xhtml" id="create"
+				propagation="none" value="Create Category">
+				<f:param name="categoryCategoryId" />
+			</s:button>
+		</s:div>
+
+		<div style="clear: both" />
+		<br />
+
+		<h:form id="categorySearch" styleClass="edit">
+
+			<rich:simpleTogglePanel label="Category Search Filter"
+				switchType="ajax" opened="false">
+				<h:panelGrid id="grid" columns="1">
+					<h:panelGroup>
+						<s:decorate template="layout/display.xhtml">
+							<ui:define name="label">Category name</ui:define>
+							<h:inputText id="categoryName"
+								value="#{categoryList.category.categoryName}" />
+						</s:decorate>
+
+						<s:decorate template="layout/display.xhtml">
+							<ui:define name="label">Category description</ui:define>
+							<h:inputText id="categoryDescription"
+								value="#{categoryList.category.categoryDescription}" />
+						</s:decorate>
+
+						<s:decorate template="layout/display.xhtml">
+							<ui:define name="label">Match</ui:define>
+							<h:selectOneRadio id="logic"
+								value="#{categoryList.restrictionLogicOperator}"
+								styleClass="radio">
+								<f:selectItem itemLabel="All" itemValue="and" />
+								<f:selectItem itemLabel="Any" itemValue="or" />
+							</h:selectOneRadio>
+						</s:decorate>
+					</h:panelGroup>
+					<h:panelGroup>
+						<div class="actionButtons">
+							<h:commandButton id="search" value="Search"
+								action="/CategoryList.xhtml" />
+							<s:button id="reset" value="Reset" includePageParams="false" />
+						</div>
+					</h:panelGroup>
+				</h:panelGrid>
+
+			</rich:simpleTogglePanel>
+		</h:form>
+
+		<br />
+		<br />
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{categoryList}" />
+				<ui:param name="view" value="/CategoryList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">Category Search Results (#{empty categoryList.resultList ? 0 : (categoryList.paginated ? categoryList.resultCount : categoryList.resultList.size)})</f:facet>
+			<div class="results" id="categoryList">
+
+				<h:outputText value="The category search returned no results."
+					rendered="#{empty categoryList.resultList}" />
+
+				<rich:dataTable id="categoryList" var="_category"
+					value="#{categoryList.resultList}"
+					rendered="#{not empty categoryList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'Category' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="categoryViewId">
+							<f:param name="categoryCategoryId"
+								value="#{_category.categoryId}" />
+						</s:link>
+            			#{' '}
+            			<s:link styleClass="smallButton"
+							view="/CategoryEdit.xhtml" value="Edit" propagation="none"
+							id="categoryEdit" rendered="#{empty from}">
+							<f:param name="categoryCategoryId"
+								value="#{_category.categoryId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{categoryList}" />
+								<ui:param name="propertyLabel" value="Category id" />
+								<ui:param name="propertyPath" value="category.categoryId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_category.categoryId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{categoryList}" />
+								<ui:param name="propertyLabel" value="Category name" />
+								<ui:param name="propertyPath" value="category.categoryName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_category.categoryName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{categoryList}" />
+								<ui:param name="propertyLabel" value="Category description" />
+								<ui:param name="propertyPath"
+									value="category.categoryDescription" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_category.categoryDescription}" />
+					</h:column>
+
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{categoryList}" />
+				<ui:param name="view" value="/CategoryList.xhtml" />
+			</ui:include>
+		</rich:panel>
+
+
+
+
+	</ui:define>
+
+</ui:composition>
