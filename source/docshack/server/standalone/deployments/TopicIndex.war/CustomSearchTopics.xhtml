@@ -1,0 +1,49 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/filterscripts.js"></script>
+
+		<!-- Disable the not fields once the page has loaded. Disabling them here in this file would also disable data binding,
+		 making the fields useless. So we have to do it at runtime.	 -->
+		<rich:jQuery selector="input[id*='tag-']" timing="onload"
+			query="each(function(index, element){if (element.checked){jQuery('input[id*=' + element.id.replace('tag', 'tagnot') + ']').removeAttr('disabled');} else {jQuery('input[id*=' + element.id.replace('tag', 'tagnot') + ']').attr('disabled', true);}})" />
+
+ 
+		<h:form id="topicIndexSearch" styleClass="edit">
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<rich:tab label="FUDCon Docs Hack Beta">
+					<p>View the list of <a href="Books/index.seam">books available to edit on this server</a></p>
+					<p>To regenerate the books, cd into the docshack directory and run "bin/builder --scan books"</p>
+				
+				</rich:tab>
+
+			</rich:tabPanel>
+
+			<div style="clear: both" />
+			<br />
+		</h:form>
+
+		<c:if test="#{not empty customTagSearch.displayMessage}">
+			<script type="text/javascript">
+				alert('#{customTagSearch.displayMessage}');
+			</script>
+		</c:if>
+
+	</ui:define>
+
+</ui:composition>

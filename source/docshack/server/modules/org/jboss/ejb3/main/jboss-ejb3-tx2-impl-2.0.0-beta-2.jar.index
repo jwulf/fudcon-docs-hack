@@ -1,0 +1,11 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/tx2
+org/jboss/ejb3/tx2/impl
+org/jboss/ejb3/tx2/impl/util
+META-INF/maven
+META-INF/maven/org.jboss.ejb3.tx2
+META-INF/maven/org.jboss.ejb3.tx2/jboss-ejb3-tx2-impl

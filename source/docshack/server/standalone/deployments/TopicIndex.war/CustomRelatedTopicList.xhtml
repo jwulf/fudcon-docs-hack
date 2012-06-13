@@ -1,0 +1,430 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/filterscripts.js"></script>
+
+		<ui:include src="/WEB-INF/templates/RelationshipMenu.xhtml">
+			<ui:param name="topicListBean" value="#{relatedTopicTagsList}" />
+		</ui:include>
+
+		<h:form>
+
+			<rich:simpleTogglePanel switchType="client" opened="false">
+				<f:facet name="header">Details and Search</f:facet>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="searchTop" value="Search"
+						action="#{relatedTopicTagsList.doSearch()}" />
+				</div>
+
+				<div style="clear: both" />
+				<br />
+
+				<rich:tabPanel switchType="client">
+					<rich:tab label="Tags">
+						<ui:include src="/WEB-INF/templates/TagSelectAndNotSelect.xhtml">
+							<ui:param name="selectedTags"
+								value="#{relatedTopicTagsList.selectedTags.projectCategories}" />
+							<ui:param name="logicEnabled" value="#{true}" />
+						</ui:include>
+					</rich:tab>
+					<rich:tab label="Fields">
+						<ui:include src="/WEB-INF/templates/TopicFieldSearch.xhtml">
+							<ui:param name="topic" value="#{relatedTopicTagsList.topic}" />
+						</ui:include>
+					</rich:tab>
+					<rich:tab label="Current Relationships">
+
+						<rich:dataTable id="relatedOutgoingTopicsList" var="relatedTopic"
+							value="#{relatedTopicTagsList.instance.outgoingRelatedTopicsArray}">
+							<f:facet name="header">
+								<h:outputText value="Outgoing Relationships" />
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText>ID</h:outputText>
+								</f:facet>
+								<h:outputText value="#{relatedTopic.topicId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText>Title</h:outputText>
+								</f:facet>
+								<h:outputText value="#{relatedTopic.topicTitle}" />
+							</h:column>
+						</rich:dataTable>
+
+						<br />
+						<br />
+
+						<rich:dataTable id="relatedIncomingTopicsList" var="relatedTopic"
+							value="#{relatedTopicTagsList.instance.incomingRelatedTopicsArray}">
+							<f:facet name="header">
+								<h:outputText value="One Way Incoming Relationships" />
+							</f:facet>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText>ID</h:outputText>
+								</f:facet>
+								<h:outputText value="#{relatedTopic.topicId}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText>Title</h:outputText>
+								</f:facet>
+								<h:outputText value="#{relatedTopic.topicTitle}" />
+							</h:column>
+						</rich:dataTable>
+
+					</rich:tab>
+				</rich:tabPanel>
+
+				<div style="clear: both" />
+				<br />
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="searchBottom"
+						value="Search" action="#{relatedTopicTagsList.doSearch()}" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+		</h:form>
+
+		<br />
+		<br />
+
+		<rich:panel>
+			<f:facet name="header">Managing Relationships For #{relatedTopicTagsList.topicTopicId}: #{relatedTopicTagsList.instance.topicTitle}<br/>#{relatedTopicTagsList.searchTagHeading}</f:facet>
+
+			<h:form>
+				<ui:include src="/WEB-INF/templates/BulkRelationshipActions.xhtml" />
+			</h:form>
+
+			<div class="tableControl">
+
+				<s:link styleClass="smallButton"
+					view="/CustomRelatedTopicList.xhtml"
+					rendered="#{relatedTopicTagsList.previousExists}"
+					value="#{messages.left}#{messages.left} First Page"
+					id="firstPageTop">
+					<f:param name="firstResult" value="0" />
+					<c:forEach items="#{relatedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</s:link>
+
+				<s:link styleClass="smallButton"
+					view="/CustomRelatedTopicList.xhtml"
+					rendered="#{relatedTopicTagsList.previousExists}"
+					value="#{messages.left} Previous Page" id="previousPageTop">
+					<f:param name="firstResult"
+						value="#{relatedTopicTagsList.previousFirstResult}" />
+					<c:forEach items="#{relatedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</s:link>
+
+				<s:link styleClass="smallButton"
+					view="/CustomRelatedTopicList.xhtml"
+					rendered="#{relatedTopicTagsList.nextExists}"
+					value="Next Page #{messages.right}" id="nextPageTop">
+					<f:param name="firstResult"
+						value="#{relatedTopicTagsList.nextFirstResult}" />
+					<c:forEach items="#{relatedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</s:link>
+
+				<s:link styleClass="smallButton"
+					view="/CustomRelatedTopicList.xhtml"
+					rendered="#{relatedTopicTagsList.nextExists}"
+					value="Last Page #{messages.right}#{messages.right}"
+					id="lastPageTop">
+					<f:param name="firstResult"
+						value="#{relatedTopicTagsList.lastFirstResult}" />
+					<c:forEach items="#{relatedTopicTagsList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</s:link>
+
+			</div>
+
+			<br />
+
+			<div class="results" id="relatedTopicTagsList">
+
+				<h:outputText value="The topic search returned no results."
+					rendered="#{empty relatedTopicTagsList.resultList}" />
+				<rich:tabPanel switchType="client"
+					selectedTab="#{relatedTopicTagsList.tab}"
+					rendered="#{not empty relatedTopicTagsList.resultList}">
+					<c:forEach items="#{relatedTopicTagsList.groupedLists}"
+						var="groupedTopic">
+						<rich:tab
+							label="#{groupedTopic.group} (#{groupedTopic.entityList.resultCount})"
+							name="#{groupedTopic.group}">
+							<rich:dataTable var="_topic"
+								value="#{groupedTopic.entityList.resultList}"
+								rendered="#{not empty relatedTopicTagsList.resultList}"
+								styleClass="listTable"
+								columnsWidth="150px, 50px, 150px, 75px, 100px, 100px, 150px"
+								columnClasses=" , , longText, , , , ">
+
+								<h:column>
+									<f:facet name="header">
+										<h:outputText>Actions</h:outputText>
+									</f:facet>
+
+									<br />
+									<br />
+
+									<h:form>
+										<h:commandLink styleClass="smallButton"
+											id="nolinkcreatefromreturn"
+											title="Create a relationship from #{relatedTopicTagsList.topicTopicId} to #{_topic.topicId}, and return to the search screen"
+											value="Create 1 Way To Here"
+											action="#{relatedTopicTagsList.createRelationship(_topic.topicId, false, true, true)}"
+											rendered="#{_topic.topicId != relatedTopicTagsList.topicTopicId}">
+											<c:forEach items="#{relatedTopicTagsList.filterVars}"
+												var="filtervar">
+												<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+											</c:forEach>
+											<f:param name="tab" value="#{groupedTopic.group}" />
+										</h:commandLink>
+
+										<br />
+										<br />
+
+										<h:commandLink styleClass="smallButton"
+											id="nolinkcreatefromcontinue"
+											title="Create a relationship from #{relatedTopicTagsList.topicTopicId} to #{_topic.topicId}, and return to this screen"
+											value="Create 1 Way To Here &amp; Continue"
+											action="#{relatedTopicTagsList.createRelationship(_topic.topicId, false, true, false)}"
+											rendered="#{_topic.topicId != relatedTopicTagsList.topicTopicId}">
+											<c:forEach items="#{relatedTopicTagsList.filterVars}"
+												var="filtervar">
+												<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+											</c:forEach>
+											<f:param name="tab" value="#{groupedTopic.group}" />
+										</h:commandLink>
+
+										<br />
+										<br />
+
+										<h:commandLink styleClass="smallButton"
+											id="nolinkcreatetoreturn"
+											title="Add a relationship from #{_topic.topicId} to #{relatedTopicTagsList.topicTopicId}, and return to the search screen"
+											value="Create 1 Way From Here"
+											action="#{relatedTopicTagsList.createRelationship(_topic.topicId, true, false, true)}"
+											rendered="#{_topic.topicId != relatedTopicTagsList.topicTopicId}">
+											<c:forEach items="#{relatedTopicTagsList.filterVars}"
+												var="filtervar">
+												<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+											</c:forEach>
+											<f:param name="tab" value="#{groupedTopic.group}" />
+										</h:commandLink>
+
+										<br />
+										<br />
+
+										<h:commandLink styleClass="smallButton"
+											id="nolinkcreatetocontinue"
+											title="Add a relationship from #{_topic.topicId} to #{relatedTopicTagsList.topicTopicId}, and return to this screen"
+											value="Create 1 Way From Here &amp; Continue"
+											action="#{relatedTopicTagsList.createRelationship(_topic.topicId, true, false, false)}"
+											rendered="#{_topic.topicId != relatedTopicTagsList.topicTopicId}">
+											<c:forEach items="#{relatedTopicTagsList.filterVars}"
+												var="filtervar">
+												<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+											</c:forEach>
+											<f:param name="tab" value="#{groupedTopic.group}" />
+										</h:commandLink>
+
+										<br />
+										<br />
+									</h:form>
+
+								</h:column>
+
+
+								<h:column>
+									<f:facet name="header">
+										<ui:include src="layout/sort.xhtml">
+											<ui:param name="entityList" value="#{relatedTopicTagsList}" />
+											<ui:param name="propertyLabel" value="ID" />
+											<ui:param name="propertyPath" value="topic.topicId" />
+											<ui:param name="filterVars"
+												value="#{groupedTopicTagsList.filterVars}" />
+										</ui:include>
+									</f:facet>
+									<h:outputText value="#{_topic.topicId}" />
+								</h:column>
+
+								<h:column
+									rendered="#{s:hasPermission('RelatedTopicTagsListTitleColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<ui:include src="layout/sort.xhtml">
+											<ui:param name="entityList" value="#{relatedTopicTagsList}" />
+											<ui:param name="propertyLabel" value="Topic Title" />
+											<ui:param name="propertyPath" value="topic.topicTitle" />
+											<ui:param name="filterVars"
+												value="#{groupedTopicTagsList.filterVars}" />
+										</ui:include>
+									</f:facet>
+									<h:outputText value="#{_topic.topicTitle}"
+										title="#{_topic.topicText}" />
+								</h:column>
+
+								<h:column
+									rendered="#{s:hasPermission('RelatedTopicTagsListPropertiesColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<h:outputText value="Properties" />
+									</f:facet>
+
+									<rich:dataList var="property"
+										value="#{_topic.sortedToPropertyTags}">
+										<h:outputText
+											value="#{property.propertyTag.propertyTagName}: #{property.value}" />
+									</rich:dataList>
+								</h:column>
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListRelatedTopicsColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<h:outputText value="Out"
+											title="Outgoing relationships to other topics" />
+									</f:facet>
+									<a4j:repeat value="#{_topic.parentTopicToTopicsArray}"
+										var="topicToTopic">
+										<h:commandButton
+											style="border: 0; background: transparent; color: green;"
+											value="This #{topicToTopic.relationshipTag.relationshipTagName} #{topicToTopic.relatedTopic.topicId}"
+											title="#{topicToTopic.relatedTopic.topicTitle} &#13;#{topicToTopic.relatedTopic.commaSeparatedTagList}">
+											<rich:componentControl event="onclick"
+												for="relatedContentMenu" operation="show">
+												<f:param value="#{topicToTopic.mainTopic.topicId}"
+													name="actionTopicId" />
+												<f:param value="#{topicToTopic.relatedTopic.topicId}"
+													name="otherTopicId" />
+												<f:param
+													value="#{topicToTopic.relationshipTag.relationshipTagId}"
+													name="relationshipTagId" />
+												<f:param value="#{groupedTopic.group}" name="tab" />
+											</rich:componentControl>
+										</h:commandButton>
+									</a4j:repeat>
+								</rich:column>
+
+								<rich:column
+									rendered="#{s:hasPermission('TopicListRelatedTopicsColumn', 'Rendered', null)}">
+									<f:facet name="header">
+										<h:outputText value="In"
+											title="Incoming relationships from other topics" />
+									</f:facet>
+									<a4j:repeat value="#{_topic.childTopicToTopicsArray}"
+										var="topicToTopic">
+										<h:commandButton
+											style="border: 0; background: transparent; color: red;"
+											value="#{topicToTopic.mainTopic.topicId} #{topicToTopic.relationshipTag.relationshipTagName} This"
+											title="#{topicToTopic.mainTopic.topicTitle} &#13;#{topicToTopic.mainTopic.commaSeparatedTagList}">
+											<rich:componentControl event="onclick"
+												for="relatedContentMenu" operation="show">
+												<f:param value="#{topicToTopic.mainTopic.topicId}"
+													name="actionTopicId" />
+												<f:param value="#{topicToTopic.relatedTopic.topicId}"
+													name="otherTopicId" />
+												<f:param
+													value="#{topicToTopic.relationshipTag.relationshipTagId}"
+													name="relationshipTagId" />
+												<f:param value="#{groupedTopic.group}" name="tab" />
+											</rich:componentControl>
+										</h:commandButton>
+
+									</a4j:repeat>
+								</rich:column>
+
+								<h:column
+									rendered="#{s:hasPermission('RelatedTopicTagsListTagsColumn', 'Rendered', null)}">
+									<f:facet name="header">Topic Tags</f:facet>
+									<h:outputText value="#{_topic.tagsList}" escape="false" />
+								</h:column>
+
+							</rich:dataTable>
+						</rich:tab>
+					</c:forEach>
+				</rich:tabPanel>
+			</div>
+
+		</rich:panel>
+
+		<div class="tableControl">
+
+			<s:link styleClass="smallButton" view="/CustomRelatedTopicList.xhtml"
+				rendered="#{relatedTopicTagsList.previousExists}"
+				value="#{messages.left}#{messages.left} First Page" id="firstPage">
+				<f:param name="firstResult" value="0" />
+				<c:forEach items="#{relatedTopicTagsList.filterVars}"
+					var="filtervar">
+					<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+				</c:forEach>
+			</s:link>
+			#{" "}
+			<s:link styleClass="smallButton" view="/CustomRelatedTopicList.xhtml"
+				rendered="#{relatedTopicTagsList.previousExists}"
+				value="#{messages.left} Previous Page" id="previousPage">
+				<f:param name="firstResult"
+					value="#{relatedTopicTagsList.previousFirstResult}" />
+				<c:forEach items="#{relatedTopicTagsList.filterVars}"
+					var="filtervar">
+					<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+				</c:forEach>
+			</s:link>
+			#{" "}
+			<s:link styleClass="smallButton" view="/CustomRelatedTopicList.xhtml"
+				rendered="#{relatedTopicTagsList.nextExists}"
+				value="Next Page #{messages.right}" id="nextPage">
+				<f:param name="firstResult"
+					value="#{relatedTopicTagsList.nextFirstResult}" />
+				<c:forEach items="#{relatedTopicTagsList.filterVars}"
+					var="filtervar">
+					<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+				</c:forEach>
+			</s:link>
+			#{" "}
+			<s:link styleClass="smallButton" view="/CustomRelatedTopicList.xhtml"
+				rendered="#{relatedTopicTagsList.nextExists}"
+				value="Last Page #{messages.right}#{messages.right}" id="lastPage">
+				<f:param name="firstResult"
+					value="#{relatedTopicTagsList.lastFirstResult}" />
+				<c:forEach items="#{relatedTopicTagsList.filterVars}"
+					var="filtervar">
+					<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+				</c:forEach>
+			</s:link>
+
+		</div>
+
+		<ui:include src="/WEB-INF/templates/DisplayErrorMessage.xhtml">
+			<ui:param name="messageComponent" value="#{relatedTopicTagsList}" />
+		</ui:include>
+
+	</ui:define>
+
+</ui:composition>

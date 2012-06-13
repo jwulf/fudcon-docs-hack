@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+	<h:form>
+		<rich:contextMenu id="relatedContentMenu" submitMode="server"
+			attached="false">
+			<rich:menuItem value="View"
+				action="#{topicListBean.viewRelatedTopic}"
+				rendered="#{s:hasPermission('ViewRelatedContextMenuItem', 'Rendered', null)}">
+				<a4j:actionparam name="actionTopicId"
+					assignTo="#{topicListBean.actionTopicId}" value="{actionTopicId}" />
+				<a4j:actionparam name="otherTopicId"
+					assignTo="#{topicListBean.otherTopicId}" value="{otherTopicId}" />
+				<a4j:actionparam name="tab" assignTo="#{topicListBean.tab}"
+					value="{tab}" />
+				<c:forEach items="#{topicListBean.filterVars}" var="filtervar">
+					<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+				</c:forEach>
+			</rich:menuItem>
+			<rich:menuItem value="View New Window" target="_blank"
+				action="#{topicListBean.viewRelatedTopic}"
+				rendered="#{s:hasPermission('ViewRelatedContextMenuItem', 'Rendered', null)}">
+				<a4j:actionparam name="actionTopicId"
+					assignTo="#{topicListBean.actionTopicId}" value="{actionTopicId}" />
+				<a4j:actionparam name="otherTopicId"
+					assignTo="#{topicListBean.otherTopicId}" value="{otherTopicId}" />
+				<a4j:actionparam name="tab" assignTo="#{topicListBean.tab}"
+					value="{tab}" />
+				<c:forEach items="#{topicListBean.filterVars}" var="filtervar">
+					<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+				</c:forEach>
+			</rich:menuItem>
+			<rich:menuItem value="Remove Relationship"
+				action="#{topicListBean.removeRelationship}"
+				rendered="#{s:hasPermission('DeleteRelatedContextMenuItem', 'Rendered', null)}">
+				<a4j:actionparam name="actionTopicId"
+					assignTo="#{topicListBean.actionTopicId}" value="{actionTopicId}" />
+				<a4j:actionparam name="otherTopicId"
+					assignTo="#{topicListBean.otherTopicId}" value="{otherTopicId}" />
+				<a4j:actionparam name="relationshipTagId"
+					assignTo="#{topicListBean.relationshipTagId}"
+					value="{relationshipTagId}" />
+				<a4j:actionparam name="tab" assignTo="#{topicListBean.tab}"
+					value="{tab}" />
+				<c:forEach items="#{topicListBean.filterVars}" var="filtervar">
+					<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+				</c:forEach>
+			</rich:menuItem>
+			<rich:menuGroup value="Convert Relationship To">
+				<c:forEach items="#{constants.relationshipTags}"
+					var="relationshipTag">
+					<rich:menuItem value="#{relationshipTag.relationshipTagName}"
+						action="#{topicListBean.convertRelationshipType}"
+						rendered="#{s:hasPermission('ConvertRelationshipTypeContextMenuItem', 'Rendered', null)}">
+						<a4j:actionparam name="actionTopicId"
+							assignTo="#{topicListBean.actionTopicId}" value="{actionTopicId}" />
+						<a4j:actionparam name="otherTopicId"
+							assignTo="#{topicListBean.otherTopicId}" value="{otherTopicId}" />
+						<a4j:actionparam name="relationshipTagId"
+							assignTo="#{topicListBean.relationshipTagId}"
+							value="{relationshipTagId}" />
+						<a4j:actionparam name="newRelationshipTagId"
+							assignTo="#{topicListBean.newRelationshipTagId}"
+							value="#{relationshipTag.relationshipTagId}" />
+						<a4j:actionparam name="tab" assignTo="#{topicListBean.tab}"
+							value="{tab}" />
+						<c:forEach items="#{topicListBean.filterVars}" var="filtervar">
+							<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+						</c:forEach>
+					</rich:menuItem>
+				</c:forEach>
+			</rich:menuGroup>
+		</rich:contextMenu>
+	</h:form>
+
+</ui:composition>

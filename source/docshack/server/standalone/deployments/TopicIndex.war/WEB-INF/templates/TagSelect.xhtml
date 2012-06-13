@@ -1,0 +1,100 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<rich:tabPanel switchType="client">
+
+		<!-- Create a tab for each project -->
+		<c:forEach
+			items="#{selectedTags}"
+			var="project">
+			<rich:tab label="#{project.name}">
+
+				<!-- 
+					We'll have 6 columns containing the categories 
+				-->
+				<h:panelGrid
+					id="panel-#{project.id}"
+					columns="6"
+					border="0"
+					cellpadding="5px"
+					columnClasses="alignTop,alignTop,alignTop,alignTop,alignTop,alignTop">
+
+					<!-- 
+						Loop over the categories in the project 
+					-->
+					<c:forEach
+						items="#{project.categories}"
+						var="category">
+
+						<!-- 
+							Create a panel for each category 
+						-->
+						<rich:panel style="height: 100%; width: 100%; overflow: auto;">
+							<f:facet name="header">
+								<h:outputText
+									value="#{category.name}"
+									title="#{category.description}#{not empty category.description?'&#13;&#13;':''}Category ID: #{category.id}" />
+							</f:facet>
+
+							<c:choose>
+								<!-- 
+									If selected is true for the category, this category is mutually exclusive, and should be
+									displayed as a combobox  
+								-->
+								<c:when test="#{category.mutuallyExclusive}">
+									<br />
+									<h:selectOneMenu
+										value="#{category.selectedTag}">
+										<f:selectItem
+											itemLabel=""
+											itemValue="" />
+										<c:forEach
+											items="#{category.tags}"
+											var="categoryTag">
+											<f:selectItem
+												itemLabel="#{categoryTag.name}"
+												itemValue="#{categoryTag.id}" />
+										</c:forEach>
+									</h:selectOneMenu>
+								</c:when>
+								<!-- 
+									Otherwise we display a list of checkboxes 
+								-->
+								<c:otherwise>
+									<h:panelGrid columns="#{showSort ? '3' : '2'}">
+										<c:forEach
+											items="#{category.tags}"
+											var="categoryTag">
+											<h:outputText
+												value="#{categoryTag.name}"
+												title="#{categoryTag.toolTip}" />
+											<h:selectBooleanCheckbox
+												id="ProjectID#{project.id}CategoryID#{category.id}TagID#{categoryTag.id}"
+												onclick="tagClicked(this, #{homeObject.getExclusionArray(categoryTag.id)})"
+												disabledClass="disabled"
+												value="#{categoryTag.selected}"
+												title="#{categoryTag.description}#{not empty categoryTag.description?'&#13;&#13;':''}Tag ID: #{categoryTag.id}" />
+											<c:if test="#{showSort}">
+												<h:inputText size="3" value="#{categoryTag.newSortString}" title="The sorting order when shown in the new Category"/>
+											</c:if>
+										</c:forEach>
+									</h:panelGrid>
+								</c:otherwise>
+							</c:choose>
+
+
+						</rich:panel>
+					</c:forEach>
+				</h:panelGrid>
+
+			</rich:tab>
+		</c:forEach>
+	</rich:tabPanel>
+
+</ui:composition>

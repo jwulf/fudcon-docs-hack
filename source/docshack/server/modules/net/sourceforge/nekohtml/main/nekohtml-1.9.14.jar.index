@@ -1,0 +1,9 @@
+
+META-INF
+org
+org/cyberneko
+org/cyberneko/html
+org/cyberneko/html/filters
+org/cyberneko/html/parsers
+org/cyberneko/html/res
+org/cyberneko/html/xercesbridge

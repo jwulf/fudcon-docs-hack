@@ -1,0 +1,170 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+	<h:panelGrid id="grid" columns="1">
+		<h:panelGroup>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicDates', 'Rendered', null)}">
+				<ui:define name="label">Topic Created After</ui:define>
+				<rich:calendar value="#{topic.startCreateDatePlain}" locale="AU"
+					popup="true" datePattern="dd MMM yyyy HH:mm" showApplyButton="true"
+					cellWidth="24px" cellHeight="22px" style="width:200px" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicDates', 'Rendered', null)}">
+				<ui:define name="label">Topic Created Before</ui:define>
+				<rich:calendar value="#{topic.endCreateDatePlain}" locale="AU"
+					popup="true" datePattern="dd MMM yyyy HH:mm" showApplyButton="true"
+					cellWidth="24px" cellHeight="22px" style="width:200px" />
+
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicEditDates', 'Rendered', null)}">
+				<ui:define name="label">Topic Edited After</ui:define>
+				<rich:calendar value="#{topic.startEditDatePlain}" locale="AU"
+					popup="true" datePattern="dd MMM yyyy HH:mm" showApplyButton="true"
+					cellWidth="24px" cellHeight="22px" style="width:200px" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicEditDates', 'Rendered', null)}">
+				<ui:define name="label">Topic Edited Before</ui:define>
+				<rich:calendar value="#{topic.endEditDatePlain}" locale="AU"
+					popup="true" datePattern="dd MMM yyyy HH:mm" showApplyButton="true"
+					cellWidth="24px" cellHeight="22px" style="width:200px" />
+
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicEditedInLast', 'Rendered', null)}">
+				<ui:define name="label">Topic Edited In Last x Days</ui:define>
+				<h:inputText size="125" id="topicEditedInLast"
+					value="#{topic.editedInLastDaysString}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicID', 'Rendered', null)}">
+				<ui:define name="label">Topic ID</ui:define>
+				<h:inputText size="125" id="topicID" value="#{topic.topicIdsString}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicTitle', 'Rendered', null)}">
+				<ui:define name="label">Topic Title</ui:define>
+				<h:inputText size="125" id="topicTitle" value="#{topic.topicTitle}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicXML', 'Rendered', null)}">
+				<ui:define name="label">Topic XML</ui:define>
+				<h:inputText size="125" id="topicXML" value="#{topic.topicXML}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicText', 'Rendered', null)}">
+				<ui:define name="label">Topic Description</ui:define>
+				<h:inputText size="125" id="topicText" value="#{topic.topicText}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicIsRelatedTo', 'Rendered', null)}">
+				<ui:define name="label">Is Related To</ui:define>
+				<h:inputText size="125" id="topicIsRelatedTo"
+					value="#{topic.topicRelatedTo}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicIsRelatedFrom', 'Rendered', null)}">
+				<ui:define name="label">Is Related From</ui:define>
+				<h:inputText size="125" id="topicIsRelatedFrom"
+					value="#{topic.topicRelatedFrom}" />
+			</s:decorate>
+			
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicIsIncludedInSpec', 'Rendered', null)}">
+				<ui:define name="label">Is Included In Content Spec</ui:define>
+				<h:inputText size="125" id="topicIsincludedInSpec"
+					value="#{topic.topicIncludedInSpec}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTextFreeSearch', 'Rendered', null)}">
+				<ui:define name="label">
+					<h:outputText
+						title="You can find details on the Lucene search syntax http://lucene.apache.org/core/old_versioned_docs/versions/3_0_0/queryparsersyntax.html"
+						value="Free Text Search" />
+				</ui:define>
+				<h:inputText size="125" id="topicFreeTextSearch"
+					value="#{topic.topicTextSearch}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicHasRelationships', 'Rendered', null)}">
+				<ui:define name="label">Has Related Topics</ui:define>
+				<h:selectBooleanCheckbox id="hasRelationships"
+					value="#{topic.hasRelationships}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterTopicHasIncomingRelationships', 'Rendered', null)}">
+				<ui:define name="label">Has Incoming Related topics</ui:define>
+				<h:selectBooleanCheckbox id="hasIncomingRelationships"
+					value="#{topic.hasIncomingRelationships}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterHasXMLErrors', 'Rendered', null)}">
+				<ui:define name="label">Has XML Errors</ui:define>
+				<h:selectBooleanCheckbox id="hasXMLErrors"
+					value="#{topic.hasXMLErrors}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterHasOpenBugzillaBugs', 'Rendered', null)}">
+				<ui:define name="label">Has Open Bugzilla Bugs</ui:define>
+				<h:selectBooleanCheckbox id="hasOpenBugzillaBugs"
+					value="#{topic.hasOpenBugzillaBugs}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterHasBugzillaBugs', 'Rendered', null)}">
+				<ui:define name="label">Has Bugzilla Bugs</ui:define>
+				<h:selectBooleanCheckbox id="hasBugzillaBugs"
+					value="#{topic.hasBugzillaBugs}" />
+			</s:decorate>
+			
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterLatestTranslations', 'Rendered', null)}">
+				<ui:define name="label">Latest Translations</ui:define>
+				<h:selectBooleanCheckbox id="latestTranslations"
+					value="#{topic.latestTranslations}" />
+			</s:decorate>
+			
+			<s:decorate template="/layout/display.xhtml"
+				rendered="#{s:hasPermission('FilterLatestCompletedTranslations', 'Rendered', null)}">
+				<ui:define name="label">Latest Completed Translations</ui:define>
+				<h:selectBooleanCheckbox id="latestCompletedTranslations"
+					value="#{topic.latestCompletedTranslations}" />
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">Match</ui:define>
+				<h:selectOneRadio id="logic" value="#{topic.logic}"
+					styleClass="radio">
+					<f:selectItem itemLabel="All" itemValue="and" />
+					<f:selectItem itemLabel="Any" itemValue="or" />
+				</h:selectOneRadio>
+			</s:decorate>
+		</h:panelGroup>
+	</h:panelGrid>
+
+</ui:composition>

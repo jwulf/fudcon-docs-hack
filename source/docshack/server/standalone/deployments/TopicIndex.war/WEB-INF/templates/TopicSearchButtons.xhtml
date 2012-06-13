@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<div class="actionButtons">
+		<h:commandButton styleClass="button" value="Search"
+			action="#{tagSearchBean.doSearch()}" disabled="#{disabled}" />
+		<s:button styleClass="button" value="Reset" includePageParams="false"
+			disabled="#{disabled}" />
+		<c:if test="#{showCreateNewTopic}">
+			<h:commandButton styleClass="button" value="Create New Topic"
+				action="#{tagSearchBean.getCreateNewTopicUrl()}"
+				disabled="#{disabled}" />
+		</c:if>
+		<h:commandButton styleClass="button" value="Download CSV"
+			action="#{tagSearchBean.downloadCSV()}" disabled="#{disabled}" 
+			rendered="#{renderDownloadButtons}" />
+		<h:commandButton styleClass="button" value="Download XML"
+			action="#{tagSearchBean.downloadXML()}" disabled="#{disabled}"
+			rendered="#{renderDownloadButtons}" />
+		<h:commandButton styleClass="button" value="Docbook"
+			action="#{tagSearchBean.buildDocbook()}" disabled="#{disabled}"
+			rendered="#{renderDocbookButton}" />
+	</div>
+
+</ui:composition>

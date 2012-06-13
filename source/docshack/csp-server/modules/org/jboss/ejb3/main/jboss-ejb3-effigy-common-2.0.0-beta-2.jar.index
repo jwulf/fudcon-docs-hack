@@ -1,0 +1,10 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/effigy
+org/jboss/ejb3/effigy/common
+META-INF/maven
+META-INF/maven/org.jboss.ejb3.effigy
+META-INF/maven/org.jboss.ejb3.effigy/jboss-ejb3-effigy-common

@@ -1,0 +1,12 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/pool
+org/jboss/ejb3/pool/threadlocal
+org/jboss/ejb3/pool/infinite
+org/jboss/ejb3/pool/strictmax
+META-INF/maven
+META-INF/maven/org.jboss.ejb3
+META-INF/maven/org.jboss.ejb3/jboss-ejb3-core-pool

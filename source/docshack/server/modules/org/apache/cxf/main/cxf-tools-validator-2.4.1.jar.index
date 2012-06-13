@@ -1,0 +1,12 @@
+
+META-INF
+org
+org/apache
+org/apache/cxf
+org/apache/cxf/tools
+org/apache/cxf/tools/validator
+org/apache/cxf/tools/validator/internal
+org/apache/cxf/tools/validator/internal/model
+META-INF/maven
+META-INF/maven/org.apache.cxf
+META-INF/maven/org.apache.cxf/cxf-tools-validator

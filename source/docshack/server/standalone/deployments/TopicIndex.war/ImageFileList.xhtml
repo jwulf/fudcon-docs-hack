@@ -1,0 +1,154 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="imageFileSearch" styleClass="edit">
+
+			<s:div styleClass="actionButtons" rendered="#{empty from}">
+				<s:button styleClass="button" view="/ImageFileEdit.xhtml"
+					id="create" propagation="none" value="Upload an Image File">
+					<f:param name="imageFileImageFileId" />
+				</s:button>
+			</s:div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:simpleTogglePanel label="ImageFile Search Filter"
+				switchType="client" opened="true">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Original file name</ui:define>
+					<h:inputText id="originalFileName"
+						value="#{imageFileList.imageFile.originalFileName}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio id="logic"
+						value="#{imageFileList.restrictionLogicOperator}"
+						styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="search" value="Search"
+						action="/ImageFileList.xhtml" />
+					<s:button styleClass="button" id="reset" value="Reset"
+						includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+
+
+			<br />
+			<br />
+
+		</h:form>
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{imageFileList}" />
+				<ui:param name="view" value="/ImageFileList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">ImageFile Search Results (#{empty imageFileList.resultList ? 0 : (imageFileList.paginated ? imageFileList.resultCount : imageFileList.resultList.size)})</f:facet>
+
+			<div class="results" id="imageFileList">
+
+				<h:outputText value="The imageFile search returned no results."
+					rendered="#{empty imageFileList.resultList}" />
+
+				<rich:dataTable id="imageFileList" var="_imageFile"
+					value="#{imageFileList.resultList}"
+					rendered="#{not empty imageFileList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'ImageFile' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="imageFileViewId">
+							<f:param name="imageFileImageFileId"
+								value="#{_imageFile.imageFileId}" />
+						</s:link>
+			            #{' '}
+			            <s:link styleClass="smallButton" view="/ImageFileEdit.xhtml"
+							value="Edit" propagation="none" id="imageFileEdit"
+							rendered="#{empty from}">
+							<f:param name="imageFileImageFileId"
+								value="#{_imageFile.imageFileId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{imageFileList}" />
+								<ui:param name="propertyLabel" value="ID" />
+								<ui:param name="propertyPath" value="imageFile.imageFileId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_imageFile.imageFileId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{imageFileList}" />
+								<ui:param name="propertyLabel" value="Docbook File Name" />
+								<ui:param name="propertyPath" value="imageFile.docbookFileName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_imageFile.docbookFileName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{imageFileList}" />
+								<ui:param name="propertyLabel" value="Original File Name" />
+								<ui:param name="propertyPath" value="imageFile.originalFileName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_imageFile.originalFileName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{imageFileList}" />
+								<ui:param name="propertyLabel" value="Description" />
+								<ui:param name="propertyPath" value="imageFile.description" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_imageFile.description}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Image" />
+						</f:facet>
+						<h:graphicImage
+							value="data:image/jpg;base64,#{_imageFile.thumbnailDataString}" />
+					</h:column>
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{imageFileList}" />
+				<ui:param name="view" value="/ImageFileList.xhtml" />
+			</ui:include>
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>

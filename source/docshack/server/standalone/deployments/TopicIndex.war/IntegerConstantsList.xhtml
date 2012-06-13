@@ -1,0 +1,141 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="integerConstantsSearch" styleClass="edit">
+
+			<s:div styleClass="actionButtons" rendered="#{empty from}">
+				<s:button styleClass="button" view="/IntegerConstantsEdit.xhtml"
+					id="create" propagation="none" value="Create integerConstants">
+					<f:param name="integerConstantsIntegerConstantsId" />
+				</s:button>
+			</s:div>
+			
+			<div style="clear: both" />
+			<br />
+
+			<rich:simpleTogglePanel label="IntegerConstants Search Filter"
+				switchType="client" opened="false">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Constant name</ui:define>
+					<h:inputText id="constantName"
+						value="#{integerConstantsList.integerConstants.constantName}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio id="logic"
+						value="#{integerConstantsList.restrictionLogicOperator}"
+						styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="search" value="Search"
+						action="/IntegerConstantsList.xhtml" />
+					<s:button styleClass="button" id="reset" value="Reset"
+						includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+		</h:form>
+
+		<br />
+		<br />
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{integerConstantsList}" />
+				<ui:param name="view" value="/IntegerConstantsList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">IntegerConstants Search Results (#{empty integerConstantsList.resultList ? 0 : (integerConstantsList.paginated ? integerConstantsList.resultCount : integerConstantsList.resultList.size)})</f:facet>
+
+			<div class="results" id="integerConstantsList">
+
+				<h:outputText
+					value="The integerConstants search returned no results."
+					rendered="#{empty integerConstantsList.resultList}" />
+
+				<rich:dataTable id="integerConstantsList" var="_integerConstants"
+					value="#{integerConstantsList.resultList}"
+					rendered="#{not empty integerConstantsList.resultList}">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'IntegerConstants' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="integerConstantsViewId">
+							<f:param name="integerConstantsIntegerConstantsId"
+								value="#{_integerConstants.integerConstantsId}" />
+						</s:link>
+			            #{' '}
+			            <s:link styleClass="smallButton"
+							view="/IntegerConstantsEdit.xhtml" value="Edit"
+							propagation="none" id="integerConstantsEdit"
+							rendered="#{empty from}">
+							<f:param name="integerConstantsIntegerConstantsId"
+								value="#{_integerConstants.integerConstantsId}" />
+						</s:link>
+					</rich:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{integerConstantsList}" />
+								<ui:param name="propertyLabel" value="Integer constants id" />
+								<ui:param name="propertyPath"
+									value="integerConstants.integerConstantsId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_integerConstants.integerConstantsId}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{integerConstantsList}" />
+								<ui:param name="propertyLabel" value="Constant name" />
+								<ui:param name="propertyPath"
+									value="integerConstants.constantName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_integerConstants.constantName}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{integerConstantsList}" />
+								<ui:param name="propertyLabel" value="Constant value" />
+								<ui:param name="propertyPath"
+									value="integerConstants.constantValue" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_integerConstants.constantValue}" />
+					</h:column>
+
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{integerConstantsList}" />
+				<ui:param name="view" value="/IntegerConstantsList.xhtml" />
+			</ui:include>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>

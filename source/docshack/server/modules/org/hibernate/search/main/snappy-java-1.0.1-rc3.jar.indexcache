@@ -1,0 +1,43 @@
+Archive:  ./org/hibernate/search/main/snappy-java-1.0.1-rc3.jar
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  04-04-2011 13:03   META-INF/
+      122  04-04-2011 13:03   META-INF/MANIFEST.MF
+        0  04-04-2011 13:03   META-INF/maven/
+        0  04-04-2011 13:03   META-INF/maven/org.xerial.snappy/
+        0  04-04-2011 13:03   META-INF/maven/org.xerial.snappy/snappy-java/
+        0  04-04-2011 13:03   org/
+        0  04-04-2011 13:03   org/xerial/
+        0  04-04-2011 13:03   org/xerial/snappy/
+        0  04-04-2011 13:03   org/xerial/snappy/native/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Linux/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Linux/amd64/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Linux/i386/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Mac/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Mac/i386/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Mac/x86_64/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Windows/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Windows/amd64/
+        0  04-04-2011 13:03   org/xerial/snappy/native/Windows/x86/
+    11560  04-04-2011 13:03   META-INF/maven/org.xerial.snappy/snappy-java/LICENSE
+     6534  04-04-2011 13:03   org/xerial/snappy/LoadSnappy.class
+    51784  04-04-2011 13:03   org/xerial/snappy/native/Linux/amd64/libsnappy.so
+    43312  04-04-2011 13:03   org/xerial/snappy/native/Linux/i386/libsnappy.so
+    46852  04-04-2011 13:03   org/xerial/snappy/native/Mac/i386/libsnappy.jnilib
+    32176  04-04-2011 13:03   org/xerial/snappy/native/Mac/x86_64/libsnappy.jnilib
+       71  04-04-2011 13:03   org/xerial/snappy/native/README
+   644608  04-04-2011 13:03   org/xerial/snappy/native/Windows/amd64/snappy.dll
+   598528  04-04-2011 13:03   org/xerial/snappy/native/Windows/x86/snappy.dll
+     1691  04-04-2011 13:03   org/xerial/snappy/OSInfo.class
+     3476  04-04-2011 13:03   org/xerial/snappy/Snappy.class
+     2384  04-04-2011 13:03   org/xerial/snappy/SnappyCodec.class
+      788  04-04-2011 13:03   org/xerial/snappy/SnappyError.class
+     1397  04-04-2011 13:03   org/xerial/snappy/SnappyErrorCode.class
+     1652  04-04-2011 13:03   org/xerial/snappy/SnappyException.class
+     3858  04-04-2011 13:03   org/xerial/snappy/SnappyInputStream.class
+     1040  04-04-2011 13:03   org/xerial/snappy/SnappyNative.class
+     2748  04-04-2011 13:03   org/xerial/snappy/SnappyOutputStream.class
+     6130  04-04-2011 13:03   META-INF/maven/org.xerial.snappy/snappy-java/pom.xml
+      122  04-04-2011 13:03   META-INF/maven/org.xerial.snappy/snappy-java/pom.properties
+---------                     -------
+  1460833                     38 files

@@ -1,0 +1,202 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+	
+		<h:form>
+			<rich:contextMenu id="translatedTopicContextMenu" submitMode="server"
+				attached="false">
+
+				<rich:menuItem value="View" action="#{ajaxHelper.getTranslatedTopicUrl()}"
+					rendered="#{s:hasPermission('ViewContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTranslatedTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTranslatedTopicId}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}" value="/TranslatedTopic.xhtml" />
+					<a4j:actionparam name="otherVars"
+						assignTo="#{ajaxHelper.otherVars}" value="{otherVars}" />
+						
+					<c:forEach items="#{groupedTranslatedTopicDataLocaleList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+				<rich:menuItem value="View New Window"
+					action="#{ajaxHelper.getTranslatedTopicUrlAndEndConversation()}"
+					target="_blank"
+					rendered="#{s:hasPermission('ViewContextMenuItem', 'Rendered', null)}">
+					<a4j:actionparam name="actionTranslatedTopicId"
+						assignTo="#{ajaxHelper.topicId}" value="{actionTranslatedTopicId}" />
+					<a4j:actionparam name="actionBaseUrl"
+						assignTo="#{ajaxHelper.baseUrl}" value="/TranslatedTopic.xhtml" />
+					<a4j:actionparam name="otherVars"
+						assignTo="#{ajaxHelper.otherVars}" value="{otherVars}" />
+						
+					<c:forEach items="#{groupedTranslatedTopicDataLocaleList.filterVars}"
+						var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</rich:menuItem>
+
+			</rich:contextMenu>
+		</h:form>
+		
+		<rich:panel>
+			<f:facet name="header">
+				<h:outputText value="#{groupedTranslatedTopicDataLocaleList.searchTagHeading}" />
+			</f:facet>
+		
+			<s:div styleClass="actionButtons" rendered="#{not empty groupedTranslatedTopicDataLocaleList.locales}">
+				<s:button styleClass="button"
+					action="#{groupedTranslatedTopicDataLocaleList.doBackToSearchLink()}"
+					value="Back To Search">
+					<c:forEach items="#{groupedTranslatedTopicDataLocaleList.filterVars}" var="filtervar">
+						<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+					</c:forEach>
+				</s:button>
+			</s:div>
+			
+			<ui:include src="/WEB-INF/templates/TopicListNavigationButtons.xhtml">
+				<ui:param name="groupedList" value="#{groupedTranslatedTopicDataLocaleList}" />
+				<ui:param name="viewUrl" value="/GroupedTranslatedTopicDataList.xhtml" />
+			</ui:include>
+			
+			<div style="clear: both" />
+		
+			<div class="results">
+	
+				<h:outputText value="The translated topic search returned no results."
+					rendered="#{empty groupedTranslatedTopicDataLocaleList.locales}" />
+					
+				<rich:tabPanel switchType="client"
+					selectedTab="Tab#{groupedTranslatedTopicDataLocaleList.localeTab}"
+					rendered="#{not empty groupedTranslatedTopicDataLocaleList.locales}">
+					<c:forEach items="#{groupedTranslatedTopicDataLocaleList.locales}"
+						var="locale">
+						
+						<rich:tab label="#{locale}" name="Tab#{locale}">
+							
+							<h:outputText value="The translated topic search returned no results."
+							rendered="#{empty groupedTranslatedTopicDataLocaleList.getTranslatedTopicDataList(locale).resultList}" />
+							
+							<rich:tabPanel switchType="client"
+								selectedTab="Tab#{groupedTranslatedTopicDataLocaleList.getTranslatedTopicDataList(locale).tab}">
+								
+								<c:forEach items="#{groupedTranslatedTopicDataLocaleList.getLocaleGroupedLists(locale)}"
+									var="groupedList">
+									<rich:tab
+										label="#{groupedList.group} (#{groupedList.entityList.resultCount})"
+										name="Tab#{groupedList.group}">
+										
+										<h:form target="_blank" style="display: inline;">										
+											<h:commandButton styleClass="button" value="View Group in Zanata" 
+												action="#{groupedTranslatedTopicDataLocaleList.redirectToZanata()}">
+												<f:param name="localeTab" value="#{locale}"/>
+												<f:param name="tab" value="#{groupedList.group}"/>
+												<c:forEach items="#{groupedTranslatedTopicDataLocaleList.filterVars}" var="filtervar">
+													<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+												</c:forEach>
+											</h:commandButton>
+										</h:form>
+										
+										<s:button styleClass="button" value="Sync Group with Zanata"
+											action="#{groupedTranslatedTopicDataLocaleList.pullFromZanata()}">
+											<f:param name="localeTab" value="#{locale}"/>
+											<f:param name="tab" value="#{groupedList.group}"/>
+											<c:forEach items="#{groupedTranslatedTopicDataLocaleList.filterVars}" var="filtervar">
+												<f:param name="#{filtervar.key}" value="#{filtervar.value}" />
+											</c:forEach>
+										</s:button>
+				
+										<rich:dataTable var="translatedTopicData"
+											value="#{groupedList.entityList.resultList}"
+											styleClass="listTable"
+											rendered="#{groupedList.entityList.lastFirstResult ge groupedTranslatedTopicDataLocaleList.firstResult}">
+				
+											<rich:column
+												rendered="#{s:hasPermission('TranslatedTopicDataIDColumn', 'Rendered', null)}">
+												<f:facet name="header">
+													<ui:include src="layout/sort.xhtml">
+														<ui:param name="entityList" value="#{groupedTranslatedTopicDataLocaleList}" />
+														<ui:param name="propertyLabel" value="Zanata ID" />
+														<ui:param name="propertyPath" value="translatedTopicData.translatedTopic.topicId" />
+														<ui:param name="filterVars"
+															value="#{groupedTranslatedTopicDataLocaleList.filterVars}" />
+													</ui:include>
+												</f:facet>
+				
+												<h:commandButton
+													style="border: 0; background: transparent;"
+													value="#{translatedTopicData.translatedTopic.zanataId}">
+													<rich:componentControl event="onclick" for="translatedTopicContextMenu"
+														operation="show">
+														<f:param value="#{translatedTopicData.translatedTopic.id}" name="actionTranslatedTopicId" />
+														<f:param value="locale=#{locale}" name="otherVars" />
+														<f:param value="#{groupedList.group}" name="tab" />
+													</rich:componentControl>
+												</h:commandButton>
+				
+											</rich:column>
+				
+											<rich:column
+												rendered="#{s:hasPermission('TranslatedTopicDataLocaleColumn', 'Rendered', null)}">
+												<f:facet name="header">Locale</f:facet>
+				
+												<h:outputText
+													value="#{translatedTopicData.translationLocale}" />
+				
+											</rich:column>
+				
+											<rich:column
+												rendered="#{s:hasPermission('TranslatedTopicDataTopicTitleColumn', 'Rendered', null)}">
+												<f:facet name="header">Topic Title</f:facet>
+				
+												<h:outputText value="#{translatedTopicData.translatedTopic.topicTitle}" />
+				
+											</rich:column>
+				
+											<rich:column
+												rendered="#{s:hasPermission('TranslatedTopicDataTopicTagsColumn', 'Rendered', null)}">
+												<f:facet name="header">Topic Tags</f:facet>
+				
+												<h:outputText escape="false"
+													value="#{translatedTopicData.translatedTopic.topicTags}" />
+				
+											</rich:column>
+				
+										</rich:dataTable>
+										<div>
+											<h:outputText styleClass="searchResultsError" value="Currently showing results #{groupedTranslatedTopicDataLocaleList.firstResult} - #{groupedTranslatedTopicDataLocaleList.nextExists ? (groupedTranslatedTopicDataLocaleList.nextFirstResult - 1) : groupedTranslatedTopicDataLocaleList.resultCount}. This group doesn't have that many results." 
+											rendered="#{groupedList.entityList.resultCount lt groupedTranslatedTopicDataLocaleList.resultCount and groupedList.entityList.lastFirstResult lt groupedTranslatedTopicDataLocaleList.firstResult}" />
+										</div>
+									</rich:tab>
+								</c:forEach>
+							</rich:tabPanel>
+						</rich:tab>
+					</c:forEach>
+				</rich:tabPanel>
+			</div>
+			
+			<br />
+			
+			<ui:include src="/WEB-INF/templates/TopicListNavigationButtons.xhtml">
+				<ui:param name="groupedList" value="#{groupedTranslatedTopicDataLocaleList}" />
+				<ui:param name="viewUrl" value="/GroupedTranslatedTopicDataList.xhtml" />
+			</ui:include>
+			
+			<br />
+	
+		</rich:panel>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Build a new war in eclipse and deploy it here as TopicIndex1.war
+# then run this script to explode it as TopicIndex.war
+
+if [ ! -f TopicIndex1.war ]; then
+  echo "TopicIndex1.war not present. Cannot proceed."
+  exit
+fi
+
+if [ -f TopicIndex1.war.deployed ]; then
+  rm TopicIndex1.war.deployed
+fi
+
+if [ -f TopicIndex1.war.isdeploying ]; then
+  rm TopicIndex1.war.isdeploying
+fi
+ 
+if [ -f TopicIndex.war ]; then
+  echo "Unexploded war TopicIndex.war present. Cannot proceed."
+  exit
+fi 
+
+if [ -d TopicIndex.war ]; then
+  if [ -f TopicIndex.war.deployed ]; then
+    rm TopicIndex.war.deployed
+  fi
+  rm -rf TopicIndex.war
+fi
+
+if [ -d TopicIndex.war ]; then
+  echo "Could not remove existing exploded war. Cannot proceed."
+  exit
+fi
+
+mkdir TopicIndex.war
+cd TopicIndex.war
+unzip ./../TopicIndex1.war
+cd ..
+rm TopicIndex1.war
+
+if [ -d TopicIndex.war ]; then
+  echo "Exploded war now present."
+  touch TopicIndex.war.dodeploy
+else
+  echo "Something went wrong - no exploded war present."
+fi

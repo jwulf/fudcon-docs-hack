@@ -1,0 +1,54 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/codemirror.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/xmlpure.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/skynet-codemirror.js"></script>
+
+                <ui:include src="/WEB-INF/templates/KnownIssues.xhtml" />
+
+		<ui:include src="/WEB-INF/templates/TopicViewActionButtons.xhtml" />
+
+		<rich:tabPanel switchType="client"
+			selectedTab="#{topicHome.selectedTab}">
+			<rich:tab label="Topic Details" name="Topic Details">
+				<ui:include src="/WEB-INF/templates/TopicView.xhtml">
+					<ui:param name="selectedTags"
+						value="#{customTagSearch.selectedTags.projectCategories}" />
+					<ui:param name="topic"
+						value="#{empty topicHome.revision ? topicHome.instance : topicHome.revisionInstance}" />
+				</ui:include>
+			</rich:tab>
+
+-->
+		</rich:tabPanel>
+
+		<div style="clear: both" />
+
+		<script type="text/javascript">
+			//window.onload = function() {
+				initializeCodeMirror("#{rich:clientId('topicXML')}", true);
+			//};
+		</script>
+
+		<ui:include src="/WEB-INF/templates/DisplayErrorMessage.xhtml">
+			<ui:param name="messageComponent" value="#{topicHome}" />
+		</ui:include>
+
+	</ui:define>
+
+</ui:composition>

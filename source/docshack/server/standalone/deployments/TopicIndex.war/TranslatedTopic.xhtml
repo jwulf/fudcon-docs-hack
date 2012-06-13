@@ -1,0 +1,123 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/codemirror.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/xmlpure.js"></script>
+		<script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/skynet-codemirror.js"></script>
+
+		<div class="actionButtons">
+	
+			<a4j:form style="display: inline;">
+				<a4j:commandButton styleClass="button" action="#{translatedTopicHome.reRender()}"
+					value="Refresh HTML" onclick="window.alert('This translated topic has been placed in a queue to be rendered. Please refresh the page in a few minutes.')" />
+			</a4j:form>
+			<h:form target="_blank" style="display: inline;">
+				<h:commandButton styleClass="button" action="#{translatedTopicHome.redirectToZanata()}"
+					 value="View in Zanata"/>
+			</h:form>
+			<a4j:form style="display: inline;">
+				<a4j:commandButton styleClass="button" action="#{translatedTopicHome.syncWithZanata()}"
+					 value="Sync with Zanata" onclick="window.alert('Syncing this translated topic with Zanata has been placed in a queue. Please refresh the page in a few minutes.')" />
+			</a4j:form>
+			<h:form style="display: inline;">
+	
+				<s:button styleClass="button" view="/TranslatedTopicSearch.xhtml"
+					 value="Done" />
+				<h:outputText value="Revision: " />
+		        #{" "}
+		        <h:selectOneMenu value="#{translatedTopicDataHome.revision}">
+					<c:forEach items="#{translatedTopicDataHome.instance.revisions}" var="revision">
+						<f:selectItem itemLabel="#{revision}" itemValue="#{revision}" />
+					</c:forEach>
+				</h:selectOneMenu>
+				<h:message for="locale" />
+				#{" "}
+				#{" "}
+				<h:commandButton styleClass="button" value="View" />
+			</h:form>
+			<h:form>
+		        <h:outputText value="Locale: " />
+		        #{" "}
+		       	<h:selectOneMenu id="locale" value="#{translatedTopicHome.translatedTopicDataLocale}">
+		       		<c:forEach items="#{translatedTopicHome.localeList}" var="translationLocale" >
+						<f:selectItem itemValue="#{translationLocale}" itemLabel="#{translationLocale}"/>
+					</c:forEach>
+				</h:selectOneMenu>
+				#{" "}
+				<h:commandButton styleClass="button" value="View" />
+			</h:form>
+		</div>
+
+		<rich:tabPanel switchType="client"
+			selectedTab="#{translatedTopicHome.selectedTab}">
+			<rich:tab label="Translated Topic Details" name="Translated Topic Details">
+				<h:panelGrid columns="2" columnClasses="name,">
+					<h:outputText value="Revision" />
+					<h:outputText
+						value="#{empty translatedTopicDataHome.revision ? 'Latest' : translatedTopicDataHome.revision}" />
+			
+					<h:outputText value="Zanata ID" />
+					<h:outputText value="#{translatedTopicHome.instance.zanataId}" />
+			
+					<h:outputText value="Topic Title" />
+					<h:outputText value="#{translatedTopicDataHome.instance.translatedTopic.topicTitle}" />
+			
+					<h:outputText value="Locale" />
+					<h:outputText value="#{translatedTopicDataHome.instance.translationLocale}" />
+						
+					<h:outputText value="Percentage Complete&lt;br&gt;(Estimate)" escape="false"/>
+					<h:outputText value="#{empty translatedTopicDataHome.revision ? translatedTopicDataHome.instance.translationPercentage : translatedTopicDataHome.revisionInstance.translationPercentage}%" />
+						
+					<h:outputText value="Translated XML" />
+					<h:inputTextarea id="topicXML" cols="80" rows="10" readonly="true"
+						value="#{empty translatedTopicDataHome.revision ? translatedTopicDataHome.instance.translatedXml : translatedTopicDataHome.revisionInstance.translatedXml}" />
+					
+					<h:outputText value="Translated XML Errors" />
+					<h:inputTextarea id="topicXMLErrors" cols="80" rows="10"
+						readonly="true" value="#{empty translatedTopicDataHome.revision ? translatedTopicDataHome.instance.translatedXmlErrors : translatedTopicDataHome.revisionInstance.translatedXmlErrors}" />
+			
+					<h:outputText value="Topic Tags" />
+					<h:outputText value="#{translatedTopicHome.topicTags}" escape="false" />
+			
+				</h:panelGrid>
+			</rich:tab>
+			<rich:tab label="Rendered View" height="500px" name="Rendered View">
+				<f:verbatim>
+					<iframe
+						src="#{translatedTopicHome.renderedUrl}"
+						width="100%" height="100%" frameborder="0">
+						<p>Your browser does not support iframes.</p>
+					</iframe>
+				</f:verbatim>
+			</rich:tab>
+		</rich:tabPanel>
+
+		<div style="clear: both" />
+
+		<script type="text/javascript">
+			//window.onload = function() {
+				initializeCodeMirror("#{rich:clientId('topicXML')}", true);
+			//};
+		</script>
+
+		<ui:include src="/WEB-INF/templates/DisplayErrorMessage.xhtml">
+			<ui:param name="messageComponent" value="#{translatedTopicHome}" />
+		</ui:include>
+
+	</ui:define>
+
+</ui:composition>

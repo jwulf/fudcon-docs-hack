@@ -1,0 +1,6 @@
+
+META-INF
+META-INF/services
+META-INF/maven
+META-INF/maven/org.jboss.ws.cxf
+META-INF/maven/org.jboss.ws.cxf/jbossws-cxf-factories

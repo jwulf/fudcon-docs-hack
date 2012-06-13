@@ -1,0 +1,10 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/concurrency
+org/jboss/ejb3/concurrency/impl
+META-INF/maven
+META-INF/maven/org.jboss.ejb3.concurrency
+META-INF/maven/org.jboss.ejb3.concurrency/jboss-ejb3-concurrency-impl

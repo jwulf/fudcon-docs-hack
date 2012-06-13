@@ -1,0 +1,110 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="help" styleClass="edit">
+
+			<div class="actionButtons">
+
+				<h:commandButton styleClass="button" id="save" value="Save"
+					action="#{propertyTagHome.persist}"
+					disabled="#{!propertyTagHome.wired}"
+					rendered="#{!propertyTagHome.managed}" />
+
+				<h:commandButton styleClass="button" id="update" value="Save"
+					action="#{propertyTagHome.update}"
+					rendered="#{propertyTagHome.managed}" />
+
+				<h:commandButton styleClass="button" id="delete" value="Delete"
+					action="#{propertyTagHome.remove}" immediate="true"
+					rendered="#{propertyTagHome.managed}" />
+
+				<s:button styleClass="button" id="cancelEdit" value="Cancel"
+					propagation="end" view="/Help.xhtml"
+					rendered="#{propertyTagHome.managed}" />
+
+				<s:button styleClass="button" id="cancelAdd" value="Cancel"
+					propagation="end"
+					view="/#{empty propertyTagFrom ? 'PropertyTagList' : propertyTagFrom}.xhtml"
+					rendered="#{!propertyTagHome.managed}" />
+
+			</div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:tabPanel switchType="client">
+				<rich:tab
+					label="#{propertyTagHome.managed ? 'Edit' : 'Add'} Property Tag">
+
+					<s:decorate template="layout/edit.xhtml">
+						<ui:define name="label">Name</ui:define>
+						<h:inputTextarea id="helpText" cols="80" rows="1"
+							value="#{propertyTagHome.instance.propertyTagName}" />
+					</s:decorate>
+
+					<s:decorate template="layout/edit.xhtml">
+						<ui:define name="label">Description</ui:define>
+						<h:inputTextarea id="helpText" cols="80" rows="10"
+							value="#{propertyTagHome.instance.propertyTagDescription}" />
+					</s:decorate>
+
+					<s:decorate template="layout/edit.xhtml">
+						<ui:define name="label">Regular Expression</ui:define>
+						<h:inputTextarea id="helpText" cols="80" rows="1"
+							value="#{propertyTagHome.instance.propertyTagRegex}" />
+					</s:decorate>
+
+					<s:decorate template="layout/edit.xhtml">
+						<ui:define name="label">Can Be Null</ui:define>
+						<h:selectBooleanCheckbox
+							value="#{propertyTagHome.instance.propertyTagCanBeNull}" />
+					</s:decorate>
+					
+					<s:decorate template="layout/edit.xhtml">
+						<ui:define name="label">Is Unique</ui:define>
+						<h:selectBooleanCheckbox
+							value="#{propertyTagHome.instance.propertyTagIsUnique}" />
+					</s:decorate>
+
+					<div style="clear: both">
+						<span class="required">*</span> required fields
+					</div>
+				</rich:tab>
+				<rich:tab label="Propery Tag Categories">
+
+					<h:panelGrid columns="3">
+						<s:label>Category Name</s:label>
+						<s:label>Include in Category</s:label>
+						<s:label>Sort Position in Category</s:label>
+
+						<s:label>#{' '}</s:label>
+						<s:label>#{' '}</s:label>
+						<s:label>#{' '}</s:label>
+
+						<c:forEach items="#{propertyTagHome.categories}" var="category">
+							<s:label>#{category.name}</s:label>
+							<h:selectBooleanCheckbox value="#{category.selected}"
+								title="Check this box to include this tag in the category." />
+							<h:inputText cols="20" required="false" value="#{category.sort}" />
+						</c:forEach>
+					</h:panelGrid>
+
+				</rich:tab>
+			</rich:tabPanel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

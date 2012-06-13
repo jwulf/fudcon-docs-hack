@@ -1,0 +1,10 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/timer
+org/jboss/ejb3/timer/schedule
+org/jboss/ejb3/timer/schedule/value
+org/jboss/ejb3/timer/schedule/util
+org/jboss/ejb3/timer/schedule/attribute

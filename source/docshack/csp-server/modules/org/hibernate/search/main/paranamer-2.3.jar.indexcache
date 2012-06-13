@@ -1,0 +1,30 @@
+Archive:  ./org/hibernate/search/main/paranamer-2.3.jar
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  10-19-2010 08:16   META-INF/
+      123  10-19-2010 08:16   META-INF/MANIFEST.MF
+        0  10-19-2010 08:16   com/
+        0  10-19-2010 08:16   com/thoughtworks/
+        0  10-19-2010 08:16   com/thoughtworks/paranamer/
+     2184  10-19-2010 08:16   com/thoughtworks/paranamer/AdaptiveParanamer.class
+     1066  10-19-2010 08:16   com/thoughtworks/paranamer/AnnotationParanamer$Jsr330Helper.class
+     3879  10-19-2010 08:16   com/thoughtworks/paranamer/AnnotationParanamer.class
+      850  10-19-2010 08:16   com/thoughtworks/paranamer/BytecodeReadingParanamer$1.class
+     6576  10-19-2010 08:16   com/thoughtworks/paranamer/BytecodeReadingParanamer$ClassReader.class
+     2443  10-19-2010 08:16   com/thoughtworks/paranamer/BytecodeReadingParanamer$MethodCollector.class
+     4007  10-19-2010 08:16   com/thoughtworks/paranamer/BytecodeReadingParanamer$Type.class
+     4652  10-19-2010 08:16   com/thoughtworks/paranamer/BytecodeReadingParanamer$TypeCollector.class
+     4811  10-19-2010 08:16   com/thoughtworks/paranamer/BytecodeReadingParanamer.class
+     1986  10-19-2010 08:16   com/thoughtworks/paranamer/CachingParanamer.class
+     5146  10-19-2010 08:16   com/thoughtworks/paranamer/DefaultParanamer.class
+    11255  10-19-2010 08:16   com/thoughtworks/paranamer/JavadocParanamer.class
+     1226  10-19-2010 08:16   com/thoughtworks/paranamer/NullParanamer.class
+      830  10-19-2010 08:16   com/thoughtworks/paranamer/ParameterNamesNotFoundException.class
+      714  10-19-2010 08:16   com/thoughtworks/paranamer/Paranamer.class
+        0  10-19-2010 08:16   META-INF/maven/
+        0  10-19-2010 08:16   META-INF/maven/com.thoughtworks.paranamer/
+        0  10-19-2010 08:16   META-INF/maven/com.thoughtworks.paranamer/paranamer/
+     1591  10-19-2010 08:12   META-INF/maven/com.thoughtworks.paranamer/paranamer/pom.xml
+      118  10-19-2010 08:16   META-INF/maven/com.thoughtworks.paranamer/paranamer/pom.properties
+---------                     -------
+    53457                     25 files

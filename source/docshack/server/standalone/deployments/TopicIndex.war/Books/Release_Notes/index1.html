@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Release Notes</title><link rel="stylesheet" type="text/css" href="Common_Content/css/default.css" /><link rel="stylesheet" media="print" href="Common_Content/css/print.css" type="text/css" /><meta name="generator" content="publican 3.0" /><meta name="package" content="Zanata-Release_Notes-1.6-en-US-0-0" /><meta name="description" content="New Features and Fixed Issues in the 1.6 release of Zanata" /></head><body><p id="title" class="hidden"><a class="left" href="http://www.fedoraproject.org"><img src="Common_Content/images/image_left.png" alt="Product Site" /></a><a class="right" href="http://docs.fedoraproject.org"><img src="Common_Content/images/image_right.png" alt="Documentation Site" /></a></p><div class="book" id="id2991459"><div class="titlepage"><div><div class="producttitle" font-family="sans-serif,Symbol,ZapfDingbats" font-weight="bold" font-size="12pt" text-align="center"><span class="productname">Zanata</span> <span class="productnumber">1.6</span></div><div font-family="sans-serif,Symbol,ZapfDingbats" font-weight="bold" font-size="12pt" text-align="center"><h1 class="title">Release Notes</h1></div><div font-family="sans-serif,Symbol,ZapfDingbats" font-weight="bold" font-size="12pt" text-align="center"><h2 class="subtitle">Zanata Translation Management System</h2></div><p class="edition">Edition 1</p><div font-family="sans-serif,Symbol,ZapfDingbats" font-weight="bold" font-size="12pt" text-align="center"><h3 class="corpauthor">
+		<span class="inlinemediaobject"><object type="image/svg+xml" data="Common_Content/images/title_logo.svg"></object></span>
+
+	</h3></div><div font-family="sans-serif,Symbol,ZapfDingbats" font-weight="bold" font-size="12pt" text-align="center"><div class="authorgroup"><div class="author"><h3 class="author"><span class="firstname"> Fedora </span> <span class="surname"> Contributors </span></h3></div><div class="author"><h3 class="author"><span class="firstname"> Last Built: </span> <span class="surname"> Tue Jun 12 20:48:11 EST 2012</span></h3></div></div></div><div font-family="sans-serif,Symbol,ZapfDingbats" font-weight="bold" font-size="12pt" text-align="center"><div class="abstract"><h6>Abstract</h6><div class="para">
+			New Features and Fixed Issues in the 1.6 release of Zanata
+		</div></div></div></div></div><div class="toc"><dl><dt><span class="chapter"><a href="#Chapter-Zanata_1.6">1. Zanata 1.6</a></span></dt><dd><dl><dt><span class="section"><a href="#Zanata">1.1. Zanata</a></span></dt><dt><span class="section"><a href="#Format_of_these_Release_Notes">1.2. Format of these Release Notes</a></span></dt></dl></dd><dt><span class="chapter"><a href="#Chapter-New_Features">2. New Features</a></span></dt><dd><dl><dt><span class="section"><a href="#Section-Administrator_Features">2.1. Administrator Features</a></span></dt><dd><dl><dt><span class="section"><a href="#Ability_to_monitor_Zanata_server_statistics">2.1.1. Server statistics</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Project_Owner_Features">2.2. Project Owner Features</a></span></dt><dd><dl><dt><span class="section"><a href="#Allow_Users_to_Create_Projects">2.2.1. Allow Users to Create Projects</a></span></dt><dt><span class="section"><a href="#Allow_Project_Owner_to_Edit_All_Translations_in_Project">2.2.2. Allow Project Owner to Edit All Translations in Project</a></span></dt><dt><span class="section"><a href="#Maven_pushTrans_superseded_by_pushType">2.2.3. Maven pushTrans superseded by pushType</a></span></dt><dt><span class="section"><a href="#Project_Groups">2.2.4. Project Groups</a></span></dt><dt><span class="section"><a href="#Push_individual_locale_translations_with_maven">2.2.5. Push individual locale translations with maven</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Web_Editor_Features">2.3. Web Editor Features</a></span></dt><dd><dl><dt><span class="section"><a href="#Ability_to_select_all_text_flows_in_all_documents_on_project_wide_search_page">2.3.1. Ability to select all text flows in all documents on project-wide search page</a></span></dt><dt><span class="section"><a href="#Display_page_context_in_window_title">2.3.2. Display page context in window title</a></span></dt><dt><span class="section"><a href="#Enhanced_Glossary_Integration">2.3.3. Enhanced Glossary Integration</a></span></dt><dt><span class="section"><a href="#Java_variable_validations_in_translation_editor">2.3.4. Java variable validations in translation editor</a></span></dt><dt><span class="section"><a href="#Offline_translation_feature_via_web_UI">2.3.5. Offline translation feature via Web Interface</a></span></dt><dt><span class="section"><a href="#Option_to_search_in_msgid_msgstr_or_both_for_project_wide_search">2.3.6. Option to search in msgid, msgstr, or both for project-wide search</a></span></dt><dt><span class="section"><a href="#Plural_Form_Support">2.3.7. Plural Form Support</a></span></dt><dt><span class="section"><a href="#Preview_of_replacement_for_project_wide_search_and_replace">2.3.8. Preview of replacement for project-wide search and replace</a></span></dt><dt><span class="section"><a href="#Project_wide_Find_and_Replace">2.3.9. Project-wide Search and Replace</a></span></dt><dt><span class="section"><a href="#Project_wide_Fearch_and_Replace_undo_button">2.3.10. Project-wide Search and Replace "undo" button</a></span></dt><dt><span class="section"><a href="#Search_functionality_in_document_list_now_case_insensitive">2.3.11. Search functionality in document list now case-insensitive</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#Chapter-Resolved_Issues">3. Resolved Issues</a></span></dt><dd><dl><dt><span class="section"><a href="#Section-Administrator_Issues">3.1. Administrator Issues</a></span></dt><dd><dl><dt><span class="section"><a href="#Reindex_operation_takes_a_long_time_on_production_server">3.1.1. Reindex operation takes a long time on production server</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Project_Owner_Issues">3.2. Project Owner Issues</a></span></dt><dd><dl><dt><span class="section"><a href="#Copy_Trans_ignores_some_translations_when_duplicate_contents_are_detected_on_a_single_document">3.2.1. Copy Trans ignores some translations when duplicate contents are detected on a single document</a></span></dt><dt><span class="section"><a href="#Maven_client_should_print_readable_error_if_project_ID_has_spaces">3.2.2. Maven client should print readable error if project ID has spaces</a></span></dt><dt><span class="section"><a href="#Topic213">3.2.3. Server URL in zanata.xml and zanata.ini inconsistent</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Web_Editor_Issues">3.3. Web Editor Issues</a></span></dt><dd><dl><dt><span class="section"><a href="#Always_show_the_second_line_at_the_top_when_moving_to_a_new_page">3.3.1. First row missing when moving to a new page of translation</a></span></dt><dt><span class="section"><a href="#New_error_message_indicator_workspace_menu_redesign">3.3.2. New error message indicator, workspace menu redesign</a></span></dt><dt><span class="section"><a href="#Save_dialog_from_filtering_always_saves_as_approved">3.3.3. Save dialog from filtering always saves as approved</a></span></dt><dt><span class="section"><a href="#Search_remains_active_after_opening_new_file">3.3.4. Search remains "active" after opening new file</a></span></dt><dt><span class="section"><a href="#Switching_Message_Filter_before_loading_completed_causes_incorrect_filter_result">3.3.5. Switching Message Filter before loading completed causes incorrect filter result</a></span></dt><dt><span class="section"><a href="#Translation_memory_shortcut_keys_dont_work">3.3.6. Translation memory shortcut keys don't work</a></span></dt><dt><span class="section"><a href="#User_security_permissions_are_cached_and_require_logoutlogin_to_refresh_when_changes_are_made">3.3.7. User security permissions are cached and require logout/login to refresh when changes are made</a></span></dt><dt><span class="section"><a href="#Zanata_accepts_PO_files_with_too_few_plural_forms">3.3.8. Zanata accepts PO files with too few plural forms</a></span></dt></dl></dd></dl></dd></dl></div><div class="chapter" id="Chapter-Zanata_1.6"><div class="titlepage"><div><div><h2 class="title">Chapter 1. Zanata 1.6</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="#Zanata">1.1. Zanata</a></span></dt><dt><span class="section"><a href="#Format_of_these_Release_Notes">1.2. Format of these Release Notes</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Zanata">1.1. Zanata</h2></div></div></div><div class="para">
+		Zanata is a web-based translation management system. Zanata provides an interface that allows a community of translators to work side-by-side on translation projects with nothing more than an Internet connection and a web-browser. Zanata provides APIs and client-side tools that allow software developers and documentation authors to push content to the server for translation and pull completed translations back for their project.
+	</div><div class="para">
+		Zanata is an open source project sponsored by Red Hat. The project website is found at <a href="http://www.zanata.org">http://www.zanata.org</a>. A hosted instance of Zanata that can be freely used to host and translate projects is found at <a href="http://translate.zanata.org">http://translate.zanata.org</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=211" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Format_of_these_Release_Notes">1.2. Format of these Release Notes</h2></div></div></div><div class="para">
+		These release notes cover Zanata 1.6, and comprises chapters covering:
+	</div><div class="itemizedlist"><ul><li class="listitem"><div class="para">
+				New Features added in the release
+			</div></li><li class="listitem"><div class="para">
+				Bugs that were resolved with the release
+			</div></li></ul></div><div class="para">
+		Each chapter is divided into three sections:
+	</div><div class="itemizedlist"><ul><li class="listitem"><div class="para">
+				Server Administration
+			</div></li><li class="listitem"><div class="para">
+				Project Owner
+			</div></li><li class="listitem"><div class="para">
+				Web Editor
+			</div></li></ul></div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=210" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div></div><div class="chapter" id="Chapter-New_Features"><div class="titlepage"><div><div><h2 class="title">Chapter 2. New Features</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="#Section-Administrator_Features">2.1. Administrator Features</a></span></dt><dd><dl><dt><span class="section"><a href="#Ability_to_monitor_Zanata_server_statistics">2.1.1. Server statistics</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Project_Owner_Features">2.2. Project Owner Features</a></span></dt><dd><dl><dt><span class="section"><a href="#Allow_Users_to_Create_Projects">2.2.1. Allow Users to Create Projects</a></span></dt><dt><span class="section"><a href="#Allow_Project_Owner_to_Edit_All_Translations_in_Project">2.2.2. Allow Project Owner to Edit All Translations in Project</a></span></dt><dt><span class="section"><a href="#Maven_pushTrans_superseded_by_pushType">2.2.3. Maven pushTrans superseded by pushType</a></span></dt><dt><span class="section"><a href="#Project_Groups">2.2.4. Project Groups</a></span></dt><dt><span class="section"><a href="#Push_individual_locale_translations_with_maven">2.2.5. Push individual locale translations with maven</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Web_Editor_Features">2.3. Web Editor Features</a></span></dt><dd><dl><dt><span class="section"><a href="#Ability_to_select_all_text_flows_in_all_documents_on_project_wide_search_page">2.3.1. Ability to select all text flows in all documents on project-wide search page</a></span></dt><dt><span class="section"><a href="#Display_page_context_in_window_title">2.3.2. Display page context in window title</a></span></dt><dt><span class="section"><a href="#Enhanced_Glossary_Integration">2.3.3. Enhanced Glossary Integration</a></span></dt><dt><span class="section"><a href="#Java_variable_validations_in_translation_editor">2.3.4. Java variable validations in translation editor</a></span></dt><dt><span class="section"><a href="#Offline_translation_feature_via_web_UI">2.3.5. Offline translation feature via Web Interface</a></span></dt><dt><span class="section"><a href="#Option_to_search_in_msgid_msgstr_or_both_for_project_wide_search">2.3.6. Option to search in msgid, msgstr, or both for project-wide search</a></span></dt><dt><span class="section"><a href="#Plural_Form_Support">2.3.7. Plural Form Support</a></span></dt><dt><span class="section"><a href="#Preview_of_replacement_for_project_wide_search_and_replace">2.3.8. Preview of replacement for project-wide search and replace</a></span></dt><dt><span class="section"><a href="#Project_wide_Find_and_Replace">2.3.9. Project-wide Search and Replace</a></span></dt><dt><span class="section"><a href="#Project_wide_Fearch_and_Replace_undo_button">2.3.10. Project-wide Search and Replace "undo" button</a></span></dt><dt><span class="section"><a href="#Search_functionality_in_document_list_now_case_insensitive">2.3.11. Search functionality in document list now case-insensitive</a></span></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Section-Administrator_Features">2.1. Administrator Features</h2></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Ability_to_monitor_Zanata_server_statistics">2.1.1. Server statistics</h3></div></div></div><div class="para">
+		The Zanata server is an application that runs on JBoss Application Server. The performance of a Zanata server is tied to the performance of its underlying JBoss Application Server. Without instrumenting that reports on statistics of the JBoss Application Server that hosts the Zanata server, it is difficult for a server administrator to monitor or tune the performance of a Zanata server.
+	</div><div class="para">
+		JavaMelody, a Java EE server monitoring tool is now integrated with the Zanata server. Zanata server administrators can go to the "Administration" menu and select "Server Monitoring" to view the performance statistics for the Zanata instance.
+	</div><div class="para">
+		For more information refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=813161">https://bugzilla.redhat.com/show_bug.cgi?id=813161</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=218" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Section-Project_Owner_Features">2.2. Project Owner Features</h2></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Allow_Users_to_Create_Projects">2.2.1. Allow Users to Create Projects</h3></div></div></div><div class="para">
+		Creating a new translation project required server administrator privileges. Users had to request a translation project through a ticketing system and wait for a server administrator to create the project on their behalf.
+	</div><div class="para">
+		Users can now create a translation project by following these steps:
+	</div><div class="procedure"><ol class="1"><li class="step"><div class="para">
+				Log in
+			</div></li><li class="step"><div class="para">
+				Click “Project”
+			</div></li><li class="step"><div class="para">
+				Click “Create project”
+			</div></li><li class="step"><div class="para">
+				Fill in “Project ID”,”Name”,”Description”
+			</div></li><li class="step"><div class="para">
+				Click “Save”
+			</div></li></ol></div><div class="note"><div class="admonition_header"><h2>Note</h2></div><div class="admonition"><div class="para">
+			The user who creates the project becomes the project's owner.
+		</div></div></div><div class="para">
+		For more information refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=727789">https://bugzilla.redhat.com/show_bug.cgi?id=727789</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=209" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Allow_Project_Owner_to_Edit_All_Translations_in_Project">2.2.2. Allow Project Owner to Edit All Translations in Project</h3></div></div></div><div class="para">
+		In order to edit the translations for a language, a user must be a member of that language group in Zanata. Project owners were unable to edit the translations in their own project, unless they became a member of all language groups for which they had translations. This made applying an update to all translations in a project difficult.
+	</div><div class="para">
+		Project owners can now edit all language translations in their project without joining multiple language groups.
+	</div><div class="para">
+		For more information refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=751673">https://bugzilla.redhat.com/show_bug.cgi?id=751673</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=208" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Maven_pushTrans_superseded_by_pushType">2.2.3. Maven pushTrans superseded by pushType</h3></div></div></div><div class="para">
+		The maven <code class="command">-Dzanata.pushTrans</code> option is now deprecated and is replaced by <code class="command">-Dzanata.pushType</code>, which can take the following values:
+	</div><div class="variablelist"><dl><dt class="varlistentry"><span class="term">source</span></dt><dd><div class="para">
+					Push source documents only (This is the default value when not specified)
+				</div></dd><dt class="varlistentry"><span class="term">trans</span></dt><dd><div class="para">
+					Push translations only
+				</div></dd><dt class="varlistentry"><span class="term">both</span></dt><dd><div class="para">
+					Push both source documents and translations
+				</div></dd></dl></div><div class="para">
+		If the now deprectated <code class="command">pushTrans</code> option is used, it is interpreted as <code class="command">-Dzanata.pushType=both</code>.
+	</div><div class="formalpara"><h5 class="formalpara" id="id3220348">More Information</h5>
+			For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=736898">https://bugzilla.redhat.com/show_bug.cgi?id=736898</a>.
+		</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=230" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Project_Groups">2.2.4. Project Groups</h3></div></div></div><div class="para">
+		Versions of multiple projects may have a real-world relationship. For example, the versions of various projects which go into a certain version of Fedora, and need to be translated together. Zanata had no formal support for this type of organization.
+	</div><div class="para">
+		Zanata 1.6 introduces Project Groups, which can contain specific versions of various projects.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=800869">https://bugzilla.redhat.com/show_bug.cgi?id=800869</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=214" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Push_individual_locale_translations_with_maven">2.2.5. Push individual locale translations with maven</h3></div></div></div><div class="para">
+		Only project owners could push translations using maven or the python client. Translators were not able to push translations, making offline translations impractical.
+	</div><div class="para">
+		Translators can now push translations for individual locales with the <code class="command">-Dzanata.locales</code> option.
+	</div><div class="para">
+		Example maven option to push translations for English: <code class="command">-Dzanata.locales=en,es-ES,en-US</code>
+	</div><div class="para">
+		The specified locales must be a subset of those present in <code class="filename">zanata.xml</code>, and may be the mapped locale or the local locale.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=736898">https://bugzilla.redhat.com/show_bug.cgi?id=736898</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=221" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Section-Web_Editor_Features">2.3. Web Editor Features</h2></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Ability_to_select_all_text_flows_in_all_documents_on_project_wide_search_page">2.3.1. Ability to select all text flows in all documents on project-wide search page</h3></div></div></div><div class="para">
+		In a large project, a global search may return results from many different documents. When using the "Replace all selected" function, there may be too many results to manually select them all.
+	</div><div class="para">
+		Zanata 1.6 introduces a "Select All" function. Now you can search through all documents in a project, then select all of the results, and replace all instances.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=817457">https://bugzilla.redhat.com/show_bug.cgi?id=817457</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=222" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Display_page_context_in_window_title">2.3.2. Display page context in window title</h3></div></div></div><div class="para">
+		Zanata's pages did not have human-readable titles for all pages. Users were unable to distinguish between different open browser tabs, and browsers that show a page title in their history would only show "Zanata" for all pages.
+	</div><div class="para">
+		Zanata now shows a specific title for each section of the application, except for the Web Editor, and browser history contains these details.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=813193">https://bugzilla.redhat.com/show_bug.cgi?id=813193</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=220" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Enhanced_Glossary_Integration">2.3.3. Enhanced Glossary Integration</h3></div></div></div><div class="para">
+		A Translation Glossary provides standard translations for technical terms. Zanata supports Translation Glossaries. Users requested to be alerted to any applicable Glossary terms when working on a translation unit, and to be able to copy a translation from the Glossary into the current translation unit.
+	</div><div class="para">
+		Users were not alerted when relevant Glossary terms existed, and had to manually copy and paste Glossary terms in the translation editor.
+	</div><div class="para">
+		Automatic alerting and copy from Glossary have been implemented. When one or more relevant Glossary terms exist, the color of the Glossary tab changes from blue to red. A "Copy" button next to each Glossary term enables the translator to copy Glossary translations to the current translation unit.
+	</div><div class="para">
+		For more information refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=788294">https://bugzilla.redhat.com/show_bug.cgi?id=788294</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=224" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Java_variable_validations_in_translation_editor">2.3.4. Java variable validations in translation editor</h3></div></div></div><div class="para">
+		Zanata did not detect inconsistencies in Java-style variables between source strings and translated strings. As a consequence, translators could modify Java variables embedded in strings, causing compilation or runtime errors in localised builds of Java software projects.
+	</div><div class="para">
+		Zanata 1.6 adds a validator to the web editor to check for Java variables in the source and translated strings.
+	</div><div class="para">
+		Java style variables use an index number and may have a format specifier. The validator checks that:
+	</div><div class="itemizedlist"><ul><li class="listitem"><div class="para">
+				all index numbers that are present in source are present in target
+			</div></li><li class="listitem"><div class="para">
+				all index numbers that are present in target are present in source
+			</div></li><li class="listitem"><div class="para">
+				each index number is present the same number of times in the source and target
+			</div></li></ul></div><div class="para">
+		A validation error is displayed near the string currently being edited if any of the above conditions are not met.
+	</div><div class="para">
+		The validator does not yet perform any validation of format specifiers.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=802577">https://bugzilla.redhat.com/show_bug.cgi?id=802577</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=217" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Offline_translation_feature_via_web_UI">2.3.5. Offline translation feature via Web Interface</h3></div></div></div><div class="para">
+		Translators could download translation work via the Web Interface, but were not able to upload their offline work.
+	</div><div class="para">
+		Zanata 1.6 includes the ability for translators to upload their offline translations in the web interface.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=725319">https://bugzilla.redhat.com/show_bug.cgi?id=725319</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=212" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Option_to_search_in_msgid_msgstr_or_both_for_project_wide_search">2.3.6. Option to search in msgid, msgstr, or both for project-wide search</h3></div></div></div><div class="para">
+		Searches in Zanata's web editor would search all strings, both source and target strings.
+	</div><div class="para">
+		The new search dialog gives users the ability to specify what content they wish to search: source strings only, target strings only, or both.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=817453">https://bugzilla.redhat.com/show_bug.cgi?id=817453</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=202" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Plural_Form_Support">2.3.7. Plural Form Support</h3></div></div></div><div class="para">
+		In translation files, msg_plural entries provide multiple versions of a noun string. These entries allows software to present the correct singular or plural version of the noun to match a number in a message. Zanata did not support plural forms, and silently ignored msg_plural entries in POT/PO files.
+	</div><div class="para">
+		Zanata now supports msg_plural entries. Plurals are now accepted/returned via REST clients, accepted/displayed in the editor UI and in TM search results.
+	</div><div class="para">
+		For more information refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=803572">https://bugzilla.redhat.com/show_bug.cgi?id=803572</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=204" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Preview_of_replacement_for_project_wide_search_and_replace">2.3.8. Preview of replacement for project-wide search and replace</h3></div></div></div><div class="para">
+		Zanata includes powerful find and replace functionality that can be applied to individual search results or to a group of search results. It was not possible to see what the effects of a replace operation were before applying it.
+	</div><div class="para">
+		Users can now use the preview feature to see the effect of a replace operation before it is carried out.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=822366">https://bugzilla.redhat.com/show_bug.cgi?id=822366</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=205" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Project_wide_Find_and_Replace">2.3.9. Project-wide Search and Replace</h3></div></div></div><div class="para">
+		Translation projects contain a number of distinct files with source material. Applying the same change across a number of files requires opening each file, finding the item that needs to be changed, and applying the change. Zanata's Find and Replace function worked within a file, but not across files.
+	</div><div class="para">
+		Zanata now has a "Find and Replace" feature that works across all the files in a project. Users can now apply a change across all the files in the project from a single point in the user interface. Please see the bug report for more details on the state of this feature in the alpha release.
+	</div><div class="para">
+		For more information refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=703806">https://bugzilla.redhat.com/show_bug.cgi?id=703806</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=216" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Project_wide_Fearch_and_Replace_undo_button">2.3.10. Project-wide Search and Replace "undo" button</h3></div></div></div><div class="para">
+		Zanata includes a facility for performing search and replace operations, on both single entries and multiple entries. Replace operations could not be programmatically reversed. Users had to manually revert a change, or several changes if multiple search results were replaced at once.
+	</div><div class="para">
+		Zanata 1.6 now includes an <em class="firstterm">undo</em> for Search and Replace.
+	</div><div class="itemizedlist"><ul><li class="listitem"><div class="para">
+				Individual 'Replace' buttons are replaced with 'Undo' buttons when undo is possible (i.e. after a replace has occured).
+			</div></li><li class="listitem"><div class="para">
+				An 'undo' link is presented next to the message (bottom right) when multiple translations are replaced.
+			</div></li><li class="listitem"><div class="para">
+				Individual 'Undo' buttons can be used after 'Replace All Selected' if the user wants to undo only some of a set of replaced translations.
+			</div></li><li class="listitem"><div class="para">
+				Undo is only available until the translation is updated, so the 'Undo' button for a text flow will change back to 'Replace' if another user saves a translation (this is to prevent new translations being overwritten with an older translation).
+			</div></li></ul></div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=816850">https://bugzilla.redhat.com/show_bug.cgi?id=816850</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=201" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Search_functionality_in_document_list_now_case_insensitive">2.3.11. Search functionality in document list now case-insensitive</h3></div></div></div><div class="para">
+		Zanata includes a document list filter to allow users to quickly locate specific documents. This filter was case sensitive, which meant users had to remember the exact case used for a document title.
+	</div><div class="para">
+		The document list filter now has an option for case-sensitivity. By default the filter is case- <span class="emphasis"><em> in </em></span>sensitive. To perform a case-sensitive filter, check the "case sensitive" check box next to the filter.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=802582">https://bugzilla.redhat.com/show_bug.cgi?id=802582</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=206" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div></div></div><div class="chapter" id="Chapter-Resolved_Issues"><div class="titlepage"><div><div><h2 class="title">Chapter 3. Resolved Issues</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="#Section-Administrator_Issues">3.1. Administrator Issues</a></span></dt><dd><dl><dt><span class="section"><a href="#Reindex_operation_takes_a_long_time_on_production_server">3.1.1. Reindex operation takes a long time on production server</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Project_Owner_Issues">3.2. Project Owner Issues</a></span></dt><dd><dl><dt><span class="section"><a href="#Copy_Trans_ignores_some_translations_when_duplicate_contents_are_detected_on_a_single_document">3.2.1. Copy Trans ignores some translations when duplicate contents are detected on a single document</a></span></dt><dt><span class="section"><a href="#Maven_client_should_print_readable_error_if_project_ID_has_spaces">3.2.2. Maven client should print readable error if project ID has spaces</a></span></dt><dt><span class="section"><a href="#Topic213">3.2.3. Server URL in zanata.xml and zanata.ini inconsistent</a></span></dt></dl></dd><dt><span class="section"><a href="#Section-Web_Editor_Issues">3.3. Web Editor Issues</a></span></dt><dd><dl><dt><span class="section"><a href="#Always_show_the_second_line_at_the_top_when_moving_to_a_new_page">3.3.1. First row missing when moving to a new page of translation</a></span></dt><dt><span class="section"><a href="#New_error_message_indicator_workspace_menu_redesign">3.3.2. New error message indicator, workspace menu redesign</a></span></dt><dt><span class="section"><a href="#Save_dialog_from_filtering_always_saves_as_approved">3.3.3. Save dialog from filtering always saves as approved</a></span></dt><dt><span class="section"><a href="#Search_remains_active_after_opening_new_file">3.3.4. Search remains "active" after opening new file</a></span></dt><dt><span class="section"><a href="#Switching_Message_Filter_before_loading_completed_causes_incorrect_filter_result">3.3.5. Switching Message Filter before loading completed causes incorrect filter result</a></span></dt><dt><span class="section"><a href="#Translation_memory_shortcut_keys_dont_work">3.3.6. Translation memory shortcut keys don't work</a></span></dt><dt><span class="section"><a href="#User_security_permissions_are_cached_and_require_logoutlogin_to_refresh_when_changes_are_made">3.3.7. User security permissions are cached and require logout/login to refresh when changes are made</a></span></dt><dt><span class="section"><a href="#Zanata_accepts_PO_files_with_too_few_plural_forms">3.3.8. Zanata accepts PO files with too few plural forms</a></span></dt></dl></dd></dl></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Section-Administrator_Issues">3.1. Administrator Issues</h2></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Reindex_operation_takes_a_long_time_on_production_server">3.1.1. Reindex operation takes a long time on production server</h3></div></div></div><div class="para">
+		Zanata has a number of indexes that are used to locate information on the server. These indexes are periodically updated. The search re-indexing operation always discarded all existing indexes. This caused re-indexing to take a long time, even when only a single class was being reindexed. While the re-indexing operation was taking place, searches did not return good results.
+	</div><div class="para">
+		The Search re-index backing beans now take a set of boolean options for each indexable class. These options determine whether existing indexes for the class will be purged, whether re-index will be performed on entities of the class, and whether the index for the class will be optimized. These options are presented in a table on the "Manage Search" page under the Administration menu.
+	</div><div class="para">
+		Classes can now be re-indexed separately, allowing for shorter re-index time per operation. Existing indexes can be kept during re-indexing, so searches may be able to return good results during re-index.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=815197">https://bugzilla.redhat.com/show_bug.cgi?id=815197</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=200" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Section-Project_Owner_Issues">3.2. Project Owner Issues</h2></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Copy_Trans_ignores_some_translations_when_duplicate_contents_are_detected_on_a_single_document">3.2.1. Copy Trans ignores some translations when duplicate contents are detected on a single document</h3></div></div></div><div class="para">
+		When users pushed documents with the same content in different translation units to a new version of a project, copy trans sometimes skipped some of the translation units with duplicate content.
+	</div><div class="para">
+		The copyTrans mechanism now accounts for duplicate content scenarios and correctly copies them to the new version.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=825076">https://bugzilla.redhat.com/show_bug.cgi?id=825076</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=203" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Maven_client_should_print_readable_error_if_project_ID_has_spaces">3.2.2. Maven client should print readable error if project ID has spaces</h3></div></div></div><div class="para">
+		Spaces are not allowed in Zanata project names. When a space was included in a project name, either in <code class="filename">zanata.xml</code> or as a command line argument, the error message did not clearly explain the issue.
+	</div><div class="para">
+		When a space is included in a project name now, the error message clearly explains the problem.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=701524">https://bugzilla.redhat.com/show_bug.cgi?id=701524</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=207" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Topic213">3.2.3. Server URL in zanata.xml and zanata.ini inconsistent</h3></div></div></div><div class="para">
+		The server-provided sample <code class="filename">zanata.xml</code> and <code class="filename">zanata.ini</code> files sometimes had mismatched server URLs. This was because the <code class="filename">zanata.xml</code> sample used the server configured URL, and the <code class="filename">zanata.ini</code> used the current navigation URL.
+	</div><div class="para">
+		When the two did not match, Zanata clients would not properly associate user configuration from <code class="filename">zanata.ini</code> with the server specified in <code class="filename">zanata.xml</code> leading to error messages about "missing user configuration information".
+	</div><div class="para">
+		The server-provided sample <code class="filename">zanata.ini</code> now uses the server configured URL, and the two server-provided sample files now match consistently.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=816453">https://bugzilla.redhat.com/show_bug.cgi?id=816453</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=213" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h2 class="title" id="Section-Web_Editor_Issues">3.3. Web Editor Issues</h2></div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Always_show_the_second_line_at_the_top_when_moving_to_a_new_page">3.3.1. First row missing when moving to a new page of translation</h3></div></div></div><div class="para">
+		Saving the last translation unit on a page in the web editor moves to the next page. The new page scrolled in such a way that the second row was at the top, and the first row was scrolled off the page.
+	</div><div class="para">
+		The web editor's scrolling is modified, and when scrolling to a new page the first row appears at the top of the page.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=803557">https://bugzilla.redhat.com/show_bug.cgi?id=803557</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=225" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="New_error_message_indicator_workspace_menu_redesign">3.3.2. New error message indicator, workspace menu redesign</h3></div></div></div><div class="para">
+		Zanata provided notifications and error messages in the page header of the editor. The page header took up screen space, which was not available for translation units. Additionally, notifications and error messages would be overwritten by later messages. This message overwriting made it difficult to read a message if it was immediately followed by another.
+	</div><div class="para">
+		In Zanata 1.6 the page header uses a single line, leaving more space for translation. Error messages now appear in pop-ups.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=824269">https://bugzilla.redhat.com/show_bug.cgi?id=824269</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=226" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Save_dialog_from_filtering_always_saves_as_approved">3.3.3. Save dialog from filtering always saves as approved</h3></div></div></div><div class="para">
+		When a user checked any of the message filter checkboxes, they were prompted to save their current translation. This translation was always saved as approved.
+	</div><div class="para">
+		The Save Dialog that appears when checking a message filter checkbox now contains an additional button "Save as Fuzzy". Users can save their translation as fuzzy by using this button.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=815638">https://bugzilla.redhat.com/show_bug.cgi?id=815638</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=223" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Search_remains_active_after_opening_new_file">3.3.4. Search remains "active" after opening new file</h3></div></div></div><div class="para">
+		The term used in a searches within a document is stored in a history token. When a new document was loaded after a search, the search in the history token was not updated. If the search term was not present in the new document it sometimes made the search box invisible and impossible to clear without manipulating the URL.
+	</div><div class="para">
+		The search history token is now cleared with loading a different document.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=803538">https://bugzilla.redhat.com/show_bug.cgi?id=803538</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=228" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Switching_Message_Filter_before_loading_completed_causes_incorrect_filter_result">3.3.5. Switching Message Filter before loading completed causes incorrect filter result</h3></div></div></div><div class="para">
+		If a user changed the message filters while a page was loading, the filter was not applied properly and messages were listed when they should have been filter out.
+	</div><div class="para">
+		User input is now is prevented by a modal pop-up during page load, and a user cannot change the filters until page is fully loaded.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=816827">https://bugzilla.redhat.com/show_bug.cgi?id=816827</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=229" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Translation_memory_shortcut_keys_dont_work">3.3.6. Translation memory shortcut keys don't work</h3></div></div></div><div class="para">
+		The code for the translation memory copy shortcut keys Ctrl+Shift+[1-4] checked for characters rather than key codes. The numbers on a keyboard number pad were not recognised, and on some keyboard mappings numbers above 2 were not recognised.
+	</div><div class="para">
+		The code was rewritten to recognise keyboard codes, rather than characters. Pressing Ctrl+Shift+[1-4] now copies the translation memory match.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=802191">https://bugzilla.redhat.com/show_bug.cgi?id=802191</a>
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=227" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="User_security_permissions_are_cached_and_require_logoutlogin_to_refresh_when_changes_are_made">3.3.7. User security permissions are cached and require logout/login to refresh when changes are made</h3></div></div></div><div class="para">
+		Zanata performed authorization checks by querying the security entity representing the user. However, when a user is made an owner of the project the user entity is not updated - rather, the project entity is updated. The user entity is only updated with information about project ownership when the user logs in and the user entity is created. When a user was given ownership of a project, they had to log out and log back in again before Zanata would authorize them as the owner of the project.
+	</div><div class="para">
+		The authorization check is now made by querying the project entity, rather than the user entity. Users no longer have to log out and log back in again to update their authorizations when they are assigned ownership of a project.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=730199">https://bugzilla.redhat.com/show_bug.cgi?id=730199</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=219" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div><div class="section"><div class="titlepage"><div><div keep-together.within-column="always"><h3 class="title" id="Zanata_accepts_PO_files_with_too_few_plural_forms">3.3.8. Zanata accepts PO files with too few plural forms</h3></div></div></div><div class="para">
+		Zanata handles msg_plural entries in PO files. A msg_plural entry in a PO file must contain a number of the plural forms that matches the value set in the file for nplural, which is the number of plural forms in the target language. Zanata did not validate the number of plural forms in the PO files against the value of nplural, and incorrectly reported the state of msg_plural entry with too few plural forms.
+	</div><div class="para">
+		Zanata 1.6 now correctly identifies and reports when a msg_plural entry has too few plural forms.
+	</div><div class="para">
+		For more information see <a href="https://bugzilla.redhat.com/show_bug.cgi?id=814006">https://bugzilla.redhat.com/show_bug.cgi?id=814006</a>.
+	</div><div class="simplesect"><div class="titlepage"><div><div keep-together.within-column="always"><h1 class="title"></h1></div></div></div><div class="RoleCreateBugPara RoleCreateBugPara">
+		<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=215" target="_new" class="edittopiclink">  Edit  </a>
+	</div></div></div></div></div></div><div id="site_footer"></div><script type="text/javascript">
+		$("#site_footer").load("../../../../../footer.html");
+	</script></body></html>

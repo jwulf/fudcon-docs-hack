@@ -1,0 +1,11 @@
+
+META-INF
+META-INF/cxf
+org
+org/apache
+org/apache/cxf
+org/apache/cxf/transport
+org/apache/cxf/transport/local
+META-INF/maven
+META-INF/maven/org.apache.cxf
+META-INF/maven/org.apache.cxf/cxf-rt-transports-local

@@ -1,0 +1,14 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/cache
+org/jboss/ejb3/cache/grouped
+org/jboss/ejb3/cache/persistence
+org/jboss/ejb3/cache/impl
+org/jboss/ejb3/cache/simple
+org/jboss/ejb3/cache/legacy
+META-INF/maven
+META-INF/maven/org.jboss.ejb3
+META-INF/maven/org.jboss.ejb3/jboss-ejb3-cache

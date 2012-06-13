@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+	login-required="true">
+	<param name="localeTab" value="#{groupedTranslatedTopicDataLocaleList.localeTab}" />
+	<param name="tab" value="#{groupedTranslatedTopicDataLocaleList.selectedTab}" />
+	<param name="firstResult" value="#{groupedTranslatedTopicDataLocaleList.firstResult}" />
+	<param name="sort" value="#{groupedTranslatedTopicDataLocaleList.orderColumn}" />
+	<param name="dir" value="#{groupedTranslatedTopicDataLocaleList.orderDirection}" />
+	<param name="from" />
+</page>

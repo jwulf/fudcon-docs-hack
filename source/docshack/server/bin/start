@@ -1,0 +1,1 @@
+./standalone.sh --server-config standalone-preview.xml

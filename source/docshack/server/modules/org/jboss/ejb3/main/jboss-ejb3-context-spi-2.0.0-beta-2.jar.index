@@ -1,0 +1,10 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/context
+org/jboss/ejb3/context/spi
+META-INF/maven
+META-INF/maven/org.jboss.ejb3.context
+META-INF/maven/org.jboss.ejb3.context/jboss-ejb3-context-spi

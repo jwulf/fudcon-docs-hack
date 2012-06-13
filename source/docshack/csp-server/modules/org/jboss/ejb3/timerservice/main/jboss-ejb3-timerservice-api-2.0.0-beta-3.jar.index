@@ -1,0 +1,8 @@
+
+META-INF
+org
+org/jboss
+org/jboss/ejb3
+org/jboss/ejb3/timerservice
+org/jboss/ejb3/timerservice/spi
+org/jboss/ejb3/timerservice/api

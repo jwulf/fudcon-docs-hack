@@ -1,0 +1,138 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	template="layout/cleantemplate.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="stringConstantsSearch" styleClass="edit">
+
+			<s:div styleClass="actionButtons" rendered="#{empty from}">
+				<s:button styleClass="button" view="/StringConstantsEdit.xhtml"
+					id="create" propagation="none" value="Create A New String Constant">
+					<f:param name="stringConstantsStringConstantsId" />
+				</s:button>
+			</s:div>
+
+			<div style="clear: both" />
+			<br />
+
+			<rich:simpleTogglePanel label="StringConstants Search Filter"
+				switchType="client" opened="false">
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Constant Name</ui:define>
+					<h:inputText id="constantName"
+						value="#{stringConstantsList.stringConstants.constantName}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Constant Value</ui:define>
+					<h:inputText id="constantValue"
+						value="#{stringConstantsList.stringConstants.constantValue}" />
+				</s:decorate>
+
+				<s:decorate template="layout/display.xhtml">
+					<ui:define name="label">Match</ui:define>
+					<h:selectOneRadio id="logic"
+						value="#{stringConstantsList.restrictionLogicOperator}"
+						styleClass="radio">
+						<f:selectItem itemLabel="All" itemValue="and" />
+						<f:selectItem itemLabel="Any" itemValue="or" />
+					</h:selectOneRadio>
+				</s:decorate>
+
+				<div class="actionButtons">
+					<h:commandButton styleClass="button" id="search" value="Search"
+						action="/StringConstantsList.xhtml" />
+					<s:button styleClass="button" id="reset" value="Reset"
+						includePageParams="false" />
+				</div>
+
+			</rich:simpleTogglePanel>
+
+		</h:form>
+
+		<br />
+		<br />
+
+		<rich:panel>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{stringConstantsList}" />
+				<ui:param name="view" value="/StringConstantsList.xhtml" />
+			</ui:include>
+
+			<f:facet name="header">StringConstants Search Results (#{empty stringConstantsList.resultList ? 0 : (stringConstantsList.paginated ? stringConstantsList.resultCount : stringConstantsList.resultList.size)})</f:facet>
+
+			<div class="results" id="stringConstantsList">
+
+				<h:outputText
+					value="The stringConstants search returned no results."
+					rendered="#{empty stringConstantsList.resultList}" />
+
+				<rich:dataTable id="stringConstantsList" var="_stringConstants"
+					value="#{stringConstantsList.resultList}"
+					rendered="#{not empty stringConstantsList.resultList}"
+					styleClass="listTable" columnsWidth="150px, 150px, 150px, 1*">
+					<rich:column styleClass="action">
+						<f:facet name="header">Action</f:facet>
+						<s:link styleClass="smallButton"
+							view="/#{empty from ? 'StringConstants' : from}.xhtml"
+							value="#{empty from ? 'View' : 'Select'}"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="stringConstantsViewId">
+							<f:param name="stringConstantsStringConstantsId"
+								value="#{_stringConstants.stringConstantsId}" />
+						</s:link>
+			            #{' '}
+			            <s:link styleClass="smallButton"
+							view="/StringConstantsEdit.xhtml" value="Edit" propagation="none"
+							id="stringConstantsEdit" rendered="#{empty from}">
+							<f:param name="stringConstantsStringConstantsId"
+								value="#{_stringConstants.stringConstantsId}" />
+						</s:link>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{stringConstantsList}" />
+								<ui:param name="propertyLabel" value="String constants id" />
+								<ui:param name="propertyPath"
+									value="stringConstants.stringConstantsId" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_stringConstants.stringConstantsId}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{stringConstantsList}" />
+								<ui:param name="propertyLabel" value="Constant name" />
+								<ui:param name="propertyPath"
+									value="stringConstants.constantName" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_stringConstants.constantName}"
+							title="#{_stringConstants.constantValue}" />
+					</rich:column>
+
+				</rich:dataTable>
+
+			</div>
+
+			<ui:include src="/WEB-INF/templates/PagingControls.xhtml">
+				<ui:param name="entityQueryObject" value="#{stringConstantsList}" />
+				<ui:param name="view" value="/StringConstantsList.xhtml" />
+			</ui:include>
+
+		</rich:panel>
+
+	</ui:define>
+
+</ui:composition>
