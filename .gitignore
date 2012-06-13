@@ -1,0 +1,13 @@
+
+# Can ignore specific files
+.DS_Store
+
+# Use wildcards as well
+*~
+*.swp
+
+# Can also ignore all directories and files in a directory.
+source/docshack/server/standalone/log/* 
+source/docshack/server/standalone/tmp/* 
+source/docshack/csp-server/standalone/log/*
+source/docshack/csp-server/standalone/tmp/*
