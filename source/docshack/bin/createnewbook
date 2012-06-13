@@ -1,0 +1,10 @@
+#!/bin/bash
+
+HOME=`dirname $0`
+
+if [ x$1 = "x" ]; then
+  echo "Docs Alpha System book creation script"
+  echo "Usage: createnewbook <content_spec_file>"
+else
+  java -jar $HOME/csprocessor.jar --config $HOME/csprocessor.ini create $1
+fi

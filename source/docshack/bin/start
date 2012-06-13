@@ -1,0 +1,36 @@
+#!/bin/bash
+# start
+# Starts the Docs Hack servers
+
+# You need ports 8080 and 8180 open on the firewall
+cd `dirname $0`
+DIRNAME=`pwd`
+SERVERDIR=`cd $DIRNAME/..;pwd`/server
+SERVERPID=$SERVERDIR/server.pid
+CSPSERVERDIR=`cd $DIRNAME/..;pwd`/csp-server
+CSPSERVERPID=$CSPSERVERDIR/csp-server/csp-server.pid
+
+echo "===================================="
+if [ -f $SERVERPID ]; then
+  echo "GUI server already running?"
+  echo "$SERVERPID file found."
+  echo
+else
+  echo "Starting the GUI Server on port 8080"
+  echo "See $SERVERDIR/standalone/log/server.log for status"
+  cd $SERVERDIR/bin
+  ./start  > /dev/null 2>&1 &
+  echo
+fi
+
+if [ -f $CSPSERVERPID ]; then
+  echo "CSP Server already running?"
+  echo "$CSPSERVERPID file found."
+else
+  echo "Starting the CSP Server on port 8180"
+  echo "See $CSPSERVERDIR/standalone/log/server.log for status"
+  cd $CSPSERVERDIR/bin
+  ./start  > /dev/null 2>&1 &
+fi
+echo  "==================================="
+

@@ -1,0 +1,37 @@
+#!/bin/bash
+# langselect-en-us
+
+# we start in assembly/publican
+
+echo Lang select started in `pwd`
+
+name=$1
+echo Name: $name
+
+if [ ! -f tmp/en-US/html-single/index.html ]; then
+  echo "No html-single source to build to deployable"
+  DEPLOYBUILDERROR=1
+fi 
+
+if [ -f tmp/en-US/html-single/index.html ]; then
+  if [ -d tmp/deploy ]; then
+    rm -rf tmp/deploy
+  fi
+
+  if [ -d tmp/deploy ]; then
+    echo "ERROR: Could not remove previous deployable."
+    DEPLOYBUILDERROR=1
+  fi
+
+  if [ ! -d tmp/deploy ]; then
+    mkdir tmp/deploy      
+    echo "Creating deployable for $name"
+    cp -r tmp/en-US/html-single tmp/deploy/$name
+    if [ ! -f tmp/deploy/$name/index.html ]; then
+      echo "ERROR: Could not create deployable"
+      BUILDERROR=1
+    else
+      echo "Created deployable tmp/deploy/$name"
+    fi
+  fi
+fi

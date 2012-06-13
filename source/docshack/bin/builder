@@ -1,0 +1,341 @@
+#!/bin/bash
+# builder
+
+# Usage:
+# builder [--scan] DIR
+# Builds a csprocessor checkout and deploys to the docs hack server
+# If invoked with the --scan switch, treats subdirectories of DIR as csprocessor projects
+# If invoked with no switch, treats DIR as a csprocessor project
+
+# Questions - do these work currently? 
+# 1. csprocessor assemble --brand override-brand
+# 2. csprocessor assemble --formats=override-formats --langs=override-formats
+
+# Directory structure of the installation:
+#docshack/server
+#docshack/csp-server
+#docshack/books/
+#docshack/bin/scanner.sh
+#docshack/bin/csprocessor.jar
+#docshack/scripts/htmlmangle
+#docshack/scripts/langselect-en-us
+#docshack/scripts/publicanmangle
+
+#docshack/server/standalone/deployments/Books/index.xhtml
+#docshack/server/standalone/deployments/Books/<Index.seam to integrate built books go here>
+#docshack/server/standalone/deployments/Books/<Books>
+
+# Defaults 
+cd `dirname $0`
+cd ..
+DOCSHACKDIR=`pwd`
+DOCSHACKBINDIR=$DOCSHACKDIR/bin
+CSPROCESSOR=$DOCSHACKBINDIR/csprocessor.jar
+BOOKFILESDIR=$DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Book_Files
+FORMATS="html-single"
+LANGS="en-US"
+LANGSELECT=$DOCSHACKBINDIR/langselect-en-US
+
+echo "Base dir: $DOCSHACKDIR"
+
+EXITSTATUS=0
+
+# This assumes a single level of depth
+# If your books are sub-divided by product or similar, you need to override this
+# in each local docshack.cfg
+SERVERDIR=$DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Books
+SERVERINDEX=$SERVERDIR/index.html
+
+# A books/global.cfg file allows you to override the following parameters for all books
+# A books/BOOK_NAME/docshack.cfg allows you to override the following parameters for a single book
+# CSPROCESSOR=/path/to/custom/csprocessor.jar
+# BRAND=custom-brand
+# CSPHOST=http://csprocessor.com:8080/TopicIndex
+# CSPUSER=user-on-csphost
+# LANGS=publican_langs
+# FORMATS=publican_formats
+# PUBLICANMANGLESCRIPT=/path/to/publicanmanglescript
+# HTMLMANGLESCRIPT=/path/to/htmlmanglescript
+# LANGSELECTSCRIPT=/path/to/language-selector-script
+# SERVERDIR=/path/to/server/book/deploy/directory
+
+# Additionally, setting the following to 0 in a local file will stop automated rebuilds
+# INTEGRATED=0|1
+
+block()
+  {
+  touch $name.lock
+}
+
+unblock()
+  {
+  rm $name.lock
+}
+
+# Build a csprocessor project and deploy to the server
+build()
+  {
+#  echo "Building: $name"
+#  pwd
+  if [ -f $name.lock ]; then
+    echo "Directory $name has been locked by another instance"
+    echo "`date`\<Terminated attempt\>" >> $BUILDLOG
+  fi
+
+  if [ ! -f $name.lock ]; then
+    # Check for the presence of a csprocessor.cfg; that's how we tell
+    # if this directory is a book or not
+    if [ ! -f csprocessor.cfg ]; then
+      echo "$name does not contain a csprocessor.cfg"
+    fi
+    if [ -f csprocessor.cfg ]; then
+      pushd . > /dev/null 2>&1    
+      block
+      echo "`date` Started build."
+      echo "Build Log: $BUILDLOG"
+      echo "`date` Started build" >> $BUILDLOG
+      INTEGRATE=1
+      # Allow a local docshack.cfg to override parameters for this book
+      if [ -f docshack.cfg ]; then
+        source docshack.cfg
+      fi
+      # the local file can override automated (--scan) build integration by setting
+      # INTEGRATE=0
+      if [ $INTEGRATE = 0 ]; then
+        echo "Skipping: Book requested not be integrated"
+        unblock
+        popd > /dev/null 2>&1
+      fi
+
+      if [ $INTEGRATE = 1 ] || [ $SCAN = 0 ]; then
+        echo "Building: $name"
+        ARGS="--hide-errors --config $DOCSHACKBINDIR/csprocessor.ini"
+        if [ ! -z $BRAND ]; then ARGS="$ARGS --brand $BRAND "
+        fi
+        if [ ! -z $CSPHOST ]; then ARGS="$ARGS -H $CSPHOST "
+        fi
+        if [ ! -z $CSPUSER ]; then ARGS="$ARGS -u $CSPUSER "
+        fi
+        
+        # If no publican rebuild is required, then build straight up
+        # If a publican rebuild is required, then don't do the publican build up front
+        # to save time and resources
+        if [ x$PUBLICANMANGLESCRIPT = "x" ]; then 
+          echo java -jar $CSPROCESSOR assemble $ARGS  
+          java -jar $CSPROCESSOR assemble $ARGS
+        else
+          # Publican rebuild requested, so just do an unzip of the publican
+          # assembly
+          echo java -jar $CSPROCESSOR build $ARGS
+          java -jar $CSPROCESSOR build $ARGS
+          pushd .  > /dev/null 2>&1
+          cd assembly
+          if [ -f $name-publican.zip ]; then
+            unzip $name-publican.zip
+            rm -rf publican
+            mv $name publican
+            rm $name-publican.zip
+          fi
+          popd > /dev/null 2>&1 
+        fi
+
+        if [ ! -f assembly/publican/publican.cfg ]; then
+          echo "ERROR: csprocessor assembly failure" 
+          echo "`date` ERROR: csprocessor assembly failure" >> $BUILDLOG
+        fi
+
+        if [ -f assembly/publican/publican.cfg ]; then
+          
+          # assembly took place, so continue
+          cd assembly/publican
+          
+          if [ ! -d tmp ]; then
+            if [ x$PUBLICANMANGLESCRIPT = "x" ]; then
+              echo "ERROR: Publican build failure"
+              echo "`date` ERROR: Publican build failure" >> $BUILDLOG
+            fi
+          fi
+          
+          if [ -f publican.cfg ]; then
+            # Check PUBLICANMANGLESCRIPT is set, then
+            # call the manglescript
+            # The publicanmangle script is responsible for detecting the right language
+            if [ ! x$PUBLICANMANGLESCRIPT = "x" ]; then
+              if [ ! -z $PUBLICANMANGLESCRIPT ]; then 
+               # pushd and popd to ensure there are no cwd side-effects
+                pushd .  > /dev/null 2>&1
+                echo "Executing Publican Mangle script $PUBLICANMANGLESCRIPT"
+                $PUBLICANMANGLESCRIPT $name
+                popd  > /dev/null 2>&1
+              fi
+            fi
+
+            # Do a publican rebuild if required
+            if [ ! x$PUBLICANMANGLESCRIPT = "x" ]; then
+              publican build --formats=$FORMATS --langs=$LANGS
+            fi
+
+            # Check if the publican build succeeded
+            if [ ! -d tmp ]; then
+              echo "ERROR: Publican rebuild failure"
+              echo "`date` ERROR: Publican rebuild failure" >> $BUILDLOG
+            fi
+
+            if [ -d tmp ]; then
+              # Check if an HTML mangle is required
+              # The htmlmangle script is responsible for detecting the right format and lang
+              if [ ! x$HTMLMANGLESCRIPT = "x" ]; then
+                if [ ! -z $HTMLMANGLESCRIPT ]; then 
+                 # pushd and popd to ensure there are no cwd side-effects
+                  pushd . > /dev/null 2>&1              
+                  echo "Executing HTML Mangle script $HTMLMANGLESCRIPT" 
+                  $HTMLMANGLESCRIPT
+                  popd  > /dev/null 2>&1
+                fi
+              fi
+            fi
+
+            if [ ! -d tmp ]; then
+              echo "ERROR: Publican build disappeared (HTML mangle issue?)"
+              echo "`date` ERROR: Publican build disappeared (HTML mangle issue?)" >> $BUILDLOG
+            fi
+            if [ -d tmp ]; then
+             
+              # The LANGSELECTSCRIPT is responsible for delivering a tmp/deploy/$name directory for 
+              # deployment to the server
+              # pushd and popd to ensure there are no cwd side-effects          
+              pushd .  > /dev/null 2>&1
+              # Lang select is from: assembly/publican
+              DEPLOYBUILDERROR=0
+              $LANGSELECT $name
+              popd  > /dev/null 2>&1
+
+              if [ $DEPLOYBUILDERROR = 0 ]; then
+                deploy
+              fi
+            fi
+          fi               
+        fi
+        popd  > /dev/null 2>&1
+#        echo "Unblock is from: `pwd`"        
+        unblock
+      fi
+    fi
+  fi
+}
+
+deploy()
+{
+  if [ ! -d tmp/deploy/$name ]; then
+    echo "ERROR: No tmp/deploy/$name deployable found"
+    echo "`date` ERROR: No tmp/deploy/$name deployable found" >> $BUILDLOG
+  fi
+  if [ -d tmp/deploy/$name ]; then
+    if [ ! -d $SERVERDIR ]; then
+      echo "ERROR: Server deployment directory $SERVERDIR not found. Not deploying."
+      echo "`date` ERROR: Server deployment directory $SERVERDIR not found. Not deploying." >> $BUILDLOG
+    fi
+    if [ -d $SERVERDIR ]; then
+      if [ -d $SERVERDIR/$name ]; then 
+        rm -rf $SERVERDIR/$name
+      fi
+      if [ -d $SERVERDIR/$name ]; then
+        echo "ERROR: Could not remove already deployed book."
+        echo "`date` ERROR: Could not remove already deployed book." >> $BUILDLOG
+      fi
+      if [ ! -d $SERVERDIR/$name ]; then
+        # Move the book to the books directory
+        cp -r tmp/deploy/$name $SERVERDIR/$name
+
+        # Build an index page for the book, to integrate it with Seam
+        cp $DOCSHACKDIR/template/index.page.xml $SERVERDIR/$name/
+        cp $DOCSHACKDIR/template/index.xhtml $SERVERDIR/$name/
+
+        if [ -d $SERVERDIR/$name ]; then
+          echo "Successfully deployed"
+          echo "`date` Successfully deployed" >> $BUILDLOG
+        fi
+      fi
+    fi
+  fi                   
+}
+
+# This regenerates the index page for the Books: Book_Files/index.html 
+regenerateIndex()
+{
+  cd $SERVERDIR
+  echo "<ul>" > $SERVERINDEX
+  echo "<li>Available for Editing on this Server:</li>" > $SERVERINDEX
+  for book in `ls`; do
+    if [ -d $book ]; then
+      if [ ! $book = "Common_Content" ]; then
+        echo "<li><a href=\"$book/index.seam\">$book</a></li>" >> $SERVERINDEX
+      fi
+    fi
+  done
+  echo "</ul>" >> $SERVERINDEX
+}
+
+SCAN=0
+
+TARGET=$1
+
+echo 
+echo "============================================"
+if [ $1 = "--scan" ]; then 
+  SCAN=1
+  TARGET=$2
+  echo "Scanning: $TARGET"
+fi
+
+# Check that we got a valid directory as our argument
+if [ ! -d $TARGET ]; then
+  echo "Directory $TARGET not found"
+  exit;
+fi
+
+if [ ! -d $SERVERDIR ]; then
+  echo "WARNING: Server deployment directory $SERVERDIR not found"
+fi
+
+# If we were called without the --scan switch, we build the directory passed as an argument, and quit
+if [ $SCAN = 0 ]; then
+echo "============================================"
+echo
+  name=$TARGET
+  cd $name
+  BUILDLOG=`pwd`/`basename $name`.log
+  build
+  regenerateIndex
+  exit
+fi
+
+# If called with the --scan switch, we loop through all the subdirectories and build them
+# Additionally, we can source a global override file, if one exists
+if [ -f global.cfg ]; then
+  echo "Global Configuration file: `pwd`/global.cfg"
+  source global.cfg
+fi
+echo "============================================"
+echo
+
+cd $TARGET
+
+# Loop through installed books
+for name in `ls`; do 
+  # Go into each directory in the docshack/books directory
+
+  # echo "Debug: `pwd`"
+  if [ -d $name ]; then
+    pushd .  > /dev/null 2>&1
+    #echo "Checking: $name"
+    cd $name
+    BUILDLOG=`pwd`/`basename $name`.log
+    build 
+    popd  > /dev/null 2>&1
+    echo
+  fi
+done
+
+regenerateIndex
+
