@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 HOME=`dirname $0`
 
-java -jar $HOME/csprocessor.jar push --config $HOME/csprocessor.ini --host http://127.0.0.1:8180/TopicIndex -u writer
+java -jar $HOME/csprocessor.jar push $1 --config $HOME/csprocessor.ini --host http://127.0.0.1:8180/TopicIndex -u writer
