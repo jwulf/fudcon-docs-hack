@@ -35,6 +35,7 @@ BOOKFILESDIR=$DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Book_File
 FORMATS="html-single"
 LANGS="en-US"
 LANGSELECT=$DOCSHACKBINDIR/langselect-en-US
+JAVA="java"
 
 echo "Base dir: $DOCSHACKDIR"
 
@@ -121,8 +122,8 @@ build()
         # If a publican rebuild is required, then don't do the publican build up front
         # to save time and resources
         if [ x$PUBLICANMANGLESCRIPT = "x" ]; then 
-          echo java -jar $CSPROCESSOR assemble $ARGS  
-          java -jar $CSPROCESSOR assemble $ARGS
+          echo $JAVA -jar $CSPROCESSOR assemble $ARGS  
+          $JAVA -jar $CSPROCESSOR assemble $ARGS
         else
           # Publican rebuild requested, so just do an unzip of the publican
           # assembly
