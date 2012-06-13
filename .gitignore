@@ -11,3 +11,7 @@ source/docshack/server/standalone/log/*
 source/docshack/server/standalone/tmp/* 
 source/docshack/csp-server/standalone/log/*
 source/docshack/csp-server/standalone/tmp/*
+source/docshack/server/server.pid
+source/docshack/csp-server/csp-server.pid
+source/docshack/server/standalone/configuration/standalone_xml_history/**/*
+source/docshack/csp-server/standalone/configuration/standalone_xml_history/**/*
