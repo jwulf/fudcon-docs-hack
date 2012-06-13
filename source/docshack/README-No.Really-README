@@ -1,1 +1,116 @@
-/home/jwulf/docshack/README-No.Really-README
+== To install ==
+
+1. Unzip somewhere
+2. Make sure you have publican installed
+3. Install the brand/publican-fedora-video package
+4. Create the mysql database "Skynet"
+5. Import the sql/DocsHack.sql 
+6. Create a MySQL user "docshack" with password "docshack"
+7. Give the docshack MySQL user privileges on the Skynet database
+
+==To start the system==
+
+Run docshack/bin/start
+
+This starts two servers in the background. One server runs on port 8080 and provides the GUI. The other server runs on port 8180 and provides the interface for the Content Spec Processor.
+
+In the next release, this will be one server. This alpha release uses two to work around version incompatibilities.
+
+It takes a minute for both servers to start and deploy the web app. You can tail the server logs to see their status.
+
+The startup scripts create a .pid lock file in each server directory. If you manually stop the servers or crash the machine these pid files will prevent start up. Run the docshack/bin/stop script to stop all running servers and delete .pid lock files.
+
+==To stop the system==
+
+Run docshack/bin/stop
+
+This will send the terminate signal to the two servers. You can check on the success of this using 
+ps auxww|grep java
+
+It will take a few seconds for the two servers to shut down.
+
+== Rebuild books ==
+
+Out of the box you should run this command:
+
+docshack/bin/builder --scan docshack/books
+
+This will scan the books directory and deploy any checked out books to docshack/server/standalone/deployments/TopicIndex.war/Books/
+as well as generate an index.seam page at serverurl:8080/TopicIndex/Books/index.seam, and an index.seam page for each book. The index.seam page for each book integrates it with the web app.
+
+To see the list of books that have been deployed on the server for editing, go to 
+http://127.0.0.1:8080/TopicIndex
+
+You can run the builder in scan mode as a cron job to do periodic updates of books.
+
+Note that the builder will lock each book directory with a .lock file to prevent contention. If you manually stop a builder job or crash the machine a stale .lock file may be left. Manually delete it to allow the builder to work on that book.
+
+== To prevent a book from being rebuilt by the scanner ==
+
+To stop a book from being rebuilt by the scanner, in the docshack/books/<bookname> directory, put a docshack.cfg file with the following line:
+INTEGRATED=0
+
+Two of the books in the distribution have this set out of the box.
+
+Edit books/<bookname>/docshack.cfg to configure the books to build with the scanner
+
+See the docshack/bin/builder script for other parameters that you can override on a per-book basis in a docshack/books/<bookname>/docshack.cfg, and globally using a docshack/books/global.cfg file.
+
+== To add books to the server ==
+
+Try the demo like this:
+
+1. cd docshack/books
+2. Edit the file Demo_book.contentspec
+
+This gives you a basic overview of how content specs work.
+
+3. Now do this:
+
+<path>/docshack/bin/createnewbook Demo_book.contentspec
+
+This will create the new book, in a directory called "My_First_Book". 
+
+Now scan for it:
+
+docshack/bin/builder --scan .
+
+Now your new book should appear in the server, ready for you to write.
+
+You should delete the Demo_book.contentspec file now.
+
+To do further structural changes to your demo book, edit the file docshack/books/My_First_Book/My_First_Book-post.contentspec
+
+After doing your edits, run docshack/bin/updatebook. This will update the book on the server and refresh your local content spec. Note that the CSP server must be running for this to work.
+
+== CSS integration ==
+
+To have the book integrate properly with the server, you need to either:
+
+(a) Install the publican-fedora-video package and build it using the fedora-video brand
+(b) Copy the overrides.css file from this brand into the css folder of the book when it is deployed to the server
+
+docshack/server/standalone/deployments/TopicIndex.war/Books/
+
+
+==Twitter Integration==
+
+ You can configure the system to tweet all edits. To do this you need a twitter account, and a developer key for it. It's easy to get one - google it. 
+
+When you have your twitter account developer key, edit docshack/server/standalone/configuration/standalone-preview.xml and update the following properties:
+
+				<property name="topicIndex.twitterOn" value="true"/>
+        <property name="topicIndex.twitterHashTag" value="#hashTagGoesHere"/>
+        <property name="topicIndex.twitterConsumerKey" value="consumerKeyGoesHere"/>
+        <property name="topicIndex.twitterConsumerSecret" value="consumerSecretGoesHere"/>
+        <property name="topicIndex.twitterAccessToken" value="accessTokenGoesHere"/>
+        <property name="topicIndex.twitterAccessTokenSecret" value="accessTokenSecretGoesHere"/>
+        <property name="topicIndex.myURL" value="http://my.exampleurl.com:8080/TopicIndex"/>
+
+Then edit the file docshack/server/standalone/deployments/TopicIndex.war/layout/cleantemplate.xhtml and uncomment the twitter integration pieces, replacing the twitter account there with your twitter account details.
+
+== Notes ==
+
+If you set BugLinks=off in the Content Spec, the php HTMLMANGLE script will fail.
+
+

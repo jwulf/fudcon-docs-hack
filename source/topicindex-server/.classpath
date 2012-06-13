@@ -92,12 +92,12 @@
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/hibernate/3/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/transaction/api/main/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-jaxrs-2.2.1.GA.jar"/>
-	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/skynet1/modules/org/apache/commons/codec/main/commons-codec-1.4.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/hibernate/3/hibernate3.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/javax/servlet/api/main/jboss-servlet-api_3.0_spec-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/httpcomponents/main/httpcore-4.1.1.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/httpcomponents/main/httpclient-4.1.1.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/json_simple-1.1.jar"/>
 	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/java-twitter-0.9-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/home/jwulf/skynet/FUDCon/jboss-as-7.0.1.Final/modules/org/apache/commons/codec/main/commons-codec-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
