@@ -2,28 +2,77 @@
 
 stopserver()
 {
+# In this function we first use a subsystem pid file, if one can be found
+# If not, we check the process listing to get a pid
+# The function servershutdown calls this function repeatedly until it reports that no
+# instances are found; so it will first do the subsystem, then do the pid listing
+
+  SERVERPID="x"
   if [ -f $SERVERPIDFILE ]; then
     SERVERPID=`cat $SERVERPIDFILE`
+  else
+    SERVERPID="x`ps -ef|grep java|grep $SERVERPROCESSSTRING| awk '{print $2}'`"  
+  fi
+  if [ ! $SERVERPID = "x" ]; then
     if [ "x`ps -p $SERVERPID -o comm=`" = "xjava" ]; then
       kill -TERM $SERVERPID
       echo "Stopping $SERVERNAME pid $SERVERPID"
-      rm $SERVERPIDFILE
+      COUNTER=0
+      while [ "x`ps -p $SERVERPID -o comm=`" = "xjava" ] && [ $COUNTER -lt 10 ]; do
+        sleep 1
+        COUNTER=$((COUNTER+1))
+      done
+      if [ ! "x`ps -p $SERVERPID -o comm=`" = "xjava" ] && [ -f $SERVERPIDFILE ]; then
+        rm $SERVERPIDFILE
+      fi
     else
-      echo "Process $SERVERPID does not appear to be a server"
+      echo "$SERVERNAME subsystem locked, but process $SERVERPID dead"
       rm $SERVERPIDFILE
     fi
   else
-    echo "No $SERVERNAME pid file found"
+    echo "$SERVERNAME shut down"
+    SUCCESS=1
   fi
 }
 
+servershutdown()
+{
+# In this function we check if there is a subsystem pid file, or if we can find a server in the process listing
+# In the case of either of these two, we call stopserver repeatedly until we have shut down all instances of the server
+# If neither condition exists, we report that no server was found
+
+  SERVEREXISTS=1
+  
+  if [ "x`ps -ef|grep java|grep $SERVERPROCESSSTRING| awk '{print $2}'`" = "x" ] && [ ! -f $SERVERPIDFILE ]; then
+    SERVEREXISTS=0
+  fi
+
+  if [ $SERVEREXISTS = 1 ]; then
+    SUCCESS=0
+    while [ $SUCCESS = 0 ]; do
+      stopserver
+    done
+  else
+    echo "No $SERVERNAME found"
+  fi
+}
+
+# This is the main body of the script
+# Here we set the parameters for each server, then call the servershutdown function
+
 DIRNAME=`dirname $0`
+
+echo "===================================="
 SERVERPIDFILE=`cd $DIRNAME/..;pwd`/server/server.pid
 SERVERNAME="GUI Server"
-stopserver
+SERVERPROCESSSTRING="guiserver"
+servershutdown
+
+echo
 
 SERVERPIDFILE=`cd $DIRNAME/..;pwd`/csp-server/csp-server.pid
 SERVERNAME="CSP Server"
-stopserver
-
-
+SERVERPROCESSSTRING="csp-server"
+SUCCESS=0
+servershutdown
+echo "===================================="

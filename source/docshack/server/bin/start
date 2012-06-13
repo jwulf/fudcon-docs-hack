@@ -1,1 +1,1 @@
-./standalone.sh --server-config standalone-preview.xml
+./standalone.sh --server-config standalone-guiserver.xml

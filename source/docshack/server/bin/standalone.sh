@@ -166,6 +166,7 @@ while true; do
       trap "kill -TERM $JBOSS_PID" TERM
       if [ "x$JBOSS_PIDFILE" != "x" ]; then
         echo $JBOSS_PID > $JBOSS_PIDFILE
+	echo "Server started as process $JBOSS_PID"
       fi
       # Wait until the background process exits
       WAIT_STATUS=128

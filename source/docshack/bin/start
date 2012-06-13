@@ -6,31 +6,78 @@
 cd `dirname $0`
 DIRNAME=`pwd`
 SERVERDIR=`cd $DIRNAME/..;pwd`/server
-SERVERPID=$SERVERDIR/server.pid
+SERVERPIDFILE=$SERVERDIR/server.pid
 CSPSERVERDIR=`cd $DIRNAME/..;pwd`/csp-server
-CSPSERVERPID=$CSPSERVERDIR/csp-server/csp-server.pid
+CSPSERVERPIDFILE=$CSPSERVERDIR/csp-server.pid
+
+serverrunning()
+{
+  echo "$SERVER already running as pid $PID"
+  RUNNING=1
+}
+
+startserver()
+{
+  RUNNING=0
+
+# Here we check if the subsystem pid file exists.
+# If the pid file exists, we check if the server is still running
+# If the server is running we will report it and move on
+# If the file exists but the server is not running, we remove the file
+
+  if [ -f $PIDFILE ]; then
+    PID=`cat $PIDFILE`
+    if [ "x`ps -p $PID -o comm=`" = "xjava" ]; then
+      serverrunning
+    else
+      rm $PIDFILE
+    fi
+  fi
+
+# Here we check for a server that was started without creating a subsytem pid file
+# We do this by checking the process listing
+# If we find a running process, we report it and move on
+# It's wrapped in the RUNNING condition to make sure we don't double report from the last one
+
+  if [ $RUNNING = 0 ]; then
+    PID="x`ps -ef|grep java|grep $SERVERPROCESSSTRING| awk '{print $2}'`"
+
+    if [ ! $PID = "x" ]; then
+      serverrunning
+    fi
+  fi
+
+# OK, if no server is detected, then we will start it
+
+  if [ $RUNNING = 0 ]; then
+    echo "Starting $SERVER on port $PORT"
+    cd $DIR/bin
+    ./start  > /dev/null 2>&1 &
+    sleep 3
+    if [ -f $PIDFILE ]; then
+      echo "Server process: `cat $PIDFILE`"
+    else
+      echo "Server process not detected yet"
+    fi
+    echo "For status: tail -f $DIR/standalone/log/server.log"
+  fi
+}
 
 echo "===================================="
-if [ -f $SERVERPID ]; then
-  echo "GUI server already running?"
-  echo "$SERVERPID file found."
-  echo
-else
-  echo "Starting the GUI Server on port 8080"
-  echo "See $SERVERDIR/standalone/log/server.log for status"
-  cd $SERVERDIR/bin
-  ./start  > /dev/null 2>&1 &
-  echo
-fi
+PIDFILE=$SERVERPIDFILE
+DIR=$SERVERDIR
+SERVER="GUI Server"
+PORT="8080"
+SERVERPROCESSSTRING="guiserver"
+startserver
 
-if [ -f $CSPSERVERPID ]; then
-  echo "CSP Server already running?"
-  echo "$CSPSERVERPID file found."
-else
-  echo "Starting the CSP Server on port 8180"
-  echo "See $CSPSERVERDIR/standalone/log/server.log for status"
-  cd $CSPSERVERDIR/bin
-  ./start  > /dev/null 2>&1 &
-fi
+echo
+
+PIDFILE=$CSPSERVERPIDFILE
+DIR=$CSPSERVERDIR
+SERVER="CSP Server"
+PORT="8180"
+SERVERPROCESSSTRING="csp-server"
+startserver
 echo  "==================================="
 
