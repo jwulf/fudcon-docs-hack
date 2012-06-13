@@ -265,7 +265,7 @@ regenerateIndex()
 {
   cd $SERVERDIR
   echo "<ul>" > $SERVERINDEX
-  echo "<li>Available for Editing on this Server:</li>" > $SERVERINDEX
+  echo "<li>Available for Editing on this Server:</li>" >> $SERVERINDEX
   for book in `ls`; do
     if [ -d $book ]; then
       if [ ! $book = "Common_Content" ]; then
