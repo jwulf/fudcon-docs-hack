@@ -5,10 +5,17 @@ SCRIPTS=`dirname $0`
 # Currently only doing English html-single
 # Extend this if you like. The obvious next one is support for html
 
+# $1 is an optional CSPHOST argument. 
+# If you set the CSPHOST in the global.cfg or a local 
+# docshack.cfg, then it will be passed into here, and passed on to the fixlinks script
+# to provide the URL for the instance of the editor. 
+# This allows you to host a book in one instance, and edit it in another. 
+# Pretty tricky, eh?
+
 cd tmp/en-US/html-single
 
 echo "PHP fixing the links"
-php $SCRIPTS/fixlinks.php index.html > index1.html
+php $SCRIPTS/fixlinks.php index.html $1 $2 > index1.html
 
 # Don't know why, but the PHP Dom Parser we use in makeclickable can't handle HTML with a DOCTYPE declaration
 # so we remove it

@@ -10,12 +10,11 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	template="layout/cleantemplate.xhtml">
 
-    <style type="text/css">
+	<ui:define name="body">
+ <style type="text/css">
       .CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
       .activeline {background: #e8f2ff !important;}
     </style>
-	<ui:define name="body">
-
 		<!-- Add jQuery to the page -->
 		<rich:jQuery query="console.log('Loaded jQuery')" />
 
@@ -25,11 +24,11 @@
 		<script
 			src="#{facesContext.externalContext.requestContextPath}/scripts/codemirror.js"></script>
 		<script
-			src="#{facesContext.externalContext.requestContextPath}/scripts/xmlpure.js"></script>
+			src="#{facesContext.externalContext.requestContextPath}/scripts/xml.js"></script>
 		<script
 			src="#{facesContext.externalContext.requestContextPath}/scripts/skynet-codemirror.js"></script>
 <script
-			src="#{facesContext.externalContext.requestContextPath}/scripts/closetags.js"></script>
+			src="#{facesContext.externalContext.requestContextPath}/scripts/closetag.js"></script>
 
 
                 <ui:include src="/WEB-INF/templates/KnownIssues.xhtml" />
@@ -103,7 +102,6 @@
 		<script type="text/javascript">
 				initializeCodeMirror("#{rich:clientId('topicXMLEdit')}", false);
 				initializeCodeMirror("#{rich:clientId('topicXML')}", true);
-var hlLine = editor.setLineClass(0, "activeline");
 		</script>
 
 

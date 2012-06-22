@@ -30,6 +30,8 @@ stopserver()
       rm $SERVERPIDFILE
     fi
   else
+    # Delete temporary virtual fs files    
+    rm -rf $SERVERDIR/standalone/tmp/vfs/*
     echo "$SERVERNAME shut down"
     SUCCESS=1
   fi
@@ -63,6 +65,7 @@ servershutdown()
 DIRNAME=`dirname $0`
 
 echo "===================================="
+SERVERDIR=`cd $DIRNAME/..;pwd`/server
 SERVERPIDFILE=`cd $DIRNAME/..;pwd`/server/server.pid
 SERVERNAME="GUI Server"
 SERVERPROCESSSTRING="guiserver"
@@ -70,6 +73,7 @@ servershutdown
 
 echo
 
+SERVERDIR=`cd $DIRNAME/..;pwd`/csp-server
 SERVERPIDFILE=`cd $DIRNAME/..;pwd`/csp-server/csp-server.pid
 SERVERNAME="CSP Server"
 SERVERPROCESSSTRING="csp-server"

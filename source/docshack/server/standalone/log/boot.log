@@ -1,7 +1,7 @@
-22:45:31,838 INFO  [org.jboss.modules] JBoss Modules version 1.0.1.GA
-22:45:32,663 INFO  [org.jboss.msc] JBoss MSC version 1.0.0.GA
-22:45:32,838 INFO  [org.jboss.as] JBoss AS 7.0.1.Final "Zap" starting
-22:45:32,842 DEBUG [org.jboss.as.config] Configured system properties:
+15:10:41,496 INFO  [org.jboss.modules] JBoss Modules version 1.0.1.GA
+15:10:41,922 INFO  [org.jboss.msc] JBoss MSC version 1.0.0.GA
+15:10:41,972 INFO  [org.jboss.as] JBoss AS 7.0.1.Final "Zap" starting
+15:10:41,974 DEBUG [org.jboss.as.config] Configured system properties:
 	awt.toolkit = sun.awt.X11.XToolkit
 	file.encoding = UTF-8
 	file.encoding.pkg = sun.io
@@ -64,7 +64,7 @@
 	org.xml.sax.driver = __redirected.__XMLReaderFactory
 	os.arch = i386
 	os.name = Linux
-	os.version = 2.6.43.5-2.fc15.i686
+	os.version = 3.3.8-1.fc16.i686
 	path.separator = :
 	sun.arch.data.model = 32
 	sun.boot.class.path = /usr/java/jdk1.7.0/jre/lib/resources.jar:/usr/java/jdk1.7.0/jre/lib/rt.jar:/usr/java/jdk1.7.0/jre/lib/sunrsasign.jar:/usr/java/jdk1.7.0/jre/lib/jsse.jar:/usr/java/jdk1.7.0/jre/lib/jce.jar:/usr/java/jdk1.7.0/jre/lib/charsets.jar:/usr/java/jdk1.7.0/jre/classes
@@ -73,7 +73,7 @@
 	sun.cpu.isalist = 
 	sun.desktop = gnome
 	sun.io.unicode.encoding = UnicodeLittle
-	sun.java.command = /home/jwulf/docshack/server/jboss-modules.jar -mp /home/jwulf/docshack/server/modules -logmodule org.jboss.logmanager -jaxpmodule javax.xml.jaxp-provider org.jboss.as.standalone -Djboss.home.dir=/home/jwulf/docshack/server --server-config standalone-preview.xml
+	sun.java.command = /home/jwulf/docshack/server/jboss-modules.jar -mp /home/jwulf/docshack/server/modules -logmodule org.jboss.logmanager -jaxpmodule javax.xml.jaxp-provider org.jboss.as.standalone -Djboss.home.dir=/home/jwulf/docshack/server --server-config standalone-guiserver.xml
 	sun.java.launcher = SUN_STANDARD
 	sun.jnu.encoding = UTF-8
 	sun.management.compiler = HotSpot Tiered Compilers
@@ -81,28 +81,12 @@
 	sun.rmi.dgc.client.gcInterval = 3600000
 	sun.rmi.dgc.server.gcInterval = 3600000
 	user.country = US
-	user.dir = /home/jwulf/docshack/server/bin
+	user.dir = /home/jwulf/workspace/fudcon-docs-hack/source/docshack/server/bin
 	user.home = /home/jwulf
 	user.language = en
 	user.name = jwulf
 	user.timezone = Australia/NSW
-22:45:35,139 WARN  [org.jboss.as] No security realm defined for native management service, all access will be unrestricted.
-22:45:35,354 INFO  [org.jboss.as] creating http management service using network interface (management) port (9990)
-22:45:35,356 WARN  [org.jboss.as] No security realm defined for http management service, all access will be unrestricted.
-22:45:35,465 INFO  [org.jboss.as.logging] Removing bootstrap log handlers
-23:14:29,967 INFO  [org.jboss.as.logging] Restored bootstrap log handlers
-23:14:30,290 INFO  [jacorb.poa] POA IRPOA destroyed
-23:14:30,574 INFO  [org.hornetq.core.server.impl.HornetQServerImpl] HornetQ Server version 2.2.7.Final (HQ_2_2_7_FINAL_AS7, 121) [7580e36f-6965-11e1-9538-000c29b5ed7c] stopped
-23:14:30,815 INFO  [jacorb.poa] POA NamingPOA destroyed
-23:14:30,835 INFO  [jacorb.poa] POA RootPOA destroyed
-23:14:30,854 INFO  [jacorb.orb] prepare ORB for shutdown...
-23:14:30,856 INFO  [jacorb.orb] ORB going down...
-23:14:30,899 INFO  [jacorb.orb] ORB shutdown complete
-23:14:30,906 INFO  [jacorb.orb] ORB run, exit
-23:14:30,916 INFO  [jacorb.orb.iiop] Listener exited
-23:14:31,005 INFO  [org.jboss.jpa] stopping Persistence Unit Service 'TopicIndex.war#TopicIndex' 
-23:14:31,016 INFO  [org.hibernate.impl.SessionFactoryImpl] closing
-23:14:31,162 INFO  [com.arjuna.ats.jbossatx] ARJUNA32018: Destroying TransactionManagerService
-23:14:31,176 INFO  [com.arjuna.ats.jbossatx] ARJUNA32014: Stopping transaction recovery manager
-23:14:31,604 INFO  [org.jboss.as.server.deployment] Stopped deployment TopicIndex.war in 3588ms
-23:14:31,608 INFO  [org.jboss.as] JBoss AS 7.0.1.Final "Zap" stopped in 3108ms
+15:10:43,475 WARN  [org.jboss.as] No security realm defined for native management service, all access will be unrestricted.
+15:10:43,514 INFO  [org.jboss.as] creating http management service using network interface (management) port (9990)
+15:10:43,515 WARN  [org.jboss.as] No security realm defined for http management service, all access will be unrestricted.
+15:10:43,549 INFO  [org.jboss.as.logging] Removing bootstrap log handlers

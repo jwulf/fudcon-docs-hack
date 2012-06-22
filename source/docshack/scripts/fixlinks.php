@@ -4,11 +4,20 @@
 
 if (!isset($argv) || $argc < 2)
 {
-	die('Pass file name as argument, outputs to STDOUT');
+	die('Pass file name as argument, and optionally a CSPHOST URL, outputs to STDOUT');
 }
 
 // Declare new link (edit this to change link format)
-$startNewLink = '<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=';
+// If we got an optional argument after the filename, then use it for the link; otherwise: localhost
+
+if ( $argc = 3 )
+{
+  $startNewLink = '<a href="' + $argv[2] + '/TopicEdit.seam?topicTopicId=';
+} 
+else
+{
+  $startNewLink = '<a href="http://127.0.0.1:8080/TopicIndex/TopicEdit.seam?topicTopicId=';
+}
 $endNewLink = '" target="_new" class="edittopiclink">  Edit  ';
 
 // Read file in

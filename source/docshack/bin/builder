@@ -30,6 +30,7 @@ cd `dirname $0`
 cd ..
 DOCSHACKDIR=`pwd`
 DOCSHACKBINDIR=$DOCSHACKDIR/bin
+INDEXREGEN=$DOCSHACKBINDIR/regenerateindex
 CSPROCESSOR=$DOCSHACKBINDIR/csprocessor.jar
 CSPCONFIGFILE=$DOCSHACKBINDIR/csprocessor.ini
 BOOKFILESDIR=$DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Book_Files
@@ -46,7 +47,7 @@ EXITSTATUS=0
 # If your books are sub-divided by product or similar, you need to override this
 # in each local docshack.cfg
 SERVERDIR=$DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Books
-SERVERINDEX=$SERVERDIR/index.html
+
 
 # A books/global.cfg file allows you to override the following parameters for all books
 # A books/BOOK_NAME/docshack.cfg allows you to override the following parameters for a single book
@@ -63,6 +64,26 @@ SERVERINDEX=$SERVERDIR/index.html
 
 # Additionally, setting the following to 0 in a local file will stop automated rebuilds
 # INTEGRATED=0|1
+
+
+# This is important to make sure string manipulation is handled
+# byte-by-byte.
+export LANG=C
+
+urlencode() {
+arg="$1"
+i="0"
+while [ "$i" -lt ${#arg} ]; do
+c=${arg:$i:1}
+if echo "$c" | grep -q '[a-zA-Z/:_\.\-]'; then
+echo -n "$c"
+else
+echo -n "%"
+printf "%X" "'$c'"
+fi
+i=$((i+1))
+done
+}
 
 block()
   {
@@ -93,6 +114,7 @@ build()
     if [ -f csprocessor.cfg ]; then
       pushd . > /dev/null 2>&1    
       block
+      bookdir=urlencode `pwd`
       echo "`date` Started build."
       echo "Build Log: $BUILDLOG"
       echo "`date` Started build" >> $BUILDLOG
@@ -101,6 +123,15 @@ build()
       if [ -f docshack.cfg ]; then
         source docshack.cfg
       fi
+
+      # Get the SPEC_ID and SERVER_URL from csprocessor.cfg. We use this when building
+      # administration links in the index
+      # Since indexregeneration is called elsewhere, we'll hack around that by
+      # passing them to the lang select script, who will write them into the deployable html
+      SPEC_ID=0
+      SERVER_URL=$CSPHOST
+      source csprocessor.cfg
+
       # the local file can override automated (--scan) build integration by setting
       # INTEGRATE=0
       if [ $INTEGRATE = 0 ]; then
@@ -209,7 +240,7 @@ build()
               pushd .  > /dev/null 2>&1
               # Lang select is from: assembly/publican
               DEPLOYBUILDERROR=0
-              $LANGSELECT $name
+              $LANGSELECT $name $bookdir
               popd  > /dev/null 2>&1
 
               if [ $DEPLOYBUILDERROR = 0 ]; then
@@ -262,21 +293,7 @@ deploy()
   fi                   
 }
 
-# This regenerates the index page for the Books: Book_Files/index.html 
-regenerateIndex()
-{
-  cd $SERVERDIR
-  echo "<ul>" > $SERVERINDEX
-  echo "<li>Available for Editing on this Server:</li>" >> $SERVERINDEX
-  for book in `ls`; do
-    if [ -d $book ]; then
-      if [ ! $book = "Common_Content" ]; then
-        echo "<li><a href=\"$book/index.seam\">$book</a></li>" >> $SERVERINDEX
-      fi
-    fi
-  done
-  echo "</ul>" >> $SERVERINDEX
-}
+
 
 SCAN=0
 
@@ -308,7 +325,7 @@ echo
   cd $name
   BUILDLOG=`pwd`/`basename $name`.log
   build
-  regenerateIndex
+  $INDEXREGEN $SERVERDIR
   exit
 fi
 
@@ -339,5 +356,5 @@ for name in `ls`; do
   fi
 done
 
-regenerateIndex
+$INDEXREGEN $SERVERDIR
 

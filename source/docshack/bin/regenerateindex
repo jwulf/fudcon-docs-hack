@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# dirty, dirty hack!
+PHPSERVERURL="http://10.64.15.221/scriptz/"
+
+
+# This regenerates the index page for the Books: Book_Files/index.html 
+if [ $# = 1 ]; then
+  SERVERDIR=$1 
+  SERVERINDEX=$SERVERDIR/index.html
+  cd $SERVERDIR
+  echo "<ul>" > $SERVERINDEX
+  echo "<li>Available for Editing on this Server:</li>" >> $SERVERINDEX
+  for book in `ls`; do
+    if [ -d $book ]; then
+      if [ ! $book = "Common_Content" ]; then
+        BOOKDIR=0
+        if [ -f $book/index.cfg ]; then
+          source $book/index.cfg
+        fi
+        echo "<li><a href=\"$book/index.seam\">$book</a> <a class=""docshack-admin-link"" href=""$PHPSERVERURL/rebuild.php?$bookdir"">Rebuild</a> <a class=""docshack-admin-link"" href=""$PHPSERVERURL/edit.php?$bookdir"">Edit structure</a></li>" >> $SERVERINDEX
+      fi
+    fi
+  done
+  echo "</ul>" >> $SERVERINDEX
+fi
