@@ -1,0 +1,87 @@
+/* dirtiest hack ever - i feel unclean */
+
+#topicindex .container_16 , 
+#topicindex .container_16 > div{
+margin:0;
+width:100%;
+max-width:60em;
+margin:2em auto;
+padding:3em;
+float:none;
+font-size:16px;
+line-height:1.5;
+text-align:center;
+}
+#topicindex .container_16{
+/*border-radius*/
+-webkit-border-radius:.66em;
+   -moz-border-radius:.66em;
+        border-radius:.66em;
+/*box-shadow*/
+-webkit-box-shadow:0 0 5em rgba(0,0,0,0.32);
+   -moz-box-shadow:0 0 5em rgba(0,0,0,0.32);
+        box-shadow:0 0 5em rgba(0,0,0,0.32);
+background-color:#fff !important;
+}
+h2{
+font-size:3em;
+}
+#topindex .container_16 > div  p:nth-child(2){
+font-size:1.5em;
+margin:2em;
+}
+#topicindex ul li{
+list-style:none;
+padding-bottom:1em;
+text-align:center;
+margin:0em;
+color:#999;
+ font-family: Cantarell,"Droid Sans",Verdana,sans-serif;
+font-size: 16px;
+font-weight: bold;
+}
+#topicindex ul li a{
+display:inline-block;
+text-decoration:none;
+padding:.333em 1em;
+ font-family: Cantarell,"Droid Sans",Verdana,sans-serif;
+font-size: 16px;
+font-weight: bold;
+background-color:#eee;
+margin:0em .5em;
+/*border-radius*/
+-webkit-border-radius:1.5em;
+   -moz-border-radius:1.5em;
+        border-radius:1.5em;
+/*box-shadow*/
+-webkit-box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1),  inset 0 0 0 2px rgba(255,255,255,0.5), inset 0 -1.5em 1.5em rgba(0,0,0,0.05);
+   -moz-box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1),  inset 0 0 0 2px rgba(255,255,255,0.5), inset 0 -1.5em 1.5em rgba(0,0,0,0.05);
+        box-shadow:inset 0 0 0 1px rgba(0,0,0,0.1),  inset 0 0 0 2px rgba(255,255,255,0.5), inset 0 -1.5em 1.5em rgba(0,0,0,0.05);
+}
+
+#topicindex ul{
+margin-top:3em;
+}
+#topicindex ul li a:focus,
+#topicindex ul li a:hover{
+background-color:#369;
+color:#fff;
+}
+#topicindex ul li .bigbutton{
+color:transparent;
+}
+#topicindex ul li .bigbutton a{
+background-color:#369;
+color:#fff !important;
+/*box-shadow*/
+-webkit-box-shadow:none;
+   -moz-box-shadow:none;
+        box-shadow:none;
+padding:2em 4em;
+display:block;
+margin:2em 0em;
+/*border-radius*/
+-webkit-border-radius:.66em;
+   -moz-border-radius:.66em;
+        border-radius:.66em;
+}
