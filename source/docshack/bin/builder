@@ -31,6 +31,7 @@ cd ..
 DOCSHACKDIR=`pwd`
 DOCSHACKBINDIR=$DOCSHACKDIR/bin
 CSPROCESSOR=$DOCSHACKBINDIR/csprocessor.jar
+CSPCONFIGFILE=$DOCSHACKBINDIR/csprocessor.ini
 BOOKFILESDIR=$DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Book_Files
 FORMATS="html-single"
 LANGS="en-US"
@@ -110,7 +111,7 @@ build()
 
       if [ $INTEGRATE = 1 ] || [ $SCAN = 0 ]; then
         echo "Building: $name"
-        ARGS="--hide-errors --config $DOCSHACKBINDIR/csprocessor.ini"
+        ARGS="--hide-errors --config $CSPCONFIGFILE"
         if [ ! -z $BRAND ]; then ARGS="$ARGS --brand $BRAND "
         fi
         if [ ! -z $CSPHOST ]; then ARGS="$ARGS -H $CSPHOST "
@@ -190,7 +191,7 @@ build()
                  # pushd and popd to ensure there are no cwd side-effects
                   pushd . > /dev/null 2>&1              
                   echo "Executing HTML Mangle script $HTMLMANGLESCRIPT" 
-                  $HTMLMANGLESCRIPT
+                  $HTMLMANGLESCRIPT $CSPHOST
                   popd  > /dev/null 2>&1
                 fi
               fi
