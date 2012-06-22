@@ -10,6 +10,12 @@ SERVERPIDFILE=$SERVERDIR/server.pid
 CSPSERVERDIR=`cd $DIRNAME/..;pwd`/csp-server
 CSPSERVERPIDFILE=$CSPSERVERDIR/csp-server.pid
 
+GUISERVER=start
+CSPSERVER=start
+# allow one or both servers to be specified via global.cfg
+# default is to start both
+source global.cfg
+
 serverrunning()
 {
   echo "$SERVER already running as pid $PID"
@@ -69,8 +75,9 @@ DIR=$SERVERDIR
 SERVER="GUI Server"
 PORT="8080"
 SERVERPROCESSSTRING="guiserver"
-startserver
-
+if [ $GUISERVER = "start" ]; then
+  startserver
+fi
 echo
 
 PIDFILE=$CSPSERVERPIDFILE
@@ -78,6 +85,8 @@ DIR=$CSPSERVERDIR
 SERVER="CSP Server"
 PORT="8180"
 SERVERPROCESSSTRING="csp-server"
-startserver
+if [ $CSPSERVER = "start" ]; then
+  startserver
+fi
 echo  "==================================="
 
