@@ -12,10 +12,13 @@ SCRIPTS=`dirname $0`
 # This allows you to host a book in one instance, and edit it in another. 
 # Pretty tricky, eh?
 
+echo "Starting html-mangle" >> /tmp/debug
 cd tmp/en-US/html-single
 
 echo "PHP fixing the links"
-php $SCRIPTS/fixlinks.php index.html $1 $2 > index1.html
+echo "php $SCRIPTS/fixlinks.php index.html $1 > index1.html"
+
+php $SCRIPTS/fixlinks.php index.html $1 > index1.html
 
 # Don't know why, but the PHP Dom Parser we use in makeclickable can't handle HTML with a DOCTYPE declaration
 # so we remove it

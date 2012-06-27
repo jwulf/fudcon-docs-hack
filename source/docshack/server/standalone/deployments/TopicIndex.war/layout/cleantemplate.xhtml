@@ -18,8 +18,10 @@
 <a:loadStyle src="/stylesheet/codemirror-default.css" />
 	<a:loadStyle src="/stylesheet/awesomesauce.css" />
 <ui:insert name="head" />
+ <script
+			src="#{facesContext.externalContext.requestContextPath}/scripts/docs-hack-fixlinks.js"></script>
 </head>
-<body style="height: 100%" class="docsHackContainer" >
+<body style="height: 100%" class="docsHackContainer" onload="fixlinks()" >
 <div class="dh-span-menu">
 	<h:form>
 		<rich:toolBar styleClass="dh-span-menu">

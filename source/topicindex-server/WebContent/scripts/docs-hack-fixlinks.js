@@ -19,8 +19,9 @@ function updatePage(ajaxRequest)
 {
   if (ajaxRequest.readyState==4)
   {
-	  jsonResponse = eval('(' + ajaxRequest.responseText + ')');
 	 //alert(ajaxRequest.responseText);
+	  jsonResponse = eval('(' + ajaxRequest.responseText + ')');
+
     
 	  // First, enable everything
 	  rbButtons=document.getElementsByClassName("rebuild");
@@ -38,26 +39,48 @@ function updatePage(ajaxRequest)
 	  }  
 	    // Now, disable everything the server has reported as rebuilding
      
-     for (i=0; i<jsonResponse.books.length; i++)
-	   {
-       // alert("yo, i'm all up in here!");
-       var rbButtonName="rb-"+jsonResponse.books[i].bookdir;
-       rbButtonName=rbButtonName.replace(/(\r\n|\n|\r)/gm,"");    
-       var imgName="img-"+jsonResponse.books[i].bookdir;
-       imgName=imgName.replace(/(\r\n|\n|\r)/gm,"");
+    for (i=0; i<jsonResponse.booksbuildingobject.booksBuilding.length; i++)
+	  {
+      // alert("yo, i'm all up in here!");
+      var rbButtonName="rb-"+jsonResponse.booksbuildingobject.booksBuilding[i].bookdir;
+      rbButtonName=rbButtonName.replace(/(\r\n|\n|\r)/gm,"");    
+      var imgName="img-"+jsonResponse.booksbuildingobject.booksBuilding[i].bookdir;
+      imgName=imgName.replace(/(\r\n|\n|\r)/gm,"");
 
-       	// change button text to "Rebuild"
-       var rbButton = document.getElementById(rbButtonName);
-       rbButton.innerHTML="Rebuilding";
-	     rbButton.disabled=true;
+      // change button text to "Rebuild"
+      var rbButton = document.getElementById(rbButtonName);
+      rbButton.innerHTML="Rebuilding";
+	    rbButton.disabled=true;
 
-	     var refreshImg = document.getElementById(imgName);
+	    var refreshImg = document.getElementById(imgName);
      
 		  // turn the spinner on
-	     refreshImg.style.visibility="visible";
+	    refreshImg.style.visibility="visible";
 	     
-	     refreshImg.style.visibility="visible";
-	   }
+	    refreshImg.style.visibility="visible";
+	  }
+
+//   alert("yo, i'm all up in here!");
+
+    // Now update the last built times
+   // alert(jsonResponse.booksBuildTime.length);
+    for (i=0; i<jsonResponse.buildtimeobject.booksBuildTime.length; i++)
+    {
+      var labelName="lbl-"+jsonResponse.buildtimeobject.booksBuildTime[i].book;
+      labelName=labelName.replace(/(\r\n|\n|\r)/gm,""); 
+      label=document.getElementById(labelName);
+      var title="Last Built: " + jsonResponse.buildtimeobject.booksBuildTime[i].buildtime;
+      title=title.replace(/(\r\n|\n|\r)/gm,"");
+      nodes=label.parentNode.childNodes;
+      for (j=0; j<nodes.length;j++)
+      {
+        if (nodes[j].nodeType == 1)
+          {
+            nodes[j].title = title;
+          }
+      }
+ //     label.title=title;
+    }
   }
 }
 // This function queries the server about which books are currently rebuilding

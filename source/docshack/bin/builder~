@@ -29,6 +29,9 @@
 cd `dirname $0`
 cd ..
 DOCSHACKDIR=`pwd`
+DOCSHACKBOOKDIR=$DOCSHACKDIR/books
+BUILDINGLIST=$DOCSHACKBOOKDIR/booksbuilding
+BUILDINGLISTTMP=$BUILDINGLIST.tmp
 DOCSHACKBINDIR=$DOCSHACKDIR/bin
 INDEXREGEN=$DOCSHACKBINDIR/regenerateindex
 CSPROCESSOR=$DOCSHACKBINDIR/csprocessor.jar
@@ -47,7 +50,7 @@ EXITSTATUS=0
 # If your books are sub-divided by product or similar, you need to override this
 # in each local docshack.cfg
 SERVERDIR=$DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Books
-SERVERINDEX=$SERVERDIR/index.html
+
 
 # A books/global.cfg file allows you to override the following parameters for all books
 # A books/BOOK_NAME/docshack.cfg allows you to override the following parameters for a single book
@@ -66,33 +69,18 @@ SERVERINDEX=$SERVERDIR/index.html
 # INTEGRATED=0|1
 
 
-# This is important to make sure string manipulation is handled
-# byte-by-byte.
-export LANG=C
-
-urlencode() {
-arg="$1"
-i="0"
-while [ "$i" -lt ${#arg} ]; do
-c=${arg:$i:1}
-if echo "$c" | grep -q '[a-zA-Z/:_\.\-]'; then
-echo -n "$c"
-else
-echo -n "%"
-printf "%X" "'$c'"
-fi
-i=$((i+1))
-done
-}
-
 block()
   {
   touch $name.lock
+  pwd >> $BUILDINGLIST
 }
 
 unblock()
   {
   rm $name.lock
+  ESCAPEDNAME=`pwd` | sed -e 's/\//\\\//g'
+  grep -v $ESCAPEDNAME $BUILDINGLIST > $BUILDINGLISTTMP
+  mv $BUILDINGLISTTMP $BUILDINGLIST
 }
 
 # Build a csprocessor project and deploy to the server
@@ -114,8 +102,19 @@ build()
     if [ -f csprocessor.cfg ]; then
       pushd . > /dev/null 2>&1    
       block
-      bookdir=urlencode `pwd`
+
+      # Here we create the bookdir and product parameters for the index builder
+      BOOKDIR=`pwd`
+      PRODLINE=`grep "Product" $name-post.contentspec|grep =|grep -v "BZPRODUCT" `
+      PROD1=`echo ${PRODLINE#"Product"}`
+      PROD2=`echo ${PROD1#"="}`
+      PRODUCT="Product=\"$PROD2\""  
+      echo "Product is $PRODUCT"
+
+      # Debug echo
       echo "`date` Started build."
+
+
       echo "Build Log: $BUILDLOG"
       echo "`date` Started build" >> $BUILDLOG
       INTEGRATE=1
@@ -124,6 +123,8 @@ build()
         source docshack.cfg
       fi
 
+      # Currently, we're passing the book directory, rather than the specID and serverurl
+
       # Get the SPEC_ID and SERVER_URL from csprocessor.cfg. We use this when building
       # administration links in the index
       # Since indexregeneration is called elsewhere, we'll hack around that by
@@ -131,6 +132,7 @@ build()
       SPEC_ID=0
       SERVER_URL=$CSPHOST
       source csprocessor.cfg
+
 
       # the local file can override automated (--scan) build integration by setting
       # INTEGRATE=0
@@ -240,7 +242,7 @@ build()
               pushd .  > /dev/null 2>&1
               # Lang select is from: assembly/publican
               DEPLOYBUILDERROR=0
-              $LANGSELECT $name $bookdir
+              $LANGSELECT $name $BOOKDIR "$PRODUCT"
               popd  > /dev/null 2>&1
 
               if [ $DEPLOYBUILDERROR = 0 ]; then
@@ -321,8 +323,14 @@ fi
 if [ $SCAN = 0 ]; then
 echo "============================================"
 echo
-  name=$TARGET
-  cd $name
+# enable a global.cfg if we're started where one exists
+if [ -f global.cfg ]; then
+  echo "Global Configuration file: `pwd`/global.cfg"
+  source global.cfg
+fi
+
+  cd $TARGET
+  name=`basename $TARGET`
   BUILDLOG=`pwd`/`basename $name`.log
   build
   $INDEXREGEN $SERVERDIR

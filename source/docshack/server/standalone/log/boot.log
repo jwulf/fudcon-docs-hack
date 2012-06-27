@@ -1,7 +1,7 @@
-15:10:41,496 INFO  [org.jboss.modules] JBoss Modules version 1.0.1.GA
-15:10:41,922 INFO  [org.jboss.msc] JBoss MSC version 1.0.0.GA
-15:10:41,972 INFO  [org.jboss.as] JBoss AS 7.0.1.Final "Zap" starting
-15:10:41,974 DEBUG [org.jboss.as.config] Configured system properties:
+01:04:39,931 INFO  [org.jboss.modules] JBoss Modules version 1.0.1.GA
+01:04:40,590 INFO  [org.jboss.msc] JBoss MSC version 1.0.0.GA
+01:04:40,667 INFO  [org.jboss.as] JBoss AS 7.0.1.Final "Zap" starting
+01:04:40,670 DEBUG [org.jboss.as.config] Configured system properties:
 	awt.toolkit = sun.awt.X11.XToolkit
 	file.encoding = UTF-8
 	file.encoding.pkg = sun.io
@@ -86,7 +86,7 @@
 	user.language = en
 	user.name = jwulf
 	user.timezone = Australia/NSW
-15:10:43,475 WARN  [org.jboss.as] No security realm defined for native management service, all access will be unrestricted.
-15:10:43,514 INFO  [org.jboss.as] creating http management service using network interface (management) port (9990)
-15:10:43,515 WARN  [org.jboss.as] No security realm defined for http management service, all access will be unrestricted.
-15:10:43,549 INFO  [org.jboss.as.logging] Removing bootstrap log handlers
+01:04:43,396 WARN  [org.jboss.as] No security realm defined for native management service, all access will be unrestricted.
+01:04:43,452 INFO  [org.jboss.as] creating http management service using network interface (management) port (9990)
+01:04:43,463 WARN  [org.jboss.as] No security realm defined for http management service, all access will be unrestricted.
+01:04:43,520 INFO  [org.jboss.as.logging] Removing bootstrap log handlers

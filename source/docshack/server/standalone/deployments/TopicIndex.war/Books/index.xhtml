@@ -8,7 +8,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	template="./../layout/cleantemplate.xhtml">
 
-	<ui:define name="body">
+	<ui:define name="body" onload="fixlinks()">
 		<div id="topicindex">
   			<div class="docsHackDocContainer">
 				<ui:include src="/Books/index.html" />

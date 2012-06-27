@@ -1,26 +1,56 @@
 #!/bin/bash
 
-# dirty, dirty hack!
-PHPSERVERURL="http://10.64.15.221/scriptz/"
-
-
 # This regenerates the index page for the Books: Book_Files/index.html 
+# No of Arguments:  1
+# Arguments: 1. the server deployment directory
+# eg: $DOCSHACKDIR/server/standalone/deployments/TopicIndex.war/Books
+
 if [ $# = 1 ]; then
   SERVERDIR=$1 
   SERVERINDEX=$SERVERDIR/index.html
+  INDEXTMP=$SERVERDIR/index.tmp
   cd $SERVERDIR
-  echo "<ul>" > $SERVERINDEX
-  echo "<li>Available for Editing on this Server:</li>" >> $SERVERINDEX
+  echo "Regenerating Index"
+  echo "<!--Index updated at `date`-->" > $INDEXTMP
+
+  echo "Product: "
+  
   for book in `ls`; do
     if [ -d $book ]; then
-      if [ ! $book = "Common_Content" ]; then
+      if [ -f $book/index.html ]; then
         BOOKDIR=0
+        Product=""
         if [ -f $book/index.cfg ]; then
           source $book/index.cfg
         fi
-        echo "<li><a href=\"$book/index.seam\">$book</a> <a class=""docshack-admin-link"" href=""$PHPSERVERURL/rebuild.php?$bookdir"">Rebuild</a> <a class=""docshack-admin-link"" href=""$PHPSERVERURL/edit.php?$bookdir"">Edit structure</a></li>" >> $SERVERINDEX
+        BUILDTIME="Last build: Unknown"
+        if [ -f $book/build.time ]; then
+          BUILDTIME="Last build: `cat $book/build.time`"
+        fi
+        PROD=""
+        if [ ! "x$Product" = "x" ]; then
+          PROD="$Product - "
+        fi
+  # The ids below are adjusted to be relative to the server (minus any port number)
+  # and converted to hrefs
+  # by javascript in the cleantemplate.xhtml template
+  # and scripts/docs-hack-fixlinks.js in the war file
+        echo "<li><a href=\"$book/index.seam\" title=\"$BUILDTIME\" id=\"lbl-$SERVERDIR/$book\">$PROD$book</a> <img src=\"images/spinner.gif\" id=\"img-$BOOKDIR\" class=\"rb-img\" style=\"visibility:hidden\"/> <button class=\"docshack-admin-link rebuild\" onClick=\"requestRebuildBook('$BOOKDIR')\" id=\"rb-$BOOKDIR\">Rebuild</button> <button class=\"docshack-admin-link edit\" id=\"eb-$BOOKDIR\" disabled=\"true\">Edit structure</button></li>" >> $INDEXTMP
       fi
     fi
   done
+
+  # Now we sort the index
+
+  sort $INDEXTMP -o $INDEXTMP
+
+  # And now put the whole index together
+  echo "<ul>" > $SERVERINDEX
+  echo "<li>Available for Editing on this Server:</li>" >> $SERVERINDEX
+  cat $INDEXTMP >> $SERVERINDEX
+  echo "<li><img src=\"\" style=\"visibility:hidden\" class=\"sekretimg\" id=\"off\"/></li>" >> $SERVERINDEX
   echo "</ul>" >> $SERVERINDEX
+  rm $INDEXTMP
+else
+  echo "No argument passed to Regenerate Index"
 fi

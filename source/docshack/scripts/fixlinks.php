@@ -12,7 +12,7 @@ if (!isset($argv) || $argc < 2)
 
 if ( $argc = 3 )
 {
-  $startNewLink = '<a href="' + $argv[2] + '/TopicEdit.seam?topicTopicId=';
+  $startNewLink = '<a href="' . $argv[2] . '/TopicEdit.seam?topicTopicId=';
 } 
 else
 {

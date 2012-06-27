@@ -7,14 +7,28 @@ Have to put this in /etc/httpd/conf/httpd.conf:
   AllowOverride All
 </Directory>
 
+Copy the apache/docshack directory to /var/www/html/docshack
 
-and this .htaccess file in /var/www/html/docshack
+Make sure that include the .htaccess file in /var/www/html/docshack. It has the following content:
 Header set Access-Control-Allow-Origin *
 
-
 Apache permissions to create lock files and book output:
-chmod u+s on bin/builder and html/docshack/buildabook
-chmod -R s+G books and server/standalone/deployment/TopicIndex.war/Books
+chmod -R s+G 
+chown -R :apache 
+on directories
+docshack/books and server/standalone/deployment/TopicIndex.war/Books
+
+This will allow Apache to build books there.
+
+
+The server/standalone/deployment/TopicIndex.war/scripts/docs-hack-fixlinks.js script contains the URL for the scripts
+It expects the scripts to be at the same URL as the docshack server, so if your docshack server is at
+http://127.0.0.1:8080/TopicIndex
+then it will expect them to be at
+http://127.0.0.1/docshack
+
+
+
 
 
 To Do:

@@ -4,14 +4,13 @@
 # we start in assembly/publican
 
 # We get arguments:
-# name bookdir
+# name bookdir productname
 
 echo Lang select started in `pwd`
 
 name=$1
-echo Name: $name
-spec_id=$2
-server_url=$3
+bookdir=$2
+productname=$3
 
 if [ ! -f tmp/en-US/html-single/index.html ]; then
   echo "No html-single source to build to deployable"
@@ -41,6 +40,8 @@ if [ -f tmp/en-US/html-single/index.html ]; then
       # index.cfg will be read by the index regeneration script
       # and used to generate administration links
       echo "BOOKDIR=$bookdir" > tmp/deploy/$name/index.cfg
+      echo $productname >> tmp/deploy/$name/index.cfg
+      echo `date` > tmp/deploy/$name/build.time
     fi
   fi
 fi
