@@ -7,14 +7,14 @@
 <authorgroup>
 	<author>
                 <firstname>
-                        Fedora
+                        Under
                 </firstname>
                 <surname>
-                        Contributors
+                        Development
                 </surname>
         </author>
 	<author>
 		<firstname>
 			Last Built:
 		</firstname>
-		<surname>
+		<surname role="docshack-build-time">

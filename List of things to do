@@ -1,5 +1,20 @@
 To Do:
 
+Dynamically rebuild index page
+
+Right now the front page updates the build status and last built times for items.
+Currently the page gets a report every three seconds about the last build time for a book. This report can be used to add  new books to page when they are added to the server.
+1. Parse the returned buildtimeobject and compare it to the DOM. When an element does not exist in the DOM, add it in the right place. 
+2. Make sure that the buildtimeobject report returns all the information needed to add a new element. If it doesn't, either increase its information density, or else create a new ajax service to get the complete details for a new book.
+
+Dynamically rebuild book page
+
+When a book rebuild job is triggered on the server, anyone who is looking at the book should have the book replaced in their browser when the latest one completes.
+1. Pass the build.time value to the page when it loads.
+2. Check the build.time periodically. When it changes, reload the page via Ajax.
+
+Editable Content Specs
+
 1. Make the tooltip for the Edit button the content spec ID and server URL for the book.
 2. On click of the edit button, use JSON to retrieve the latest content spec from the server REST API and display it
 3. On edit and click submit: 
@@ -8,4 +23,10 @@ To Do:
   c. Report the success to the client
   d. On failure, pass the output to the browser, and allow the user to try again
 
+
+Replace Skynet Editor
+
+1. Grab the topic via REST and render it in a different editor in the browser
+2. On submit, post it back to the Skynet REST interface
+3. Add content enhancement
 
