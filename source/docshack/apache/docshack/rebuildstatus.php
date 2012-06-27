@@ -34,28 +34,35 @@ function traverse_hierarchy($path)
   $docshackdir=$ini_array['docshackdir'];
   $buildlist=$docshackdir.'/books/booksbuilding';
 
- // Here's where we build an array of the books that are building
+// Here's where we build an array of the books that are building
   $handle = @fopen($buildlist, "r");
-  if ($handle) {      
+  if ($handle) {
     while (($buffer = fgets($handle, 4096)) !== false) {
-        $linearray= array('bookdir' => $buffer);
-        $rowarray[]=$linearray;
+        if ($buffer !== "\n")
+          {
+             $linearray= array('bookdir' => $buffer);
+            $rowarray[]=$linearray;
+          }
     }
     if (!feof($handle)) {
         echo "Error: unexpected fgets() fail\n";
     }
     fclose($handle);
-  } 
-  $booksbuilding=array('booksBuilding' => $rowarray);
+  }
+  if (count($rowarray) > 0)
+    $booksbuilding=array('booksBuilding' => $rowarray);
 
   // Here we build a list of all books with their build time
   $buildtimelines = array();
 
   $bookdir = $docshackdir.'/server/standalone/deployments/TopicIndex.war/Books';
+//  print ($bookdir);
   $buildtimes=array('booksBuildTime' => traverse_hierarchy($bookdir));
 
-
-  $returnobject=array("buildtimeobject" => $buildtimes, "booksbuildingobject" => $booksbuilding);
+  if (count($booksbuilding) == 0)
+    $returnobject=array("buildtimeobject" => $buildtimes);
+  else
+    $returnobject=array("buildtimeobject" => $buildtimes, "booksbuildingobject" => $booksbuilding);
 
   $jsonobject = json_encode($returnobject);
   print($jsonobject);

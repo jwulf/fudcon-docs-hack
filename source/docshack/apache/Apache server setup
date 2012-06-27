@@ -1,25 +1,58 @@
 Cross-site scripting enable:
 http://enable-cors.org/
 
-Have to put this in /etc/httpd/conf/httpd.conf:
+1. Put this in /etc/httpd/conf/httpd.conf:
 
 <Directory /var/www/html/docshack>
   AllowOverride All
 </Directory>
 
-Copy the apache/docshack directory to /var/www/html/docshack
+2. Copy the apache/docshack directory to /var/www/html/docshack
 
 Make sure that include the .htaccess file in /var/www/html/docshack. It has the following content:
 Header set Access-Control-Allow-Origin *
 
-Apache permissions to create lock files and book output:
-chmod -R s+G 
-chown -R :apache 
+3. Edit /var/www/html/docshack/docshack.ini to set the location for the docshack system
+
+4. Apache permissions to create lock files and book output:
+
+  #Make apache the group owner of the directory
+chown -R :apache docshack/books
+  #Make all new files and directories inherit this group ownership
+chmod -R g+s docshack/books 
+  #Give the group full permission on everything in this directory
+chmod -R 775 docshack/books
+  # Now make this permission the default for all new files and directories in here
+cd docshack/books
+umask 0002
+
+chown -R :apache server/standalone/deployment/TopicIndex.war/Books
+chmod -R g+s server/standalone/deployment/TopicIndex.war/Books 
+chmod -R 775 server/standalone/deployment/TopicIndex.war/Books
+cd server/standalone/deployment/TopicIndex.war/Books
+umask 0002
+
 on directories
 docshack/books and server/standalone/deployment/TopicIndex.war/Books
+chmod -R 755 books
+
+Make sure that the apache user can traverse to docshack/server/standalone/deployment/TopicIndex.war/Books
+
+all directories on the full path need to have x (execute) permission for apache (even if it's "other") to be able to get there.
+I had a problem when I tried to run the docshack system from the /root/ home directory (which is a bad idea for many reasons). I moved it to /opt/ and it worked.
+
+Also, SELinux will stop it from accessing these directories. I turn it off at the moment, using "setenforce 0". The following *might* work:
+
+chcon -R -h -t httpd_sys_content_t docshack
+ 
 
 This will allow Apache to build books there.
 
+5. The Apache user will need permission to execute the scripts in docshack/bin, so do:
+chmod 775 docshack/bin/*
+chown -R :apache docshack/bin
+
+Not very safe, but it works.
 
 The server/standalone/deployment/TopicIndex.war/scripts/docs-hack-fixlinks.js script contains the URL for the scripts
 It expects the scripts to be at the same URL as the docshack server, so if your docshack server is at
@@ -27,11 +60,9 @@ http://127.0.0.1:8080/TopicIndex
 then it will expect them to be at
 http://127.0.0.1/docshack
 
+Use a javascript inspector, like Google Chrome's web developer tools, and turn on the alert(ajaxRequest.responseText); statement to get some information that will help you to trace problems if it's not working. /var/log/httpd/error_log is also good, as is /var/log/messages and /var/log/audit
 
 
 
 
-To Do:
-
-Use JSON to retrieve the latest content spec from the server REST API for editing.
 

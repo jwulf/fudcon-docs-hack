@@ -41,7 +41,19 @@ rm TopicIndex1.war
 
 if [ -d TopicIndex.war ]; then
   echo "Exploded war now present."
+  if [ -d TopicIndex.war/Books ]; then
+    echo "Setting permissions inside the war"
+    chown -R :apache TopicIndex.war/Books
+    chmod -R g+s TopicIndex.war/Books 
+    chmod -R 775 TopicIndex.war/Books
+    cd TopicIndex.war/Books
+    umask 0002
+    cd ../../
+      else
+    echo "Couldn't find the TopicIndex.war/Books directory"
+  fi
   touch TopicIndex.war.dodeploy
 else
   echo "Something went wrong - no exploded war present."
 fi
+

@@ -14,7 +14,9 @@ GUISERVER=start
 CSPSERVER=start
 # allow one or both servers to be specified via global.cfg
 # default is to start both
-source global.cfg
+if [ -f ./../global.cfg ]; then
+  source ./../global.cfg
+fi
 
 serverrunning()
 {

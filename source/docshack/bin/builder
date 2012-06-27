@@ -78,7 +78,7 @@ block()
 unblock()
   {
   rm $name.lock
-  ESCAPEDNAME=`pwd` | sed -e 's/\//\\\//g' 
+  ESCAPEDNAME=$(echo "`pwd`" | sed -e 's/\//\\\//g')
   grep -v $ESCAPEDNAME $BUILDINGLIST > $BUILDINGLISTTMP
   mv $BUILDINGLISTTMP $BUILDINGLIST
 }
@@ -152,13 +152,16 @@ build()
         if [ ! -z $CSPUSER ]; then ARGS="$ARGS -u $CSPUSER "
         fi
         
+# We will always rebuild until we can override the brand in the csprocessor, because we need to set the brand
+# to fedora-video
+
         # If no publican rebuild is required, then build straight up
         # If a publican rebuild is required, then don't do the publican build up front
         # to save time and resources
-        if [ x$PUBLICANMANGLESCRIPT = "x" ]; then 
-          echo $JAVA -jar $CSPROCESSOR assemble $ARGS  
-          $JAVA -jar $CSPROCESSOR assemble $ARGS
-        else
+      #  if [ x$PUBLICANMANGLESCRIPT = "x" ]; then 
+      #    echo $JAVA -jar $CSPROCESSOR assemble $ARGS  
+      #    $JAVA -jar $CSPROCESSOR assemble $ARGS
+      #  else
           # Publican rebuild requested, so just do an unzip of the publican
           # assembly
           echo java -jar $CSPROCESSOR build $ARGS
@@ -172,7 +175,7 @@ build()
             rm $name-publican.zip
           fi
           popd > /dev/null 2>&1 
-        fi
+       # fi
 
         if [ ! -f assembly/publican/publican.cfg ]; then
           echo "ERROR: csprocessor assembly failure" 
@@ -184,14 +187,17 @@ build()
           # assembly took place, so continue
           cd assembly/publican
           
-          if [ ! -d tmp ]; then
-            if [ x$PUBLICANMANGLESCRIPT = "x" ]; then
-              echo "ERROR: Publican build failure"
-              echo "`date` ERROR: Publican build failure" >> $BUILDLOG
-            fi
-          fi
+#          if [ ! -d tmp ]; then
+#            if [ x$PUBLICANMANGLESCRIPT = "x" ]; then
+#              echo "ERROR: Publican build failure"
+#              echo "`date` ERROR: Publican build failure" >> $BUILDLOG
+#            fi
+#          fi
           
           if [ -f publican.cfg ]; then
+     # Here we make sure that the brand is set to fedora-video
+            sed -i 's/\(brand:\).*/\1fedora-video/g' publican.cfg
+
             # Check PUBLICANMANGLESCRIPT is set, then
             # call the manglescript
             # The publicanmangle script is responsible for detecting the right language
@@ -205,15 +211,16 @@ build()
               fi
             fi
 
+        
             # Do a publican rebuild if required
-            if [ ! x$PUBLICANMANGLESCRIPT = "x" ]; then
+        #    if [ ! x$PUBLICANMANGLESCRIPT = "x" ]; then
               publican build --formats=$FORMATS --langs=$LANGS
-            fi
+         #   fi
 
             # Check if the publican build succeeded
             if [ ! -d tmp ]; then
-              echo "ERROR: Publican rebuild failure"
-              echo "`date` ERROR: Publican rebuild failure" >> $BUILDLOG
+              echo "ERROR: Publican build failure"
+              echo "`date` ERROR: Publican build failure" >> $BUILDLOG
             fi
 
             if [ -d tmp ]; then
