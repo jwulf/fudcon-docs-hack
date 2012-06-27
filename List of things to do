@@ -1,0 +1,11 @@
+To Do:
+
+1. Make the tooltip for the Edit button the content spec ID and server URL for the book.
+2. On click of the edit button, use JSON to retrieve the latest content spec from the server REST API and display it
+3. On edit and click submit: 
+  a. edit the server-side project spec, and replace with the content from the post.
+  b. Do a csprocessor push in the server-side project (perhaps have a checkbox for --permissive in the browser)
+  c. Report the success to the client
+  d. On failure, pass the output to the browser, and allow the user to try again
+
+
