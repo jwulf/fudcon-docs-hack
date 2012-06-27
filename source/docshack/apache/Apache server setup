@@ -1,0 +1,23 @@
+Cross-site scripting enable:
+http://enable-cors.org/
+
+Have to put this in /etc/httpd/conf/httpd.conf:
+
+<Directory /var/www/html/docshack>
+  AllowOverride All
+</Directory>
+
+
+and this .htaccess file in /var/www/html/docshack
+Header set Access-Control-Allow-Origin *
+
+
+Apache permissions to create lock files and book output:
+chmod u+s on bin/builder and html/docshack/buildabook
+chmod -R s+G books and server/standalone/deployment/TopicIndex.war/Books
+
+
+To Do:
+
+Use JSON to retrieve the latest content spec from the server REST API for editing.
+
