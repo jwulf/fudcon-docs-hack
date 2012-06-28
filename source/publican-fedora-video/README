@@ -9,3 +9,7 @@ Extended by: Joshua Wulf <jwulf@fedoraproject.org>
 
 This version of the brand enables video to display in both Google Chrome and Firefox using whatever codecs are present on the system.
 It also enables a book to be consumed by the FUDCon Docs Hack System.
+
+It also adds the ability to suppress chapter and section label and number on xrefs in html and html-single output.
+
+Use <xref xrefstyle="skynet-injected-link-1" linkend="linkhere"/> to get the plain target title as the link text.
