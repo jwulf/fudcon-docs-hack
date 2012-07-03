@@ -103,9 +103,21 @@ build()
       pushd . > /dev/null 2>&1    
       block
 
+      bookname=$name
+
+      # The book directory name might be different from the book name
+      # So here we rely on the commented line in the csprocessor.cfg  
+      # SPEC_TITLE= to get the book name
+ 
+      BOOKNAMELINE=`grep "SPEC_TITLE=" csprocessor.cfg`
+      BOOK1=`echo ${BOOKNAMELINE#"# SPEC_TITLE="}`
+      if [ ! "x$BOOK1" = "x" ]; then
+        bookname=$BOOK1
+      fi
+
       # Here we create the bookdir and product parameters for the index builder
       BOOKDIR=`pwd`
-      PRODLINE=`grep "Product" $name-post.contentspec|grep =|grep -v "BZPRODUCT" `
+      PRODLINE=`grep "Product" $bookname-post.contentspec|grep =|grep -v "BZPRODUCT" `
       PROD1=`echo ${PRODLINE#"Product"}`
       PROD2=`echo ${PROD1#"="}`
       PRODUCT="Product=\"$PROD2\""  
@@ -143,7 +155,7 @@ build()
       fi
 
       if [ $INTEGRATE = 1 ] || [ $SCAN = 0 ]; then
-        echo "Building: $name"
+        echo "Building: $bookname"
         ARGS="--hide-errors --config $CSPCONFIGFILE"
         if [ ! -z $BRAND ]; then ARGS="$ARGS --brand $BRAND "
         fi
@@ -168,11 +180,11 @@ build()
           java -jar $CSPROCESSOR build $ARGS
           pushd .  > /dev/null 2>&1
           cd assembly
-          if [ -f $name-publican.zip ]; then
-            unzip $name-publican.zip
+          if [ -f $bookname-publican.zip ]; then
+            unzip $bookname-publican.zip
             rm -rf publican
-            mv $name publican
-            rm $name-publican.zip
+            mv $bookname publican
+            rm $bookname-publican.zip
           fi
           popd > /dev/null 2>&1 
        # fi
