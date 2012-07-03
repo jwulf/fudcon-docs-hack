@@ -1,0 +1,37 @@
+<!doctype html> <html> <head> <title> Topic Editor </title>
+		<link rel="stylesheet" href="css/codemirror.css ">
+		<script src="scripts/codemirror.js"></script>
+		<script src="scripts/closetag.js"></script>
+		<script src="scripts/xml.js"></script>
+    <link rel="stylesheet" type="text/css" href="Common_Content/css/default.css">
+    <script src="scripts/messages.js"></script>
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/topiceditor.js"></script>
+		<!--<script src=".. / mode / javascript / javascript.js "></script>
+		<script src=".. / mode / css / css.js "></script>
+		<script src=".. / mode / htmlmixed / htmlmixed.js "></script> -->
+		<link rel="stylesheet" href="css/docs.css">
+		<style type="text/css">
+			.CodeMirror {border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
+      .CodeMirror-wrap pre {  word-break: break-all; }
+		</style>
+        
+	</head>
+	<body onload="initializeTopicEditPage()">
+	
+		<h1 id="editor-title">Live HTML Preview Demo</h1>
+		<ul>
+			<li>Type Docbook xml in the text editor below, and see a live HTML preview. The editor supports tag autoclosure.</li>
+    </ul>
+
+		<form><textarea id="code" name="code"></textarea></form>
+    <button id="button-validate" name="Validate" onclick="doValidate()">Validate</button><button id="button-save" align="right" name="Save" onclick="doSave()" disabled="true">Save</button><button id="button-revert" align="right" name="Revert" disabled="true" onclick="doRevert()">Revert</button><br/>
+        <div id="div-validation"></div>
+        <div id="div-preview"></div>
+        <div id="div-error"></div>
+       <!-- <form><textarea id="xmlpreview" name="xmlpreview"></textarea></form> -->
+
+		
+
+	</body>
+</html>
