@@ -4,7 +4,7 @@
 Name:		publican-%{brand}
 Summary:	Publican documentation template files for %{brand}
 Version: 2.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	CC-BY-SA
 Group:		Development/Libraries
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/publican/Common_Content/%{brand}
 
 %changelog
+
+* Tue Jul 03 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-3
+- Added "simpletarget" xrefstyle to support target title only (no structure metadata) in HTML-rendered xrefs
 
 * Thu May 17 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-2
 - Added custom css for styling Docs Hack clickable links

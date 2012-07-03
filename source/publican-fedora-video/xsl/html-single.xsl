@@ -30,7 +30,7 @@ href="http://docbook.sourceforge.net/release/xsl/current/xhtml/graphics.xsl"/>
 <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
   <l:l10n language="en">
     <l:context name="xref-number-and-title">
-      <l:template name="section" style="skynet-injected-link-1" text="%t"/>
+      <l:template name="section" style="simpletarget" text="%t"/>
     </l:context>
   </l:l10n>
 </l:i18n>
@@ -39,7 +39,7 @@ href="http://docbook.sourceforge.net/release/xsl/current/xhtml/graphics.xsl"/>
 <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0">
   <l:l10n language="en">
     <l:context name="xref-number-and-title">
-      <l:template name="chapter" style="skynet-injected-link-1" text="%t"/>
+      <l:template name="chapter" style="simpletarget" text="%t"/>
     </l:context>
   </l:l10n>
 </l:i18n>
