@@ -1,0 +1,25 @@
+Topic Editor calls page with Skynet URL and Topic ID as parameters
+
+
+Pull topic xml from skynet
+
+parse title from returned xml
+
+set title
+
+disable save
+disable revert
+enable validate
+
+on key down - enable save; enable revert
+
+
+on revert, reload page (or repull topic xml)
+
+on validate, send validation call to node server
+
+on save, validate
+  - if validated, push
+  - if not validated, show error message
+
+

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "node_xslt": {
+      "version": "0.1.6"
+    }
+  }
+}
