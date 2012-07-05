@@ -104,6 +104,9 @@ else if (window.attachEvent) {
 //if this is the index page
 //and a five second timer if it's a book
 
+//It also sets the window title for both types
+// and fixes the links for a book
+
 function fixlinks() {
 
 	// load the previous scroll position any parameters in the url
@@ -133,7 +136,7 @@ function fixlinks() {
 		titles = document.getElementsByClassName("title");
 		for (var i=0;i<titles.length;i++)
 		{
-			if (titles[i].tagName=="h1") 
+			if (titles[i].tagName.toLowerCase()=="h1") 
 			{
 				titlist=titles[i]; 
 				if ( titlist.innerHTML != null)
@@ -168,6 +171,21 @@ function fixlinks() {
 		}
 
 		this.timerID = setInterval(refreshStatus, 5000);
+
+    // TODO: Fix Links to make page editable
+    // Replace fixlinks.php and sectionTopic.php here
+    // It will probably be necessary to write the skynet server URL into 
+    // the html page using a metadata tag in publican
+    // So that the javascript in the browser has access to it
+    // This can be done by moving all the builder code to node.js
+    // or by manipulating the DOM with php
+/*    try
+    {
+    }
+    catch (err)
+    {
+    }
+*/
 	}
 
 }
