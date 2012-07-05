@@ -59,6 +59,36 @@ a .warning:hover {border: 2px dotted red;}
   position: relative;
 }
 
+/* Aesthetic changes */
+
+pre {
+	font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+	display:block;
+	background-color:#eeeeee;
+	margin-bottom: 0.3em;
+	padding:.5em 1em;
+	white-space: pre-wrap; /* css-3 */
+	white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+	white-space: -pre-wrap; /* Opera 4-6 */
+	white-space: -o-pre-wrap; /* Opera 7 */
+	word-wrap: break-word; /* Internet Explorer 5.5+ */
+/*	font-size: 0.9em; */
+}
+
+.command, .filename, .keycap, .classname, .literal {
+	font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+  font-weight: normal;
+	/* font-weight:bold; */
+}
+
+code {
+	font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+	white-space: nowrap;
+	/* font-weight:bold; */
+}
+
+
+
 a:link {
 	color:#0066cc;
 }
@@ -88,6 +118,7 @@ h1 {
 h2,h3,h4,h5,h6 {
 	color:#3c6eb4;
 }
+
 
 table {
 	border:1px solid #3c6eb4;

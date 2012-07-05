@@ -12,6 +12,7 @@
 <xsl:import 
 href="http://docbook.sourceforge.net/release/xsl/current/xhtml/graphics.xsl"/>
 
+<xsl:param name="section.autolabel.max.depth" select="2"/>
 
 <xsl:template match="videoobject">
   <xsl:apply-templates select="videodata"/>

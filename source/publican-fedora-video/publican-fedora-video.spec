@@ -4,7 +4,7 @@
 Name:		publican-%{brand}
 Summary:	Publican documentation template files for %{brand}
 Version: 2.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	CC-BY-SA
 Group:		Development/Libraries
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,6 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/publican/Common_Content/%{brand}
 
 %changelog
+
+* Thu Jul 05 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-4
+- Added section.autolabel.max.depth to stop sections at level 2
+- Changed css styling to remove bold from a number of monospaced elements, such as code and literal
 
 * Tue Jul 03 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-3
 - Added "simpletarget" xrefstyle to support target title only (no structure metadata) in HTML-rendered xrefs
