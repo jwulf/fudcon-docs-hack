@@ -4,7 +4,7 @@
 Name:		publican-%{brand}
 Summary:	Publican documentation template files for %{brand}
 Version: 2.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	CC-BY-SA
 Group:		Development/Libraries
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/publican/Common_Content/%{brand}
 
 %changelog
+
+* Fri Jul 06 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-5
+- Added Open Sans web font from Google
 
 * Thu Jul 05 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-4
 - Added section.autolabel.max.depth to stop sections at level 2

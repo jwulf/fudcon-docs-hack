@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Mono|Open+Sans:400italic,400,600);
+
 .RoleCreateBugPara a{
 display:inline-block;
 padding:.333em 1em;
@@ -62,7 +64,7 @@ a .warning:hover {border: 2px dotted red;}
 /* Aesthetic changes */
 
 pre {
-	font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+	font-family: "PT Mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
 	display:block;
 	background-color:#eeeeee;
 	margin-bottom: 0.3em;
@@ -76,18 +78,44 @@ pre {
 }
 
 .command, .filename, .keycap, .classname, .literal {
-	font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+	font-family:"PT Mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
   font-weight: normal;
 	/* font-weight:bold; */
 }
 
 code {
-	font-family:"liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+	font-family: "PT Mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
 	white-space: nowrap;
+  font-weight:normal;
 	/* font-weight:bold; */
 }
 
+body { 
+font-family: "Open Sans", "liberation sans", sans-serif;
+font-size: 14px;
+font-weight: normal;
+font-variant: normal;
+}
 
+.guilabel, .guibutton {
+  font-family: "PT Mono", "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
+  font-weight: bold;
+}
+
+/*
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+*/
 
 a:link {
 	color:#0066cc;
