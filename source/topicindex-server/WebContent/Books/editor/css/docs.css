@@ -6,22 +6,6 @@ body {
   padding: 0 1em;
 }
 
-span.emphasis {
-font-style: italic;
-}
-
-span.firstterm {
-  font-style: italic;
-}
-
-span.literal {
-  font-weight: bold;
-}
-
-span.docbookCode {
-  font-family: "liberation mono", "bitstream vera mono", "dejavu mono", monospace;
-}
-
 h1 {
   letter-spacing: -3px;
   font-size: 3.23em;
@@ -53,6 +37,8 @@ pre {
 pre.code {
   margin: 0 1em;
 }
+
+
 
 .grey {
   font-size: 2.2em;

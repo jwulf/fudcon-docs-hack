@@ -15,9 +15,62 @@ var validationServerResponse;
 var port;
 var urlpath;
 var serverURL;
+var topicID;
+var skynetURL;
+
+/**
+ * AJAX Loader Object
+ * uses the revealing module pattern
+ * start it by calling ajaxLoader.start();
+ * stop it by calling ajaxLoader.stop();
+ */
+var ajaxLoader = function () {
+ 
+  var start = function() {
+    var pageHeight = $(document).height();
+ 
+    // if loader already exists, just show it
+    // otherwise add markup to DOM
+    if ($('#load-overlay').length) {
+      // assign height again as it might have increased due to DOM additions
+      $('#load-overlay').css({
+        'height' : pageHeight
+      });
+      $('#load-overlay, #load-indicator').show();
+    }
+    else {
+      $('body').append('<div id="load-overlay"></div><div id="load-indicator"><p>Contacting Server...</p></div>');
+      $('#load-overlay').css({
+        'height' : pageHeight
+      });
+    }
+ 
+    // for ie6 only (feature detection used)
+    if (typeof document.body.style.maxHeight === 'undefined') {
+      // hide visible selects for proper overlay implementation
+      $('select').hide();
+    }
+  };
+ 
+  var stop = function() {
+    $('#load-overlay, #load-indicator').hide();
+ 
+    // for ie6 only (feature detection used)
+    if (typeof document.body.style.maxHeight === 'undefined') {
+      //show hidden selects for proper overlay implementation
+      $('select').show();
+    }
+  };
+ 
+  return {
+    // declare which properties and methods are supposed to be public
+    start: start,
+    stop: stop
+  }
+}();
 
 function timedRefresh(){ 
-  updateXMLPreviewRoute(window.editor, document.getElementById("div-preview"));
+  updateXMLPreviewRoute(editor.getValue(), document.getElementById("div-preview"));
   if (window.timerID != 0) {
     clearTimeout(window.timerID);
     window.timerID = 0;
@@ -25,7 +78,7 @@ function timedRefresh(){
 }
         
 window.onbeforeunload = function (e) {
-  if (! document.getElementById("button-save").disabled) 
+  if (! $("#save-button").button("option","disabled")) 
     return 'You have unsaved changes.';
 };
 
@@ -63,44 +116,46 @@ function handleHTMLPreviewResponse(ajaxRequest, serverFunction){
 
 function doValidate(callback)
 {
-  showStatusMessage("Performing validation check...");
-  showSpinner("spinner-validate");
-  serversideValidateTopic(editor, callback);
+  if (! $("#validate-button").button("option","disabled") || callback)
+  {
+    showStatusMessage("Performing validation check...");
+    serversideValidateTopic(editor, callback);
+  }
 }
 
 function makeValidityAmbiguous(){
-  divvalidation=document.getElementById("div-validation");
-  if (divvalidation && validXML)
-    divvalidation.style.visibility="hidden";
-  document.getElementById("button-validate").disabled=false;
+  if (validXML)
+    $("#div-validation").css("visibility", "hidden");
+    $("#validate-button").button("enable");
+    enableSaveRevert();
 }
 
 function hideSpinner(spinner){
-	document.getElementById(spinner).style.visibility="hidden";
+	$(spinner).css("visibility", "hidden");
 }
 
 function showSpinner(spinner){
-	document.getElementById(spinner).style.visibility="visible";
+	$(spinner).css("visibility", "visible");
 }
-
 
 // Checks if the topic is valid, and then persists it using a node proxy to do the PUT
 function doSave()
-{   
-  disableSaveRevert();
-  showSpinner("spinner-save");
-  if ( document.getElementById("button-validate").disabled="false" )
-   { doValidate(doActualSave); }
-  else
-  { doActualSave(); }
-  // This needs to be a callback, because it's asynchronous
+{ 
+  if (! $("#save-button").button('option', 'disabled'))
+  {  
+    disableSaveRevert();
+    if ( $("validate-button").button('option', 'enabled'))
+      // This needs to be a callback, because validation is asynchronous
+     { doValidate(doActualSave); }
+    else
+    { doActualSave(); }
+  }
 }
 
 function showStatusMessage(message)
 {
-	divvalidation=document.getElementById("div-validation");
-	divvalidation.style.visibility="visible";
-	divvalidation.innerHTML=message;
+  $("#div-validation").css("visibility", "visible");	
+	$("#div-validation").html(message);
 }
 
 function doActualSave()  
@@ -114,42 +169,45 @@ function doActualSave()
     	alert("Unable to perform validation. Saving without validation.");
     	}
     showStatusMessage("Performing Save...")
-	saveAjaxRequest= new XMLHttpRequest();
+	  saveAjaxRequest= new XMLHttpRequest();
     saveAjaxRequest.onreadystatechange=function()
     {
       if (saveAjaxRequest.readyState==4)
       {
-        
+       // ajaxStop();
         if (saveAjaxRequest.status == 200 || saveAjaxRequest.status == 304)
         {     
           showStatusMessage("Saved OK");
-          hideSpinner("spinner-save");
+          $("#save-button").button("disable");
+          $("#revert-button").button("disable");
         }
         else
         {
           showStatusMessage("Error saving. Status code: " + saveAjaxRequest.status);
-          hideSpinner("spinner-save");
-          enableSaveRevert;
+          enableSaveRevert();
         }
       }
     }
     requestURL="/seam/resource/rest/1/topic/put/json";  
     requestString="?topicid="+topicID+"&serverurl="+serverURL+"&requestport="+port+"&requesturl="+urlpath+requestURL;    
+     saveAjaxRequest.global=true;
     //alert(restProxy+"restput"+requestString);
     saveAjaxRequest.open("POST", nodeServer + "/restput" + requestString, true);
     saveAjaxRequest.setRequestHeader("Content-Type", "text/xml");
     var textToSave=editor.getValue();
+    //ajaxStart();
     saveAjaxRequest.send(textToSave);
 }
 
 // Sends the editor content to a node server for validation
 function serversideValidateTopic(editor, callback){
   ajaxRequest = new XMLHttpRequest();
+  //ajaxStart();
   ajaxRequest.onreadystatechange=function()
   {
      if (ajaxRequest.readyState==4)
      {
-    	hideSpinner("spinner-validate");
+        //ajaxStop();
         if (ajaxRequest.status == 200 || ajaxRequest.status == 304)
         {
           validationServerResponse=1;
@@ -157,13 +215,13 @@ function serversideValidateTopic(editor, callback){
           { 
             showStatusMessage("Topic XML is valid Docbook 4.5");
             validXML=true;
-            document.getElementById("button-validate").disabled=true; 
-            if (callback) callback(); 
+            $("#validate-button").button("disable"); 
+            if (callback && typeof(callback)=="function") callback(); 
             } 
           else {
             showStatusMessage(ajaxRequest.responseText);
             validXML=false;
-            if (callback) callback();
+            if (callback && typeof(callback)=="function") callback();
           }
         }
         else
@@ -205,7 +263,7 @@ return xhttp.responseXML;
 function clientsideUpdateXMLPreview(cm, preview){
   xsl=loadXMLDoc(clientXSLFile);
   try{  
-    var xml = (new DOMParser()).parseFromString(cm.getValue(), "text/xml");
+    var xml = (new DOMParser()).parseFromString(cm, "text/xml");
     xsltProcessor=new XSLTProcessor();
     xsltProcessor.importStylesheet(xsl);
     resultDocument = xsltProcessor.transformToFragment(xml,document);
@@ -215,8 +273,6 @@ function clientsideUpdateXMLPreview(cm, preview){
           divpreview.removeChild(divpreview.lastChild);
        
       divpreview.appendChild(resultDocument);
-
-     
   }
   catch(err)
   {
@@ -228,6 +284,8 @@ function clientsideUpdateXMLPreview(cm, preview){
 // for REST GET and POST of the topic XML
 function generateRESTParameters()
 {
+  topicID = url_query('topicid');
+  skynetURL = url_query('skyneturl');
   // Take off the leading "http://", if it exists
   if (skynetURL.indexOf("http://") !== -1)    
     skynetURL=skynetURL.substring(7);
@@ -270,31 +328,26 @@ function serversideUpdateXMLPreview(cm, serverFunction){
 
    //preview.innerHTML=cm.getValue();
   if (window.mutex == 0)
-  {
-   
+  {  
     ajaxRequest = new XMLHttpRequest();
     ajaxRequest.onreadystatechange=function()
     {
         handleHTMLPreviewResponse(ajaxRequest, serverFunction);
     }
-
     ajaxRequest.open("POST", nodeServer + "/xmlpreview", true);
     ajaxRequest.setRequestHeader("Content-Type", "text/xml");
     ajaxRequest.send(cm.getValue());
-    window.mutex = 1;
-    
+    window.mutex = 1;   
   }
-  
 }
 
-onUnload()
+/*function onUnload()
 {
-  if (! document.getElementById("button-save").disabled)
+  if ( document.getElementbyId("button-save") && ! document.getElementById("button-save").disabled)
   {
     var r=confirm("You have unsaved changes. Do you want to discard them?");
-
   }
-}
+}*/
 
 // Parse URL Queries
 // from http://www.kevinleary.net/get-url-parameters-javascript-jquery/
@@ -311,15 +364,17 @@ function url_query( query ) {
 	}
 }
 
-function setEditorTitle(topicTitle)
+function setPageTitle(topicTitle)
 {
-  editorTitle=document.getElementById("editor-title");
-  if (editorTitle)
-  {
-    editorTitle.innerHTML= topicID+ ": ";
-    if (topicTitle)
-      editorTitle.innerHTML=editorTitle.innerHTML+topicTitle;
-  }
+  $("#page-title").html(topicID + ": ");
+  if (topicTitle)
+    $("#page-title").html($("#page-title").html()+topicTitle);
+}
+
+// Creates a link to the read-only rendered view, useful for passing to people for preview
+function injectPreviewLink()
+{
+  $("#preview-link").html('<a href="preview.html?skyneturl=http://'+skynetURL+'&topicid='+topicID+'">Preview Link</a>');
 }
 
 // This function loads the topic xml via JSONP, without a proxy
@@ -329,61 +384,64 @@ function loadSkynetTopicJsonP(topicID, skynetURL)
   {
     requestURL="/seam/resource/rest/1/topic/get/jsonp/"+topicID+"?callback=?";  
     requeststring=skynetURL+requestURL;
-   // alert(requeststring);
     $.getJSON("http://"+requeststring, function(json) {
-    if (json.xml == "") json.xml="<section>\n\t<title>"+json.title+"</title>\n\n\t<para>Editor initialized empty topic content</para>\n\n</section>";   
-    window.editor.setValue(json.xml);
-    setEditorTitle(json.title);    
-    updateXMLPreviewRoute(editor, document.getElementById("div-preview"));
-    disableSaveRevert();
-    doValidate();
+    if (json.xml == "") json.xml="<section>\n\t<title>"+json.title+"</title>\n\n\t<para>Editor initialized empty topic content</para>\n\n</section>";      
+    if (pageIsEditor) {
+      window.editor.setValue(json.xml);
+      disableSaveRevert();
+      doValidate();
+      injectPreviewLink();
+    }
+    setPageTitle(json.title);
+    updateXMLPreviewRoute(json.xml, document.getElementById("div-preview"));
+    window.title=json.title;
   });
   }
 }
 
-// This function loads the topic xml using a node.js proxy server
-function loadSkynetTopicNodeProxy(topicID,skynetURL)
+function onPreviewPageLoad()
 {
-  // Here is where we should decode the page URL to get the TopicID
-  // and pull it from skynet via an ajax call
-  // The updateXMLPreview call below should be moved into the ajax request handler
-  // that sets the editor with the topic xml
+  generateRESTParameters();
+  loadSkynetTopicJsonP(topicID, skynetURL)
+}
 
-   // for the URL we're expecting to get something like
-  // http://skynet.usersys.redhat.com:8080/TopicIndex
-  // We'll decompose that into url, port, and path
+function serverTopicLoadCallback(topicAjaxRequest)
+{
 
-  // we'll add the seam/resource/rest/1/topic/get/xml/7069/xml
+  if (topicAjaxRequest.readyState==4)
+  {
+    if (topicAjaxRequest.status == 200 || topicAjaxRequest.status == 304)
+    {  
+      // Load the server response into the editor
+      window.editor.setValue(topicAjaxRequest.response);
+      disableSaveRevert();
+      doValidate();
+      updateXMLPreviewRoute(editor, document.getElementById("div-preview"));
+      editorTitle=document.getElementById("page-title");
+      setEditorTitle(topicTitle[0].firstChild.nodeValue);
+      
+/*          if (editorTitle)
+      {
+        editorTitle.innerHTML=topicID+": ";
+        topicTitle=topicAjaxRequest.responseXML.getElementsByTagName("title");
+        if (topicTitle)
+          editorTitle.innerHTML=editorTitle.innerHTML+topicTitle[0].firstChild.nodeValue;
+      }
+*/
+    }
+  }
 
-  if (topicID && skynetURL) 
+}
+// This function loads the topic xml using a node.js proxy server
+// Currently unused, as we're loading via JSONP
+function loadSkynetTopicNodeProxy(topicID,skynetURL)
+{ 
+ if (topicID && skynetURL) 
   {
   // Load codemirror contents from Skynet URL
     topicAjaxRequest= new XMLHttpRequest();
-    topicAjaxRequest.onreadystatechange=function()
-    {
-      if (topicAjaxRequest.readyState==4)
-      {
-        if (topicAjaxRequest.status == 200 || topicAjaxRequest.status == 304)
-        {  
-          // Load the server response into the editor
-          window.editor.setValue(topicAjaxRequest.response);
-          disableSaveRevert();
-          doValidate();
-          updateXMLPreviewRoute(editor, document.getElementById("div-preview"));
-          editorTitle=document.getElementById("editor-title");
-          setEditorTitle(topicTitle[0].firstChild.nodeValue);
-          
-/*          if (editorTitle)
-          {
-            editorTitle.innerHTML=topicID+": ";
-            topicTitle=topicAjaxRequest.responseXML.getElementsByTagName("title");
-            if (topicTitle)
-              editorTitle.innerHTML=editorTitle.innerHTML+topicTitle[0].firstChild.nodeValue;
-          }
-*/
-        }
-      }
-    }
+    topicAjaxRequest.onreadystatechange=serverTopicLoadCallback(topicAjaxRequest)
+    
 
     requestURL="/seam/resource/rest/1/topic/get/xml/"+topicID+"/xml";  
     requestString="?serverurl="+serverURL+"&requestport="+port+"&requesturl="+urlpath+requestURL;    
@@ -393,38 +451,59 @@ function loadSkynetTopicNodeProxy(topicID,skynetURL)
     }
 }
       
-
 function enableSaveRevert()
 {
-  disableSaveRevert("false");
+  $("#save-button").button("enable");
+  $("#revert-button").button("enable");
 }
 
-function disableSaveRevert(arg)
+function disableSaveRevert()
 {
-  if (!arg) arg="true";
-  save=document.getElementById("button-save");
-  if (save)
-    save.disabled=(arg == "true");
-  revert=document.getElementById("button-revert");
-  if (revert)
-    revert.disabled=(arg == "true");
+
+  $("#save-button").button("disable");
+  $("#revert-button").button("disable");
 }
 
 function doRevert(){
     loadSkynetTopicJsonP(topicID,skynetURL);
 }
 
-// This is the onload function for the page
-function initializeTopicEditPage(){
-  window.mutex = 0;
 
+function ajaxStart()
+{
+  //$('#loadingDiv').show();
+  ajaxLoader.start();
+}
+
+function ajaxStop() {
+//  $('#loadingDiv').hide();
+  ajaxLoader.stop();
+}
+
+// This is the onload function for the editor page
+function initializeTopicEditPage(){
+
+// Killer idea for a loading div, 
+// from here: http://stackoverflow.com/questions/68485/how-to-show-loading-spinner-in-jquery
+    $('#loadingDiv')
+    .hide()  // hide it initially
+;
+// Gots to get a gif from here: http://www.ajaxload.info/
+//The ajaxStart and ajaxStop events are not called in JQuery post-1.4.4 when using JSONP
+// This was suggested as a workaround, but didn't work for me. So we manually call those functions
+// see: http://bugs.jquery.com/ticket/8338
+/*  jQuery.ajaxPrefilter(function( options ) {
+      options.global = true;
+  }); */
+
+  window.mutex = 0;
   // Create our Codemirror text editor
   window.editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     mode: 'text/html',
 		extraKeys: {
 			"'>'": function(cm) { cm.closeTag(cm, '>'); },
 			"'/'": function(cm) { cm.closeTag(cm, '/'); }
-  	},	   
+  	},	   			
 		onKeyEvent: function(cm, e) {
     // with this function we set a timer so that the preview is updated every two seconds while the user is 
     // typing. When the user stops typing, the refreshes stop.
@@ -443,12 +522,19 @@ function initializeTopicEditPage(){
         return false; // return false tells Codemirror to also process the key;
 		},
 	  wordWrap: true,
-	  lineWrapping: true
+	  lineWrapping: true,
+    lineNumbers: true
 	});
 
+    $("#validate-button, #save-button, #revert-button, #skynet-button").button ();
+    $("#validate-button").bind("click", doValidate);
+    $("#save-button").bind("click", doSave);
+    $("#revert-button").bind("click", doRevert);
+    $("#skynet-button").bind("click", openTopicInSkynet);
+
+
+
  // topicid and skyneturl need to be written into the url by fixlinks.php / fixlinks in docs-hack-fixlinks.js
-    topicID = url_query('topicid');
-    skynetURL = url_query('skyneturl');
     generateRESTParameters();
     //loadSkynetTopicNodeProxy(topicID,skynetURL);
     loadSkynetTopicJsonP(topicID,skynetURL);

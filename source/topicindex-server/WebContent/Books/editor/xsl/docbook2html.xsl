@@ -3,7 +3,7 @@
 <xsl:output method="html" encoding="UTF-8" indent="yes"/>
 
 <xsl:strip-space elements="*"/>
-<xsl:preserve-space elements="screen"/>
+<xsl:preserve-space elements="screen, programlisting"/>
 
 <xsl:param name="ulink.target"/>
 
@@ -153,6 +153,12 @@
     </pre>
 </xsl:template>
 
+<!-- jwulf 6 July 2012 -->
+<xsl:template match="programlisting">
+    <pre title="docbookProgramlisting" class="programlisting">
+        <xsl:apply-templates />
+    </pre>
+</xsl:template>
 
 
 <!-- ********************** -->
