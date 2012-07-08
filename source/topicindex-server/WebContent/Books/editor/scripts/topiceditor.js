@@ -18,6 +18,7 @@ var serverURL;
 var topicID;
 var skynetURL;
 
+
 /**
  * AJAX Loader Object
  * uses the revealing module pattern
@@ -68,6 +69,30 @@ var ajaxLoader = function () {
     stop: stop
   }
 }();
+
+$(window).keypress(function(event) {
+    if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
+    if (pageIsEditor){
+      if (! $("#save-button").button("option","disabled")) 
+        doSave();
+    }
+    event.preventDefault();
+    return false;
+});
+
+$(document).keydown(function(event) {
+
+    //19 for Mac Command+S
+    if (!( String.fromCharCode(event.which).toLowerCase() == 's' && event.ctrlKey) && !(event.which == 19)) return true;
+
+    if (pageIsEditor){
+      if (! $("#save-button").button("option","disabled")) 
+        doSave();
+    }
+    event.preventDefault();
+    return false;
+});
+
 
 function timedRefresh(){ 
   updateXMLPreviewRoute(editor.getValue(), document.getElementById("div-preview"));
