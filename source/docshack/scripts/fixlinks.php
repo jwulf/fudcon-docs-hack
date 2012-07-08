@@ -26,6 +26,10 @@ $html = file_get_contents($argv[1]);
 // See if we can find a new link to replace
 $strpos = stripos($html, '<a href="https://bugzilla.redhat.com/enter_bug.cgi');
 
+if ($strpos == false)
+{
+  $output=$html;
+}
 // Loop while we can
 while ($strpos !== false)
 {
