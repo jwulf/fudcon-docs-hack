@@ -12,6 +12,35 @@
 <xsl:import 
 href="http://docbook.sourceforge.net/release/xsl/current/xhtml/graphics.xsl"/>
 
+<!-- inject our javascript into the head -->
+<!-- http://www.sagehill.net/docbookxsl/InsertExtHtml.html -->
+<!-- Got this async lazy loader from
+  http://friendlybit.com/js/lazy-loading-asyncronous-javascript/ -->
+<xsl:template name="user.head.content">
+   <script type="text/javascript">
+(function() {
+    function async_load(){
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'Common_Content/css/code-lang-switcher.js';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    if (window.attachEvent)
+        window.attachEvent('onload', async_load);
+    else
+        window.addEventListener('load', async_load, false);
+})();</script>
+</xsl:template>
+
+<!-- set the onload of the page -->
+<!-- http://www.sagehill.net/docbookxsl/BodyAtts.html -->
+<!-- <xsl:template name="body.attributes">
+  <xsl:attribute name="onLoad">skynetBookLoad()</xsl:attribute>
+</xsl:template> -->
+
+<!-- depth of section labelling -->
 <xsl:param name="section.autolabel.max.depth" select="2"/>
 
 <xsl:template match="videoobject">

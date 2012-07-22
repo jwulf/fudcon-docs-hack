@@ -4,7 +4,7 @@
 Name:		publican-%{brand}
 Summary:	Publican documentation template files for %{brand}
 Version: 2.0
-Release:	5%{?dist}
+Release:	7%{?dist}
 License:	CC-BY-SA
 Group:		Development/Libraries
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,6 +45,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/publican/Common_Content/%{brand}
 
 %changelog
+
+* Sun Jul 22 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-7
+- Added javascript and css for codeswitching blocks 
+- Added lazy loading asynchronous javascript to book head
+
+* Thu Jul 12 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-6
+- Added javascript file to brand: skynet-book.js
 
 * Fri Jul 06 2012 Joshua Wulf <jwulf@fedoraproject.org> 2.0-5
 - Added Open Sans web font from Google
