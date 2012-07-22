@@ -189,8 +189,8 @@ table tr.even td {
 }
 
 /* css for the code switcher */
-.code-div pre{
-  border-top-right-radius: 0px;
+.codetabs pre{
+  border: 1px solid color: #AAA;
 }
 
 .code-select-li{
@@ -202,7 +202,7 @@ table tr.even td {
   padding-bottom: 4px;
 }
 
-.code-div ul{
+.codetabs ul{
   padding-left: 2.6em;
   padding-bottom: 8px;
 }
@@ -229,7 +229,7 @@ table tr.even td {
   border-bottom: 2px solid white;
 }
 
-.code-div ul li{
+.codetabs ul li{
 
 }
 
