@@ -70,6 +70,9 @@ var ajaxLoader = function () {
   }
 }();
 
+// Capture Ctrl-S and save the topic
+// http://stackoverflow.com/questions/93695/best-cross-browser-method-to-capture-ctrls-with-jquery
+
 $(window).keypress(function(event) {
     if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
     if (pageIsEditor){
@@ -392,8 +395,10 @@ function url_query( query ) {
 function setPageTitle(topicTitle)
 {
   $("#page-title").html(topicID + ": ");
-  if (topicTitle)
+  if (topicTitle) {
     $("#page-title").html($("#page-title").html()+topicTitle);
+    document.title=$("#page-title").html();
+  }
 }
 
 // Creates a link to the read-only rendered view, useful for passing to people for preview
@@ -551,11 +556,13 @@ function initializeTopicEditPage(){
     lineNumbers: true
 	});
 
-    $("#validate-button, #save-button, #revert-button, #skynet-button").button ();
+    $("#validate-button, #save-button, #revert-button, #skynet-button, #codetabs-button, #tagwrap-button").button ();
     $("#validate-button").bind("click", doValidate);
     $("#save-button").bind("click", doSave);
     $("#revert-button").bind("click", doRevert);
     $("#skynet-button").bind("click", openTopicInSkynet);
+    $("#codetabs-button").bind("click", injectCodetabs);
+    $("#tagwrap-button").bind("click", doTagWrap);
 
 
 
@@ -564,6 +571,61 @@ function initializeTopicEditPage(){
     //loadSkynetTopicNodeProxy(topicID,skynetURL);
     loadSkynetTopicJsonP(topicID,skynetURL);
     skynetButtonURL="http://"+skynetURL+"/TopicEdit.seam?topicTopicId="+topicID;
+}
+
+function injectCodetabs(){
+ var  codetabblock="<variablelist role=\"codetabs\">\
+\n\
+  <varlistentry>\n\
+    <term>Python</term>\n\
+    <listitem>\n\
+      <programlisting language=\"Python\">\n\
+      </programlisting>\n\
+    </listitem>\n\
+  </varlistentry>\n\
+  <varlistentry>\n\
+    <term>C++</term>\n\
+    <listitem>\n\
+      <programlisting language=\"C++\">\n\
+      </programlisting>\n\
+    </listitem>\n\
+  </varlistentry>\n\
+  <varlistentry>\n\
+    <term>Java</term>\n\
+    <listitem>\n\
+      <programlisting language=\"Java\">\n\
+      </programlisting>\n\
+    </listitem>\n\
+  </varlistentry>\n\
+</variablelist>\n";
+  window.editor.replaceSelection(codetabblock);
+}
+
+function doTagWrap(){
+  var tag = prompt("Wrap selection in tag", "Enter a Docbook tag to wrap the selection");
+  if ( tag != '' ){
+    currenttext=window.editor.getSelection();
+    tag = tag.replace('<', '');
+    tag = tag.replace('>', '');
+    window.editor.replaceSelection('<'+tag+'>' + currenttext + '</' +tag+'>');
+  }
+}
+
+
+function createCommentLinks()
+{
+	editlinks=document.getElementsByClassName('edittopiclink')
+	for (var i=0; i < editlinks.length; i++)
+	{
+	  div=document.createElement('div');
+	  commentlink=document.createElement('a');
+	  newhref=editlinks[i].href.split('editor/index').join('editor/preview');
+	  commentlink.setAttribute('href', newhref);
+	  commentlink.innerHTML="Comments";
+	  commentlink.setAttribute('class', 'deathstar-preview-link');
+	  div.appendChild(commentlink);
+	  editlinks[i].parentNode.appendChild(commentlink);
+	}
 }
 
 function openTopicInSkynet()

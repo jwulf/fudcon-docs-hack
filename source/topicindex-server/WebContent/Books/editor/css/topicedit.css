@@ -69,3 +69,9 @@ padding-right: 10px;
  /* background: yellow; */
  border: solid, 1px;
 }
+
+#toolbuttons .ui-button .ui-button-text{
+  padding: 0.2em 0.2em;
+  font-size: 0.8em;
+}
+

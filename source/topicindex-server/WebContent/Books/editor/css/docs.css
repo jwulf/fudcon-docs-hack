@@ -1,5 +1,5 @@
 body {
-  font-family: Droid Sans, Arial, sans-serif;
+  font-family: 'Open Sans', Droid Sans, Arial, sans-serif;
   line-height: 1.5;
   max-width: 64.3em;
   margin: 3em auto;
@@ -38,6 +38,9 @@ pre.code {
   margin: 0 1em;
 }
 
+.firstterm {
+font-style: italic;
+}
 
 
 .grey {
@@ -139,6 +142,16 @@ a.download:hover {
 
 .rightsmall {
   width: 15.24em;
+}
+
+.docbookCode{
+  font-family: 'PT Mono', monotype;
+}
+
+.docbookRemark{
+  color: grey;
+  font-style: italic;
+  background-color: honeydew;
 }
 
 .clear:after {

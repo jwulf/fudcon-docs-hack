@@ -110,6 +110,13 @@
     </div>
 </xsl:template>
 
+<!-- jwulf 21 July 2012 -->
+<xsl:template match="remark">
+    <p class="docbookRemark">
+        <xsl:apply-templates />
+    </p>
+</xsl:template>
+
 <!-- jwulf 5 July 2012 -->
 <xsl:template match="orderedlist">
     <div title="docbookOrderedList">
