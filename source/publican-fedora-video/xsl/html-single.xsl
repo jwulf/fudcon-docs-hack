@@ -17,7 +17,7 @@ href="http://docbook.sourceforge.net/release/xsl/current/xhtml/graphics.xsl"/>
 <!-- Got this async lazy loader from
   http://friendlybit.com/js/lazy-loading-asyncronous-javascript/ -->
 <xsl:template name="user.head.content">
-<script src="Common_Content/css/jquery-1.4.2.min.js" type="text/javascript"></script>
+  <script src="Common_Content/css/jquery-1.4.2.min.js" type="text/javascript"></script>
    <script type="text/javascript">
 (function() {
     function async_load(){

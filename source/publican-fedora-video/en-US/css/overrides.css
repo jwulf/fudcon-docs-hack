@@ -1,8 +1,39 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Mono|Open+Sans:400italic,400,600);
 
+/* Here is what we are pulling in with the above */
+
+/*
+@font-face {
+  font-family: 'PT Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('PT Mono'), local('PTMono-Regular'), url(http://themes.googleusercontent.com/static/fonts/ptmono/v1/jmle3kzCPnW8O7_gZGRDlQ.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Open Sans Italic'), local('OpenSans-Italic'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/xjAJXh38I15wypJXxuGMBobN6UDyHWBl620a-IRfuBk.woff) format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+*/
+
 .RoleCreateBugPara a{
 display:inline-block;
-padding:.333em 1em;
+/* padding:.333em 1em; */
+/* This change makes the Edit button shorter */
+padding: padding: 0em 0.8em 0.2em;
 background-color:white;
 margin:0em .5em;
 /*border-radius*/
@@ -32,6 +63,7 @@ color: white;
   position: relative;
 }
 
+/* This is the part that makes the sections light up when you hover over them */
 .sectionTopic:hover
 {
     background:#f6f6f6;
@@ -102,20 +134,7 @@ font-variant: normal;
   font-weight: bold;
 }
 
-/*
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
-}
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-}
-*/
+
 
 a:link {
 	color:#0066cc;
@@ -167,5 +186,50 @@ table tr.even td {
 
 .titlepage .edition {
 	color: #3c6eb4;
+}
+
+/* css for the code switcher */
+.code-div pre{
+  border-top-right-radius: 0px;
+}
+
+.code-select-li{
+  float:left;
+  list-style-type: none;
+  list-style-image: none;
+  margin-right: 0.4em;
+  background-color: whiteSmoke;
+  padding-bottom: 4px;
+}
+
+.code-div ul{
+  padding-left: 2.6em;
+  padding-bottom: 8px;
+}
+
+.code-select-li a{
+  color: #AAA;
+  border-bottom: none;
+  padding-bottom: 4px;
+  padding-left: 6px;
+  padding-right: 6px;
+  font-weight: bold;
+}
+
+.code-select-li a:hover{
+  border-bottom: 2px solid;
+}
+
+.code-select-li .active{
+  color: white;
+  background-color: #AAA;
+}
+
+.code-select-li .active a:hover{
+  border-bottom: 2px solid white;
+}
+
+.code-div ul li{
+
 }
 
