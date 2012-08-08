@@ -7,6 +7,7 @@
 		<script src="scripts/codemirror.js"></script>
 		<script src="scripts/closetag.js"></script>
 		<script src="scripts/xml.js"></script>
+		<script src="scripts/jquery.hotkeys-0.7.9.min.js"></script>
 		<link rel="stylesheet" href="css/codemirror.css ">
 		<style type="text/css">
 			.CodeMirror {border-top: 1px solid #eee; border-bottom: 1px solid #eee;}
@@ -16,10 +17,10 @@
     <script src="scripts/messages.js"></script>
     <script src="scripts/topiceditor.js"></script>
     <script type="text/javascript">pageIsEditor=true;</script>
-    <link rel="stylesheet" type="text/css" href="css/topicedit.css"/>
 
     <link rel="stylesheet" type="text/css" href="Common_Content/css/default.css">
 		<link rel="stylesheet" href="css/docs.css">
+    <link rel="stylesheet" type="text/css" href="css/topicedit.css"/>
 
         
 	</head>
@@ -27,13 +28,14 @@
 	
 		<h1 id="page-title">Live HTML Preview Demo</h1>
 
-		<ul>
-			<li>Type Docbook xml in the text editor below, and see a live HTML preview. The editor supports tag autoclosure.</li>
-    </ul>
-        <div id="toolbuttons"><span class="codetabs-button" id="codetabs-button">Code Tabs</span>
-        <span class="tagwrap-button" id="tagwrap-button">Tag Wrap</span></div>
+	<div class="toolbuttons" id="toolbuttons"><span class="codetabs-button" id="codetabs-button">Code Tabs</span>
+	<span class="codetabs-lite-button" id="codetabs-lite-button">Code Tabs-lite</span>
+	<span class="tagwrap-button" id="tagwrap-button">Tag Wrap</span></div>
 
-		<form><textarea id="code" name="code"></textarea></form>
+		<div class="Codemirror ui-resizable">
+			<form><textarea id="code" name="code"></textarea></form>
+			<div class="ui-resizable-handle ui-resizable-s" style=""></div>
+		</div>
 <div id="preview-link" title="Link to a read-only view for sharing" alt="Link to a read-only view for sharing"" class="preview-link"></div>
 <div class="editor-buttons" id="editor-buttons">
 <span class="saverevert">  
@@ -56,8 +58,11 @@
     
 <div id="loadingDiv"><span><img src="images/spinner.gif" id="spinner"></span><span>Contacting server...</span></div>
     <br/>
+        <div id="validation-toggle" class="validation-toggle"><a id="status-message" href="#"></a></div>
         <div id="div-validation" class="div-validation"></div>
-        <div id="div-preview"></div>
+        <div class="div-preview-wrapper">
+	        <div id="div-preview" class="div-preview"></div>
+	</div>
         <div id="div-error"></div>
        <!-- <form><textarea id="xmlpreview" name="xmlpreview"></textarea></form> -->
 

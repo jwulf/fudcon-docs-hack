@@ -19,60 +19,6 @@ var topicID;
 var skynetURL;
 
 
-/**
- * AJAX Loader Object
- * uses the revealing module pattern
- * start it by calling ajaxLoader.start();
- * stop it by calling ajaxLoader.stop();
- */
-var ajaxLoader = function () {
- 
-  var start = function() {
-    var pageHeight = $(document).height();
- 
-    // if loader already exists, just show it
-    // otherwise add markup to DOM
-    if ($('#load-overlay').length) {
-      // assign height again as it might have increased due to DOM additions
-      $('#load-overlay').css({
-        'height' : pageHeight
-      });
-      $('#load-overlay, #load-indicator').show();
-    }
-    else {
-      $('body').append('<div id="load-overlay"></div><div id="load-indicator"><p>Contacting Server...</p></div>');
-      $('#load-overlay').css({
-        'height' : pageHeight
-      });
-    }
- 
-    // for ie6 only (feature detection used)
-    if (typeof document.body.style.maxHeight === 'undefined') {
-      // hide visible selects for proper overlay implementation
-      $('select').hide();
-    }
-  };
- 
-  var stop = function() {
-    $('#load-overlay, #load-indicator').hide();
- 
-    // for ie6 only (feature detection used)
-    if (typeof document.body.style.maxHeight === 'undefined') {
-      //show hidden selects for proper overlay implementation
-      $('select').show();
-    }
-  };
- 
-  return {
-    // declare which properties and methods are supposed to be public
-    start: start,
-    stop: stop
-  }
-}();
-
-// Capture Ctrl-S and save the topic
-// http://stackoverflow.com/questions/93695/best-cross-browser-method-to-capture-ctrls-with-jquery
-
 $(window).keypress(function(event) {
     if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
     if (pageIsEditor){
@@ -146,15 +92,15 @@ function doValidate(callback)
 {
   if (! $("#validate-button").button("option","disabled") || callback)
   {
-    showStatusMessage("Performing validation check...");
+    showStatusMessage("Performing validation check...", '');
     serversideValidateTopic(editor, callback);
   }
 }
 
 function makeValidityAmbiguous(){
   if (validXML)
-    $("#div-validation").css("visibility", "hidden");
     $("#validate-button").button("enable");
+    showStatusMessage('', '');
     enableSaveRevert();
 }
 
@@ -180,10 +126,10 @@ function doSave()
   }
 }
 
-function showStatusMessage(message)
+function showStatusMessage(message, error)
 {
-  $("#div-validation").css("visibility", "visible");	
-	$("#div-validation").html(message);
+	$("#status-message").html(message);
+	$("#div-validation").html(error);
 }
 
 function doActualSave()  
@@ -191,12 +137,13 @@ function doActualSave()
 	if (! validXML && validationServerResponse == 1)
 	  {
 	    alert("This is not valid Docbook XML. If you are using Skynet injections I cannot help you.");
+      $("validate-button").button("enable");
 	  }
     if (validationServerResponse == 0)
     	{
     	alert("Unable to perform validation. Saving without validation.");
     	}
-    showStatusMessage("Performing Save...")
+    showStatusMessage("Performing Save...", '')
 	  saveAjaxRequest= new XMLHttpRequest();
     saveAjaxRequest.onreadystatechange=function()
     {
@@ -205,13 +152,14 @@ function doActualSave()
        // ajaxStop();
         if (saveAjaxRequest.status == 200 || saveAjaxRequest.status == 304)
         {     
-          showStatusMessage("Saved OK");
+          showStatusMessage("Saved OK", '');
           $("#save-button").button("disable");
           $("#revert-button").button("disable");
+          if (! validXML) doValidate();
         }
         else
         {
-          showStatusMessage("Error saving. Status code: " + saveAjaxRequest.status);
+          showStatusMessage("Error saving. Status code: " + saveAjaxRequest.status, '');
           enableSaveRevert();
         }
       }
@@ -241,20 +189,20 @@ function serversideValidateTopic(editor, callback){
           validationServerResponse=1;
           if (ajaxRequest.responseText == "0")
           { 
-            showStatusMessage("Topic XML is valid Docbook 4.5");
+            showStatusMessage("Topic XML is valid Docbook 4.5",'');
             validXML=true;
             $("#validate-button").button("disable"); 
             if (callback && typeof(callback)=="function") callback(); 
             } 
           else {
-            showStatusMessage(ajaxRequest.responseText);
+            showStatusMessage('Topic has errors (click to reveal/hide)', ajaxRequest.responseText);
             validXML=false;
             if (callback && typeof(callback)=="function") callback();
           }
         }
         else
         {
-        	showStatusMessage("Error performing validation: " + ajaxRequest.status);
+        	showStatusMessage("Error performing validation: " + ajaxRequest.status, '');
         }
      }
   }
@@ -553,20 +501,40 @@ function initializeTopicEditPage(){
 		},
 	  wordWrap: true,
 	  lineWrapping: true,
+          disableSpellcheck: false,
     lineNumbers: true
 	});
+     $(".CodeMirror").resizable({
+      stop: function() { editor.refresh(); },
+      resize: function() {
+        $(".CodeMirror-scroll").height($(this).height());
+        $(".CodeMirror-scroll").width($(this).width());
+        editor.refresh();
+      }
+    });
 
-    $("#validate-button, #save-button, #revert-button, #skynet-button, #codetabs-button, #tagwrap-button").button ();
+
+    $("#validate-button, #save-button, #revert-button, #skynet-button, #codetabs-button, #tagwrap-button, #codetabs-lite-button").button ();
     $("#validate-button").bind("click", doValidate);
     $("#save-button").bind("click", doSave);
     $("#revert-button").bind("click", doRevert);
     $("#skynet-button").bind("click", openTopicInSkynet);
     $("#codetabs-button").bind("click", injectCodetabs);
     $("#tagwrap-button").bind("click", doTagWrap);
+    $("#codetabs-lite-button").bind("click", injectCodetabsLite);
 
+    // function handler for the validation error text show/hide
+    $('.validation-toggle').click(function(e){
+       $('.div-validation').slideToggle('slow');
+       e.preventDefault();
+     });
 
+    // key event handler for Ctrl-Shift-T 
+    // keyboard shortcut for Code Wrap
+    // http://code.google.com/p/js-hotkeys/wiki/about
+    $(document).bind('keydown', 'Ctrl+Shift+D', doTagWrap);
 
- // topicid and skyneturl need to be written into the url by fixlinks.php / fixlinks in docs-hack-fixlinks.js
+    // topicid and skyneturl need to be written into the url by fixlinks.php / fixlinks in docs-hack-fixlinks.js
     generateRESTParameters();
     //loadSkynetTopicNodeProxy(topicID,skynetURL);
     loadSkynetTopicJsonP(topicID,skynetURL);
@@ -574,41 +542,67 @@ function initializeTopicEditPage(){
 }
 
 function injectCodetabs(){
- var  codetabblock="<variablelist role=\"codetabs\">\
-\n\
+ var  codetabblock="<variablelist role=\"codetabs\">\n\
   <varlistentry>\n\
-    <term>Python</term>\n\
+<!-- Other language terms: C#/.NET, Ruby, JavaScript, Node.js, HTML -->\n" +  
+"    <term>Python</term>\n\
     <listitem>\n\
-      <programlisting language=\"Python\">\n\
-      </programlisting>\n\
+      <programlisting language=\"Python\">      </programlisting>\n\
     </listitem>\n\
   </varlistentry>\n\
   <varlistentry>\n\
     <term>C++</term>\n\
     <listitem>\n\
-      <programlisting language=\"C++\">\n\
-      </programlisting>\n\
+      <programlisting language=\"C++\">      </programlisting>\n\
     </listitem>\n\
   </varlistentry>\n\
   <varlistentry>\n\
     <term>Java</term>\n\
     <listitem>\n\
-      <programlisting language=\"Java\">\n\
-      </programlisting>\n\
+      <programlisting language=\"Java\">      </programlisting>\n\
     </listitem>\n\
   </varlistentry>\n\
 </variablelist>\n";
   window.editor.replaceSelection(codetabblock);
+  makeValidityAmbiguous();
 }
 
+function injectCodetabsLite(){
+  var codetabblock1="<variablelist role=\"codetabs\">\n  <varlistentry>\n    <term>Python</term>\n    <listitem>\n";
+  var codetabblock2 = "      <programlisting language=\"Python\">      </programlisting>\n";
+  var codetabblock3="    </listitem>\n  </varlistentry>\n</variablelist>\n";
+  var text = "";
+  text = window.editor.getSelection();
+  if (text){
+        newcode = codetabblock1	+ text + codetabblock3;
+  }
+  else
+  { newcode= codetabblock1 + codetabblock2 + codetabblock3;}
+  window.editor.replaceSelection(newcode);
+  makeValidityAmbiguous();
+}
+
+
 function doTagWrap(){
-  var tag = prompt("Wrap selection in tag", "Enter a Docbook tag to wrap the selection");
+  var closetag;
+  var tag = prompt("Wrap with tag", "tag");
+
+  // This allows the user to enter attributes
+  // We separate the tag from any attributes
   if ( tag != '' ){
+    var space = tag.indexOf(' ');
+    if ( space == -1)
+       closetag = tag;
+    else
+       closetag = tag.substring(0, space);
+
     currenttext=window.editor.getSelection();
     tag = tag.replace('<', '');
     tag = tag.replace('>', '');
-    window.editor.replaceSelection('<'+tag+'>' + currenttext + '</' +tag+'>');
+    window.editor.replaceSelection('<'+tag+'>' + currenttext + '</' +closetag+'>');
+    makeValidityAmbiguous();
   }
+  return false;
 }
 
 

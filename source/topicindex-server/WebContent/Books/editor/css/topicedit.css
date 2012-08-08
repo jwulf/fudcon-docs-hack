@@ -31,47 +31,38 @@ padding-left: 5px;
 padding-right: 10px;
 }
 
-.Ajax-Loader {
-    position: absolute;
-    z-index: 9999;
-    
-}
-
-#load-indicator {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 100px;
-  height: 20px;
-  margin-top: -10px; /* set to a negative number 1/2 of height */
-  margin-left: -50px; /* set to a negative number 1/2 of width */
-  border: 4px solid #888;
-  z-index: 1001;
-  background: #fff;
-  padding: 10px;
-}
-* html #load-indicator {
-  position: absolute;
-}
-#load-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-  background: #666 none 50% 50% repeat;
-  opacity: .50;
-  filter:Alpha(Opacity=50);
-}
-
 .div-validation{
  /* background: yellow; */
  border: solid, 1px;
+ text-align: left;
+ display: none;
 }
 
-#toolbuttons .ui-button .ui-button-text{
+
+.div-preview-wrapper{
+  position: absolute;
+}
+
+.div-preview{ 
+ position: absolute;
+ text-align: left;
+ width: 800px;
+ left: 50%;
+ top: 50%; 
+ margin: 0px auto;
+// margin-left: -150px;
+}
+
+.toolbuttons {
+ text-align: left;
+}
+
+.ui-button .ui-button-text{
   padding: 0.2em 0.2em;
   font-size: 0.8em;
+  text-align: left;
 }
 
+.Codemirror{
+  text-align: left;
+}
