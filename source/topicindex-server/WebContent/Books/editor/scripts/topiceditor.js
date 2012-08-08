@@ -18,6 +18,28 @@ var serverURL;
 var topicID;
 var skynetURL;
 
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+{
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
 
 $(window).keypress(function(event) {
     if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
@@ -30,7 +52,13 @@ $(window).keypress(function(event) {
 });
 
 $(document).keydown(function(event) {
+    // Ctrl-Shift-D hotkey for Tag Wrap
+    if (String.fromCharCode(event.which).toLowerCase() == 'd' && event.ctrlKey && event.shiftKey){
+	 doTagWrap();
+	return false;
+    }
 
+    // Ctrl-S hotkey for Save
     //19 for Mac Command+S
     if (!( String.fromCharCode(event.which).toLowerCase() == 's' && event.ctrlKey) && !(event.which == 19)) return true;
 
@@ -99,8 +127,10 @@ function doValidate(callback)
 
 function makeValidityAmbiguous(){
   if (validXML)
+  {
     $("#validate-button").button("enable");
     showStatusMessage('', '');
+  }
     enableSaveRevert();
 }
 
@@ -124,6 +154,7 @@ function doSave()
     else
     { doActualSave(); }
   }
+  return false;
 }
 
 function showStatusMessage(message, error)
@@ -461,20 +492,10 @@ function ajaxStop() {
 // This is the onload function for the editor page
 function initializeTopicEditPage(){
 
-// Killer idea for a loading div, 
-// from here: http://stackoverflow.com/questions/68485/how-to-show-loading-spinner-in-jquery
-    $('#loadingDiv')
-    .hide()  // hide it initially
-;
-// Gots to get a gif from here: http://www.ajaxload.info/
-//The ajaxStart and ajaxStop events are not called in JQuery post-1.4.4 when using JSONP
-// This was suggested as a workaround, but didn't work for me. So we manually call those functions
-// see: http://bugs.jquery.com/ticket/8338
-/*  jQuery.ajaxPrefilter(function( options ) {
-      options.global = true;
-  }); */
-
   window.mutex = 0;
+    var myHeight = getCookie('editor.height') || "300px";
+    var myWidth = getCookie('editor.width') || "770px";
+
   // Create our Codemirror text editor
   window.editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     mode: 'text/html',
@@ -501,18 +522,27 @@ function initializeTopicEditPage(){
 		},
 	  wordWrap: true,
 	  lineWrapping: true,
-          disableSpellcheck: false,
-    lineNumbers: true
+	  height: myHeight,
+          width: myWidth,
+	  disableSpellcheck: false,
+          lineNumbers: true
 	});
      $(".CodeMirror").resizable({
-      stop: function() { editor.refresh(); },
+      stop: function() { 
+	editor.refresh(); 
+	setCookie('editor.height', $(this).height() + "px", 365);
+	setCookie('editor.width', $(this).width() + "px", 365);
+	},
       resize: function() {
         $(".CodeMirror-scroll").height($(this).height());
         $(".CodeMirror-scroll").width($(this).width());
         editor.refresh();
       }
     });
-
+    $(".CodeMirror, .CodeMirror-scroll").css('height', myHeight);
+    $(".CodeMirror, .CodeMirror-scroll").css('width', myWidth);
+    $(".CodeMirror").trigger("resize")
+    editor.refresh();
 
     $("#validate-button, #save-button, #revert-button, #skynet-button, #codetabs-button, #tagwrap-button, #codetabs-lite-button").button ();
     $("#validate-button").bind("click", doValidate);
@@ -528,11 +558,6 @@ function initializeTopicEditPage(){
        $('.div-validation').slideToggle('slow');
        e.preventDefault();
      });
-
-    // key event handler for Ctrl-Shift-T 
-    // keyboard shortcut for Code Wrap
-    // http://code.google.com/p/js-hotkeys/wiki/about
-    $(document).bind('keydown', 'Ctrl+Shift+D', doTagWrap);
 
     // topicid and skyneturl need to be written into the url by fixlinks.php / fixlinks in docs-hack-fixlinks.js
     generateRESTParameters();
