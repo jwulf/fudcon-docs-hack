@@ -498,34 +498,37 @@ function initializeTopicEditPage(){
 
   // Create our Codemirror text editor
   window.editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-    mode: 'text/html',
+    		mode: 'text/html',
 		extraKeys: {
 			"'>'": function(cm) { cm.closeTag(cm, '>'); },
 			"'/'": function(cm) { cm.closeTag(cm, '/'); }
-  	},	   			
+  		},	   			
+		onChange: function(cm, e) {
+          		enableSaveRevert();
+			makeValidityAmbiguous();
+			},
 		onKeyEvent: function(cm, e) {
-    // with this function we set a timer so that the preview is updated every two seconds while the user is 
-    // typing. When the user stops typing, the refreshes stop.
+    			// set a timer so that the preview is updated every two seconds while the user is 
+    			// typing. When the user stops typing, the refreshes stop.
 			  if (window.timerID == 0) 
-          window.timerID = setTimeout("timedRefresh()", window.refreshTime);
+          		window.timerID = setTimeout("timedRefresh()", window.refreshTime);
         
-        // Since the user hit a key, we will enable the Save and Revert Buttons
-        // As long as the key isn't a cursor key or similar
-        // key code reference: http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-        k=e.keyCode;
-        if (k != 16 && k != 17 && k != 18 && k != 20 && k != 19 && k != 27 && k != 36 && k != 37 && k != 38 && k != 39 && k !=40 && k != 45)
-        {
-          enableSaveRevert();
-          makeValidityAmbiguous();
-        }
-        return false; // return false tells Codemirror to also process the key;
+			// Moved into OnChange event to avoid catching Ctrl+C
+        		// key code reference: http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+       			 k=e.keyCode;
+        		if (k != 16 && k != 17 && k != 18 && k != 20 && k != 19 && k != 27 && k != 36 && k != 37 && k != 38 && k != 39 && k !=40 && k != 45)
+        		{
+//          			enableSaveRevert();
+  //        			makeValidityAmbiguous();
+        		}
+        		return false; // return false tells Codemirror to also process the key;
 		},
-	  wordWrap: true,
-	  lineWrapping: true,
-	  height: myHeight,
-          width: myWidth,
-	  disableSpellcheck: false,
-          lineNumbers: true
+	  	wordWrap: true,
+	  	lineWrapping: true,
+	  	height: myHeight,
+          	width: myWidth,
+	  	disableSpellcheck: false,
+          	lineNumbers: true
 	});
      $(".CodeMirror").resizable({
       stop: function() { 
