@@ -489,6 +489,13 @@ function ajaxStop() {
   ajaxLoader.stop();
 }
 
+function toggleAutoCloseTag()
+{
+  var newState = ! editor.getOption('closeTagEnabled');
+  editor.setOption('closeTagEnabled', newState);
+  setCookie('tagAutoClose', newState, 365);
+}
+
 // This is the onload function for the editor page
 function initializeTopicEditPage(){
 
@@ -547,7 +554,7 @@ function initializeTopicEditPage(){
     $(".CodeMirror").trigger("resize")
     editor.refresh();
 
-    $("#validate-button, #save-button, #revert-button, #skynet-button, #codetabs-button, #tagwrap-button, #codetabs-lite-button").button ();
+    $("#auto-complete-toggle, #validate-button, #save-button, #revert-button, #skynet-button, #codetabs-button, #tagwrap-button, #codetabs-lite-button").button ();
     $("#validate-button").bind("click", doValidate);
     $("#save-button").bind("click", doSave);
     $("#revert-button").bind("click", doRevert);
@@ -555,6 +562,10 @@ function initializeTopicEditPage(){
     $("#codetabs-button").bind("click", injectCodetabs);
     $("#tagwrap-button").bind("click", doTagWrap);
     $("#codetabs-lite-button").bind("click", injectCodetabsLite);
+    $("#auto-complete-toggle").bind("click", toggleAutoCloseTag);
+
+    if (getCookie('tagAutoClose') == 'false')
+       $("#auto-complete-toggle").trigger("click");
 
     // function handler for the validation error text show/hide
     $('.validation-toggle').click(function(e){
